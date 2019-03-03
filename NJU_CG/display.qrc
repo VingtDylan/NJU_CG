@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/menu_icons">
+        <file alias="arrow">menu_icon/arrow.jpg</file>
+    </qresource>
+</RCC>
