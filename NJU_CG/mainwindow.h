@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QString>
 #include <canvas.h>
+#include <canvascommand.h>
 
 namespace Ui {
 class MainWindow;
@@ -14,11 +15,13 @@ class MainWindow;
 struct CommandsLine{
     QString command;
     int commandId;
+    int canvascommandId;
     QStringList CommandElements;
 };
 
 typedef enum{
     nonemode,
+    listCommand,
     resetCanvas,
     saveCanvas,
     setColor,
@@ -42,16 +45,23 @@ public:
     Canvas *canvas;
     QWidgetList widgetList;
     QWidget *widget=nullptr;
+    QString commandlists;
 
     void CreateCanvasIcon();
     bool CommandParse(QString str);
     void ExecuteCommand();
+    void ExecuteCommand_ListCommand();
     void ExecuteCommand_resetCanvas();
     void ExecuteCommand_saveCanvas();
     void ExecuteCommand_setColor();
     void ExecuteCommand_drawLine();
-    void ExecuteCommand_drawPolygon();//Todo
+    void ExecuteCommand_drawPolygon();//TODO
     void ExecuteCommand_drawEllipse();
+    void ExecuteCommand_drawCurve();//TODO
+    void ExecuteCommand_translate();//TODO
+    void ExecuteCommand_rotate();//TODO
+    void ExecuteCommand_Scale();//TODO
+    void ExecuteCommand_Clip();//TODO
 
 private slots:
     void open();
@@ -61,20 +71,28 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QAction *openAction;
-
     QVector<CommandsLine> CommandsLines;
     int commandCounter;
     bool parser;
+    bool canvas_selector;
     commandmode bashmode;
     int Canvascounter;
+    int currentcommand;
+
+    //void keyPressEvent(QKeyEvent *event);
 
 signals:
+    void SendListCommand(QString commandlists);
     void SendResetCanvas();
     void SendSaveCanvas(QString str);
     void SendSetColor(int R,int G,int B);
     void SendDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
     void SendDrawPolygon();//TODO
     void SendDrawEllipse(int id,float x,float y,float rx,float ry);
+    void SendDrawCurve();//TODO
+    void SendTranslate();//TODO
+    void SendRotate();//TODO
+    void SendScale();//TODO
+    void SendClip();//TODO
 };
-
 #endif // MAINWINDOW_H

@@ -47,7 +47,11 @@ private slots:
     void ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
     void ReceiveDrawPolygon();//Todo
     void ReceiveDrawEllipse(int id,float x,float y,float rx,float ry);
-
+    void ReceiveDrawCurve();//TODO
+    void ReceiveTranslate();//TODO
+    void ReceiveRotate();//TODO
+    void ReceiveScale();//TODO
+    void ReceiveClip();//TODO
 };
 
 #endif // CANVAS_H

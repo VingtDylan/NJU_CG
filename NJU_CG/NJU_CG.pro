@@ -27,15 +27,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    canvas.cpp
+        canvas.cpp \
+        canvascommand.cpp
 
 HEADERS += \
         mainwindow.h \
-    canvas.h
+        canvas.h \
+        canvascommand.h
 
 FORMS += \
         mainwindow.ui \
-    canvas.ui
+    canvas.ui \
+    canvascommand.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
