@@ -37,8 +37,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    canvas.ui \
-    canvascommand.ui
+        canvas.ui \
+        canvascommand.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -49,3 +49,5 @@ RESOURCES += \
     display.qrc
 
 LIBS += -lOpengl32
+
+UI_DIR=./UI

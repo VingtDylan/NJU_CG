@@ -21,7 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle(tr("CG_Design"));
     setFixedSize(this->width(), this->height());
-    setGeometry(700,800,this->width(),this->height());
+    setGeometry(300,200,this->width(),this->height());
+    ui->textEdit->setPlaceholderText("此处输入命令");
+    ui->textBrowser->setPlaceholderText("运行结果显示");
     //bash_Setting
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(ReadCommand()));

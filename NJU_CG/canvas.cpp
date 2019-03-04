@@ -17,21 +17,7 @@ Canvas::Canvas(int x,QWidget *parent) :
     currentPencolor[1]=0;
     currentPencolor[2]=0;
     currentPointSize=1;
-    imgsave=false;
-
-//    for(int i=1;i<100;i+=5){
-//        for(int j=1;j<100;j+=5){
-//            struct Point tmppoint;
-//            tmppoint.x=i;
-//            tmppoint.y=this->height()-j;
-//            tmppoint.color[0]=currentPencolor[0];
-//            tmppoint.color[1]=currentPencolor[1];
-//            tmppoint.color[2]=currentPencolor[2];
-//            tmppoint.size=currentPointSize;
-//            tmppoint.pid=currentPid;
-//            Points.push_back(tmppoint);
-//        }
-//    }
+    imgsave=false;//emmmm
 }
 
 Canvas::~Canvas()
