@@ -49,6 +49,9 @@ public:
     void ExecuteCommand_resetCanvas();
     void ExecuteCommand_saveCanvas();
     void ExecuteCommand_setColor();
+    void ExecuteCommand_drawLine();
+    void ExecuteCommand_drawPolygon();//Todo
+    void ExecuteCommand_drawEllipse();
 
 private slots:
     void open();
@@ -59,7 +62,7 @@ private:
     Ui::MainWindow *ui;
     QAction *openAction;
 
-    std::vector<CommandsLine> CommandsLines;
+    QVector<CommandsLine> CommandsLines;
     int commandCounter;
     bool parser;
     commandmode bashmode;
@@ -69,6 +72,9 @@ signals:
     void SendResetCanvas();
     void SendSaveCanvas(QString str);
     void SendSetColor(int R,int G,int B);
+    void SendDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
+    void SendDrawPolygon();//TODO
+    void SendDrawEllipse(int id,float x,float y,float rx,float ry);
 };
 
 #endif // MAINWINDOW_H

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Canvas_t {
-    QByteArrayData data[9];
-    char stringdata0[73];
+    QByteArrayData data[16];
+    char stringdata0[114];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,11 +39,19 @@ QT_MOC_LITERAL(4, 45, 5), // "herit"
 QT_MOC_LITERAL(5, 51, 15), // "ReceiveSetColor"
 QT_MOC_LITERAL(6, 67, 1), // "R"
 QT_MOC_LITERAL(7, 69, 1), // "G"
-QT_MOC_LITERAL(8, 71, 1) // "B"
+QT_MOC_LITERAL(8, 71, 1), // "B"
+QT_MOC_LITERAL(9, 73, 15), // "ReceiveDrawLine"
+QT_MOC_LITERAL(10, 89, 2), // "id"
+QT_MOC_LITERAL(11, 92, 2), // "x1"
+QT_MOC_LITERAL(12, 95, 2), // "y1"
+QT_MOC_LITERAL(13, 98, 2), // "x2"
+QT_MOC_LITERAL(14, 101, 2), // "y2"
+QT_MOC_LITERAL(15, 104, 9) // "algorithm"
 
     },
     "Canvas\0ReceiveResetCanvas\0\0ReceiveSaveCanvas\0"
-    "herit\0ReceiveSetColor\0R\0G\0B"
+    "herit\0ReceiveSetColor\0R\0G\0B\0ReceiveDrawLine\0"
+    "id\0x1\0y1\0x2\0y2\0algorithm"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +61,7 @@ static const uint qt_meta_data_Canvas[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,14 +69,16 @@ static const uint qt_meta_data_Canvas[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x08 /* Private */,
-       3,    1,   30,    2, 0x08 /* Private */,
-       5,    3,   33,    2, 0x08 /* Private */,
+       1,    0,   34,    2, 0x08 /* Private */,
+       3,    1,   35,    2, 0x08 /* Private */,
+       5,    3,   38,    2, 0x08 /* Private */,
+       9,    6,   45,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    4,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    6,    7,    8,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::QString,   10,   11,   12,   13,   14,   15,
 
        0        // eod
 };
@@ -82,6 +92,7 @@ void Canvas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 0: _t->ReceiveResetCanvas(); break;
         case 1: _t->ReceiveSaveCanvas((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->ReceiveSetColor((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 3: _t->ReceiveDrawLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
         default: ;
         }
     }
@@ -116,13 +127,13 @@ int Canvas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

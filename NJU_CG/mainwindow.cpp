@@ -133,21 +133,58 @@ bool MainWindow::CommandParse(QString str)
            tmpcommand.command=str;
         }
     }else if(str.left(8)=="drawLine"){
-       ui->textEdit2->setText(QString("Line has drawn"));
+        str=str.left(str.length()-1);
+        tmpcommand.CommandElements=str.split(" ");
+        if(tmpcommand.CommandElements.length()==7){
+           ui->textEdit2->setText(QString("Line has drawn"));
+           parser=true;
+           bashmode=drawLine;
+        }
+        else{
+           ui->textEdit2->setText("Invalid Command! Check again!");
+           str+="  Invalid";
+           parser=false;
+           bashmode=nonemode;
+           tmpcommand.command=str;
+        }
     }else if(str.left(11)=="drawPolygon"){
-       ui->textEdit2->setText(QString("Polygon has drawn"));
+        str=str.left(str.length()-1);
+        tmpcommand.CommandElements=str.split(" ");
+        if(tmpcommand.CommandElements.length()==6){//To be checked!
+           ui->textEdit2->setText(QString("Polygon has drawn"));
+           parser=true;
+           bashmode=drawPolygon;
+        }
+        else{
+           ui->textEdit2->setText("Invalid Command! Check again!");
+           str+="  Invalid";
+           parser=false;
+           bashmode=nonemode;
+           tmpcommand.command=str;
+        }
     }else if(str.left(11)=="drawEllipse"){
-       ui->textEdit2->setText(QString("Ellipse has drawn"));
+        str=str.left(str.length()-1);
+        tmpcommand.CommandElements=str.split(" ");
+        if(tmpcommand.CommandElements.length()==6){
+           ui->textEdit2->setText(QString("Ellipse has drawn"));
+           parser=true;
+           bashmode=drawPolygon;
+        }
+        else{
+           ui->textEdit2->setText("Invalid Command! Check again!");
+           str+="  Invalid";
+           parser=false;
+           bashmode=nonemode;
+           tmpcommand.command=str;
+        }
     }else if(str.left(9)=="drawCurve"){
        ui->textEdit2->setText(QString("Curve has drawn"));
     }else if(str.left(9)=="translate"){
        ui->textEdit2->setText(QString("Translate has done"));
     }else if(str.left(6)=="rotate"){
-//        if(){
-
-//        }else {
-
-//        }
+       ui->textEdit2->setText("Rotate completed");
+    }else if(str.left(5)=="scale"){
+       ui->textEdit2->setText("Scale completed");
     }else if(str.left(4)=="clip"){
        ui->textEdit2->setText("Cilp completed");
     }else{
@@ -167,10 +204,10 @@ void MainWindow::ExecuteCommand(){
         case resetCanvas:ExecuteCommand_resetCanvas(); break;
         case saveCanvas:ExecuteCommand_saveCanvas();break;
         case setColor:ExecuteCommand_setColor(); break;
-        case drawLine:break;
+        case drawLine:ExecuteCommand_drawLine(); break;
+        case drawPolygon:ExecuteCommand_drawEllipse(); break;
         case drawEllipse:break;
         case drawCurve:break;
-        case drawPolygon:break;
         case translate:break;
         case rotate:break;
         case scale:break;
@@ -231,6 +268,53 @@ void MainWindow::ExecuteCommand_setColor(){
         int B=CommandsLines[commandCounter].CommandElements[3].toInt();
         connect(this,SIGNAL(SendSetColor(int,int,int)),widget,SLOT(ReceiveSetColor(int,int,int)));
         emit SendSetColor(R,G,B);
+    }
+}
+
+void MainWindow::ExecuteCommand_drawLine(){
+    qDebug()<<"Command:drawLine";
+    widgetList = QApplication::allWidgets();
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_1")
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textEdit2->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }
+    else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x1=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float y1=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        float x2=CommandsLines[commandCounter].CommandElements[4].toFloat();
+        float y2=CommandsLines[commandCounter].CommandElements[5].toFloat();
+        QString algorithm=CommandsLines[commandCounter].CommandElements[6];
+        connect(this,SIGNAL(SendDrawLine(int,float,float,float,float,QString)),widget,SLOT(ReceiveDrawLine(int,float,float,float,float,QString)));
+        emit SendDrawLine(id,x1,y1,x2,y2,algorithm);
+    }
+}
+
+void MainWindow::ExecuteCommand_drawPolygon(){
+    //Todo
+}
+
+void MainWindow::ExecuteCommand_drawEllipse(){
+    qDebug()<<"Command:drawLine";
+    widgetList = QApplication::allWidgets();
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_1")
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textEdit2->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }
+    else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float y=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        float rx=CommandsLines[commandCounter].CommandElements[4].toFloat();
+        float ry=CommandsLines[commandCounter].CommandElements[5].toFloat();
+        connect(this,SIGNAL(SendDrawEllipse(int,float,float,float,float)),widget,SLOT(ReceiveDrawEllipse(int,float,float,float,float)));
+        emit SendDrawEllipse(id,x,y,rx,ry);
     }
 }
 
