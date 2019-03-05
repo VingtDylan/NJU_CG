@@ -102,8 +102,7 @@ bool MainWindow::CommandParse(QString str)
            canvas_selector=false;
            tmpcommand.command=str;
         }
-    }
-    else if(tmpcommand.CommandElements[0]=="list"){
+    }else if(tmpcommand.CommandElements[0]=="list"){
         if(tmpcommand.CommandElements.length()==1){
            ui->textBrowser->setText("Commands will be listed");
            parser=true;
@@ -228,16 +227,15 @@ bool MainWindow::CommandParse(QString str)
         if(tmpcommand.CommandElements.length()==6){
            ui->textBrowser->setText(QString("Ellipse has drawn"));
            parser=true;
-           bashmode=drawPolygon;
+           bashmode=drawEllipse;
            canvas_selector=false;
         }else if(tmpcommand.CommandElements.length()==7){
            ui->textBrowser->setText(QString("Ellipse has drawn")+QString(" executed in canvas ")+tmpcommand.CommandElements[6]);
            parser=true;
-           bashmode=drawPolygon;
+           bashmode=drawEllipse;
            canvas_selector=true;
            tmpcommand.canvascommandId=tmpcommand.CommandElements[6].toInt();
-         }
-        else{
+         }else{
            ui->textBrowser->setText("Invalid Command! Check again!");
            str+=" Invalid\n";
            parser=false;
@@ -248,11 +246,65 @@ bool MainWindow::CommandParse(QString str)
     }else if(tmpcommand.CommandElements[0]=="drawCurve"){
        ui->textBrowser->setText(QString("Curve has drawn"));
     }else if(tmpcommand.CommandElements[0]=="translate"){
-       ui->textBrowser->setText(QString("Translate has done"));
+        if(tmpcommand.CommandElements.length()==4){
+           ui->textBrowser->setText(QString("Translate has done"));
+           parser=true;
+           bashmode=translate;
+           canvas_selector=false;
+        }else if(tmpcommand.CommandElements.length()==5){
+           ui->textBrowser->setText(QString("Translate has done")+QString(" executed in canvas ")+tmpcommand.CommandElements[4]);
+           parser=true;
+           bashmode=translate;
+           canvas_selector=true;
+           tmpcommand.canvascommandId=tmpcommand.CommandElements[4].toInt();
+         }else{
+           ui->textBrowser->setText("Invalid Command! Check again!");
+           str+=" Invalid\n";
+           parser=false;
+           bashmode=nonemode;
+           canvas_selector=false;
+           tmpcommand.command=str;
+        }
     }else if(tmpcommand.CommandElements[0]=="rotate"){
-       ui->textBrowser->setText("Rotate completed");
+        if(tmpcommand.CommandElements.length()==5){
+           ui->textBrowser->setText("Rotate completed");
+           parser=true;
+           bashmode=rotate;
+           canvas_selector=false;
+        }else if(tmpcommand.CommandElements.length()==6){
+           ui->textBrowser->setText(QString("Rotate completed")+QString(" executed in canvas ")+tmpcommand.CommandElements[5]);
+           parser=true;
+           bashmode=rotate;
+           canvas_selector=true;
+           tmpcommand.canvascommandId=tmpcommand.CommandElements[5].toInt();
+         }else{
+           ui->textBrowser->setText("Invalid Command! Check again!");
+           str+=" Invalid\n";
+           parser=false;
+           bashmode=nonemode;
+           canvas_selector=false;
+           tmpcommand.command=str;
+        }
     }else if(tmpcommand.CommandElements[0]=="scale"){
-       ui->textBrowser->setText("Scale completed");
+        if(tmpcommand.CommandElements.length()==5){
+           ui->textBrowser->setText("Scale completed");
+           parser=true;
+           bashmode=scale;
+           canvas_selector=false;
+        }else if(tmpcommand.CommandElements.length()==6){
+           ui->textBrowser->setText(QString("Scale completed")+QString(" executed in canvas ")+tmpcommand.CommandElements[5]);
+           parser=true;
+           bashmode=scale;
+           canvas_selector=true;
+           tmpcommand.canvascommandId=tmpcommand.CommandElements[5].toInt();
+         }else{
+           ui->textBrowser->setText("Invalid Command! Check again!");
+           str+=" Invalid\n";
+           parser=false;
+           bashmode=nonemode;
+           canvas_selector=false;
+           tmpcommand.command=str;
+        }
     }else if(tmpcommand.CommandElements[0]=="clip"){
        ui->textBrowser->setText("Cilp completed");
     }else{
@@ -519,7 +571,7 @@ void MainWindow::ExecuteCommand_drawPolygon(){
 }
 
 void MainWindow::ExecuteCommand_drawEllipse(){
-    qDebug()<<"Command:drawLine";
+    qDebug()<<"Command:Ellipse";
     QString executeCanvas="1";
     if(canvas_selector){
         executeCanvas=CommandsLines[commandCounter].CommandElements[6];
@@ -550,15 +602,80 @@ void MainWindow::ExecuteCommand_drawCurve(){
 }
 
 void MainWindow::ExecuteCommand_translate(){
-    //TODO
+    qDebug()<<"Command:translate";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[4];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float dx=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float dy=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        connect(this,SIGNAL(SendTranslate(int,float,float)),widget,SLOT(ReceiveTranslate(int,float,float)));
+        emit SendTranslate(id,dx,dy);
+        disconnect(this,SIGNAL(SendTranslate(int,float,float)),widget,SLOT(ReceiveTranslate(int,float,float)));
+    }
 }
 
 void MainWindow::ExecuteCommand_rotate(){
-    //TODO
+    qDebug()<<"Command:rotate";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[5];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float y=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        float r=CommandsLines[commandCounter].CommandElements[4].toFloat();
+        connect(this,SIGNAL(SendRotate(int,float,float,float)),widget,SLOT(ReceiveRotate(int,float,float,float)));
+        emit SendRotate(id,x,y,r);
+        disconnect(this,SIGNAL(SendRotate(int,float,float,float)),widget,SLOT(ReceiveRotate(int,float,float,float)));
+    }
 }
 
 void MainWindow::ExecuteCommand_Scale(){
-    //TODO
+    qDebug()<<"Command:scale";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[5];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float y=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        float s=CommandsLines[commandCounter].CommandElements[4].toFloat();
+        connect(this,SIGNAL(SendScale(int,float,float,float)),widget,SLOT(ReceiveScale(int,float,float,float)));
+        emit SendScale(id,x,y,s);
+        disconnect(this,SIGNAL(SendScale(int,float,float,float)),widget,SLOT(ReceiveScale(int,float,float,float)));
+    }
 }
 
 void MainWindow::ExecuteCommand_Clip(){

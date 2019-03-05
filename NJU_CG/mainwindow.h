@@ -94,9 +94,9 @@ signals:
     void SendDrawPolygon();//TODO
     void SendDrawEllipse(int id,float x,float y,float rx,float ry);
     void SendDrawCurve();//TODO
-    void SendTranslate();//TODO
-    void SendRotate();//TODO
-    void SendScale();//TODO
+    void SendTranslate(int id,float dx,float dy);
+    void SendRotate(int id,float x,float y,float r);
+    void SendScale(int id,float x,float y,float s);//TODO
     void SendClip();//TODO
 };
 #endif // MAINWINDOW_H

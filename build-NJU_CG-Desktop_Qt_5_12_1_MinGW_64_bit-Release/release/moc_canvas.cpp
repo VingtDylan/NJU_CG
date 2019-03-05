@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Canvas_t {
-    QByteArrayData data[27];
-    char stringdata0[235];
+    QByteArrayData data[31];
+    char stringdata0[245];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,17 +55,22 @@ QT_MOC_LITERAL(20, 156, 2), // "rx"
 QT_MOC_LITERAL(21, 159, 2), // "ry"
 QT_MOC_LITERAL(22, 162, 16), // "ReceiveDrawCurve"
 QT_MOC_LITERAL(23, 179, 16), // "ReceiveTranslate"
-QT_MOC_LITERAL(24, 196, 13), // "ReceiveRotate"
-QT_MOC_LITERAL(25, 210, 12), // "ReceiveScale"
-QT_MOC_LITERAL(26, 223, 11) // "ReceiveClip"
+QT_MOC_LITERAL(24, 196, 2), // "dx"
+QT_MOC_LITERAL(25, 199, 2), // "dy"
+QT_MOC_LITERAL(26, 202, 13), // "ReceiveRotate"
+QT_MOC_LITERAL(27, 216, 1), // "r"
+QT_MOC_LITERAL(28, 218, 12), // "ReceiveScale"
+QT_MOC_LITERAL(29, 231, 1), // "s"
+QT_MOC_LITERAL(30, 233, 11) // "ReceiveClip"
 
     },
     "Canvas\0ReceiveResetCanvas\0\0ReceiveSaveCanvas\0"
     "herit\0ReceiveSetColor\0R\0G\0B\0ReceiveDrawLine\0"
     "id\0x1\0y1\0x2\0y2\0algorithm\0ReceiveDrawPolygon\0"
     "ReceiveDrawEllipse\0x\0y\0rx\0ry\0"
-    "ReceiveDrawCurve\0ReceiveTranslate\0"
-    "ReceiveRotate\0ReceiveScale\0ReceiveClip"
+    "ReceiveDrawCurve\0ReceiveTranslate\0dx\0"
+    "dy\0ReceiveRotate\0r\0ReceiveScale\0s\0"
+    "ReceiveClip"
 };
 #undef QT_MOC_LITERAL
 
@@ -90,10 +95,10 @@ static const uint qt_meta_data_Canvas[] = {
       16,    0,   93,    2, 0x08 /* Private */,
       17,    5,   94,    2, 0x08 /* Private */,
       22,    0,  105,    2, 0x08 /* Private */,
-      23,    0,  106,    2, 0x08 /* Private */,
-      24,    0,  107,    2, 0x08 /* Private */,
-      25,    0,  108,    2, 0x08 /* Private */,
-      26,    0,  109,    2, 0x08 /* Private */,
+      23,    3,  106,    2, 0x08 /* Private */,
+      26,    4,  113,    2, 0x08 /* Private */,
+      28,    4,  122,    2, 0x08 /* Private */,
+      30,    0,  131,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -103,9 +108,9 @@ static const uint qt_meta_data_Canvas[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   18,   19,   20,   21,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   10,   24,   25,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   18,   19,   27,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   18,   19,   29,
     QMetaType::Void,
 
        0        // eod
@@ -124,9 +129,9 @@ void Canvas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 4: _t->ReceiveDrawPolygon(); break;
         case 5: _t->ReceiveDrawEllipse((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
         case 6: _t->ReceiveDrawCurve(); break;
-        case 7: _t->ReceiveTranslate(); break;
-        case 8: _t->ReceiveRotate(); break;
-        case 9: _t->ReceiveScale(); break;
+        case 7: _t->ReceiveTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
+        case 8: _t->ReceiveRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 9: _t->ReceiveScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
         case 10: _t->ReceiveClip(); break;
         default: ;
         }

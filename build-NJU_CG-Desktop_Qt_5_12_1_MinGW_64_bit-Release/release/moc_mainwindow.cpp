@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[32];
-    char stringdata0[272];
+    QByteArrayData data[36];
+    char stringdata0[282];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -57,12 +57,16 @@ QT_MOC_LITERAL(22, 169, 2), // "rx"
 QT_MOC_LITERAL(23, 172, 2), // "ry"
 QT_MOC_LITERAL(24, 175, 13), // "SendDrawCurve"
 QT_MOC_LITERAL(25, 189, 13), // "SendTranslate"
-QT_MOC_LITERAL(26, 203, 10), // "SendRotate"
-QT_MOC_LITERAL(27, 214, 9), // "SendScale"
-QT_MOC_LITERAL(28, 224, 8), // "SendClip"
-QT_MOC_LITERAL(29, 233, 4), // "open"
-QT_MOC_LITERAL(30, 238, 11), // "ReadCommand"
-QT_MOC_LITERAL(31, 250, 21) // "on_pushButton_clicked"
+QT_MOC_LITERAL(26, 203, 2), // "dx"
+QT_MOC_LITERAL(27, 206, 2), // "dy"
+QT_MOC_LITERAL(28, 209, 10), // "SendRotate"
+QT_MOC_LITERAL(29, 220, 1), // "r"
+QT_MOC_LITERAL(30, 222, 9), // "SendScale"
+QT_MOC_LITERAL(31, 232, 1), // "s"
+QT_MOC_LITERAL(32, 234, 8), // "SendClip"
+QT_MOC_LITERAL(33, 243, 4), // "open"
+QT_MOC_LITERAL(34, 248, 11), // "ReadCommand"
+QT_MOC_LITERAL(35, 260, 21) // "on_pushButton_clicked"
 
     },
     "MainWindow\0SendListCommand\0\0commandlists\0"
@@ -70,8 +74,8 @@ QT_MOC_LITERAL(31, 250, 21) // "on_pushButton_clicked"
     "SendSetColor\0R\0G\0B\0SendDrawLine\0id\0"
     "x1\0y1\0x2\0y2\0algorithm\0SendDrawPolygon\0"
     "SendDrawEllipse\0x\0y\0rx\0ry\0SendDrawCurve\0"
-    "SendTranslate\0SendRotate\0SendScale\0"
-    "SendClip\0open\0ReadCommand\0"
+    "SendTranslate\0dx\0dy\0SendRotate\0r\0"
+    "SendScale\0s\0SendClip\0open\0ReadCommand\0"
     "on_pushButton_clicked"
 };
 #undef QT_MOC_LITERAL
@@ -98,15 +102,15 @@ static const uint qt_meta_data_MainWindow[] = {
       18,    0,  116,    2, 0x06 /* Public */,
       19,    5,  117,    2, 0x06 /* Public */,
       24,    0,  128,    2, 0x06 /* Public */,
-      25,    0,  129,    2, 0x06 /* Public */,
-      26,    0,  130,    2, 0x06 /* Public */,
-      27,    0,  131,    2, 0x06 /* Public */,
-      28,    0,  132,    2, 0x06 /* Public */,
+      25,    3,  129,    2, 0x06 /* Public */,
+      28,    4,  136,    2, 0x06 /* Public */,
+      30,    4,  145,    2, 0x06 /* Public */,
+      32,    0,  154,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      29,    0,  133,    2, 0x08 /* Private */,
-      30,    0,  134,    2, 0x08 /* Private */,
-      31,    0,  135,    2, 0x08 /* Private */,
+      33,    0,  155,    2, 0x08 /* Private */,
+      34,    0,  156,    2, 0x08 /* Private */,
+      35,    0,  157,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -117,9 +121,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,   12,   20,   21,   22,   23,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   12,   26,   27,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   12,   20,   21,   29,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   12,   20,   21,   31,
     QMetaType::Void,
 
  // slots: parameters
@@ -144,9 +148,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->SendDrawPolygon(); break;
         case 6: _t->SendDrawEllipse((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
         case 7: _t->SendDrawCurve(); break;
-        case 8: _t->SendTranslate(); break;
-        case 9: _t->SendRotate(); break;
-        case 10: _t->SendScale(); break;
+        case 8: _t->SendTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
+        case 9: _t->SendRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 10: _t->SendScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
         case 11: _t->SendClip(); break;
         case 12: _t->open(); break;
         case 13: _t->ReadCommand(); break;
@@ -212,21 +216,21 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (MainWindow::*)();
+            using _t = void (MainWindow::*)(int , float , float );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::SendTranslate)) {
                 *result = 8;
                 return;
             }
         }
         {
-            using _t = void (MainWindow::*)();
+            using _t = void (MainWindow::*)(int , float , float , float );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::SendRotate)) {
                 *result = 9;
                 return;
             }
         }
         {
-            using _t = void (MainWindow::*)();
+            using _t = void (MainWindow::*)(int , float , float , float );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::SendScale)) {
                 *result = 10;
                 return;
@@ -336,21 +340,24 @@ void MainWindow::SendDrawCurve()
 }
 
 // SIGNAL 8
-void MainWindow::SendTranslate()
+void MainWindow::SendTranslate(int _t1, float _t2, float _t3)
 {
-    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    QMetaObject::activate(this, &staticMetaObject, 8, _a);
 }
 
 // SIGNAL 9
-void MainWindow::SendRotate()
+void MainWindow::SendRotate(int _t1, float _t2, float _t3, float _t4)
 {
-    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
 }
 
 // SIGNAL 10
-void MainWindow::SendScale()
+void MainWindow::SendScale(int _t1, float _t2, float _t3, float _t4)
 {
-    QMetaObject::activate(this, &staticMetaObject, 10, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
 }
 
 // SIGNAL 11

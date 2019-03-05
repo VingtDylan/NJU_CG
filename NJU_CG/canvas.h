@@ -9,7 +9,7 @@ struct Point{
     int color[3];
     int size;
     int pid;
-    bool chosen;
+    bool chosen;//later
 };
 
 namespace Ui {
@@ -33,6 +33,9 @@ public:
     int imgheight;
     int imgsave;
 
+    void Generate_point(int x,int y,int id);
+    void Generate_Ellipse(float x,float y,float rx,float ry,int id);
+
 private:
     Ui::Canvas *ui;
     QPainter *painter;
@@ -48,9 +51,9 @@ private slots:
     void ReceiveDrawPolygon();//Todo
     void ReceiveDrawEllipse(int id,float x,float y,float rx,float ry);
     void ReceiveDrawCurve();//TODO
-    void ReceiveTranslate();//TODO
-    void ReceiveRotate();//TODO
-    void ReceiveScale();//TODO
+    void ReceiveTranslate(int id,float dx,float dy);
+    void ReceiveRotate(int id,float x,float y,float r);
+    void ReceiveScale(int id,float x,float y,float s);//TODO
     void ReceiveClip();//TODO
 };
 
