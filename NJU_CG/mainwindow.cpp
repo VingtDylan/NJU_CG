@@ -12,6 +12,7 @@
 #include "windows.h"
 #include "canvascommand.h"
 #include "QKeyEvent"
+#include "QFile"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,7 +62,48 @@ bool MainWindow::CommandParse(QString str)
     currentcommand=commandCounter;
     str=str.left(str.length()-1);
     tmpcommand.CommandElements=str.split(" ");
-    if(tmpcommand.CommandElements[0]=="list"){
+    if(tmpcommand.CommandElements[0]=="input"){
+        if(tmpcommand.CommandElements.length()==2){
+           ui->textBrowser->setText("Commands input from text");
+           parser=true;
+           bashmode=inputCommand;
+           canvas_selector=false;
+        }else if(tmpcommand.CommandElements.length()==3){
+           ui->textBrowser->setText("Commands input from text will be executed in-->>"+QString(" Canvas")+tmpcommand.CommandElements[2]);
+           parser=true;
+           bashmode=inputCommand;
+           canvas_selector=true;
+           tmpcommand.canvascommandId=tmpcommand.CommandElements[2].toInt();
+        }else{
+           ui->textBrowser->setText("Invalid Command! Check again!");
+           str+=" Invalid\n";
+           parser=false;
+           bashmode=nonemode;
+           canvas_selector=false;
+           tmpcommand.command=str;
+        }
+    }else if(tmpcommand.CommandElements[0]=="output"){
+        if(tmpcommand.CommandElements.length()==2){
+           ui->textBrowser->setText("Commands output from text");
+           parser=true;
+           bashmode=outputCommand;
+           canvas_selector=false;
+        }else if(tmpcommand.CommandElements.length()==3){
+           ui->textBrowser->setText("Commands output from text will be executed in-->>"+QString(" Canvas")+tmpcommand.CommandElements[2]);
+           parser=true;
+           bashmode=outputCommand;
+           canvas_selector=true;
+           tmpcommand.canvascommandId=tmpcommand.CommandElements[2].toInt();
+        }else{
+           ui->textBrowser->setText("Invalid Command! Check again!");
+           str+=" Invalid\n";
+           parser=false;
+           bashmode=nonemode;
+           canvas_selector=false;
+           tmpcommand.command=str;
+        }
+    }
+    else if(tmpcommand.CommandElements[0]=="list"){
         if(tmpcommand.CommandElements.length()==1){
            ui->textBrowser->setText("Commands will be listed");
            parser=true;
@@ -230,6 +272,12 @@ void MainWindow::ExecuteCommand(){
     switch (bashmode) {
         case nonemode:
                     break;
+        case inputCommand:
+                    ExecuteCommand_InputCommand();
+                    break;
+        case outputCommand:
+                    ExecuteCommand_OutputCommand();
+                    break;
         case listCommand:
                     ExecuteCommand_ListCommand();
                     break;
@@ -266,6 +314,70 @@ void MainWindow::ExecuteCommand(){
         case clip:
                     ExecuteCommand_Clip();
                     break;
+    }
+}
+
+//画布映射 TODO
+
+void MainWindow::ExecuteCommand_InputCommand(){
+    qDebug()<<"Command:InputCommand";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[2];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        QFile file("../NJU_CG/scripts/"+CommandsLines[commandCounter].CommandElements[1]+QString(".txt"));
+        if(file.open(QIODevice::ReadOnly|QIODevice::Text)){
+            while(!file.atEnd()){
+                QByteArray line=file.readLine();
+                QString command(line);
+                if(command.right(1)!='\n')
+                    command.append('\n');
+                if(CommandParse(command))
+                    ExecuteCommand();
+            }
+            file.close();
+        }
+    }
+}
+
+void MainWindow::ExecuteCommand_OutputCommand(){
+    qDebug()<<"Command:OutputCommand";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[2];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        QFile file("../NJU_CG/scripts/"+CommandsLines[commandCounter].CommandElements[1]+QString(".txt"));
+        if(file.open(QIODevice::ReadWrite|QIODevice::Text)){
+            QTextStream stream(&file);
+            stream.seek(0);
+            file.flush();
+            for(int i=0;i<CommandsLines.size();i++){
+                QString qsoutput;
+                qsoutput.append(QString::number(CommandsLines[i].commandId)+QString(":->>>: ")+CommandsLines[i].command);
+                stream<<qsoutput;
+            }
+            file.close();
+        }
     }
 }
 

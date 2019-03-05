@@ -24,6 +24,7 @@ public:
         if (Canvas->objectName().isEmpty())
             Canvas->setObjectName(QString::fromUtf8("Canvas"));
         Canvas->resize(640, 480);
+        Canvas->setStyleSheet(QString::fromUtf8(""));
 
         retranslateUi(Canvas);
 

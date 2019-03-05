@@ -21,6 +21,8 @@ struct CommandsLine{
 
 typedef enum{
     nonemode,
+    inputCommand,
+    outputCommand,
     listCommand,
     resetCanvas,
     saveCanvas,
@@ -50,6 +52,8 @@ public:
     void CreateCanvasIcon();
     bool CommandParse(QString str);
     void ExecuteCommand();
+    void ExecuteCommand_InputCommand();
+    void ExecuteCommand_OutputCommand();
     void ExecuteCommand_ListCommand();
     void ExecuteCommand_resetCanvas();
     void ExecuteCommand_saveCanvas();

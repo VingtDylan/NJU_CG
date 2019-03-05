@@ -16,6 +16,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
@@ -32,6 +33,7 @@ public:
     QTextBrowser *textBrowser;
     QTextEdit *textEdit;
     QTableWidget *tableWidget;
+    QTableView *tableView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -51,21 +53,21 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(310, 370, 75, 23));
+        pushButton->setGeometry(QRect(360, 380, 75, 23));
         textBrowser = new QTextBrowser(centralWidget);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(120, 270, 391, 31));
+        textBrowser->setGeometry(QRect(210, 300, 391, 31));
         textBrowser->setFont(font);
         textBrowser->setFrameShape(QFrame::NoFrame);
         textEdit = new QTextEdit(centralWidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
-        textEdit->setGeometry(QRect(260, 440, 371, 31));
+        textEdit->setGeometry(QRect(260, 480, 371, 31));
         textEdit->setFont(font);
         textEdit->setInputMethodHints(Qt::ImhMultiLine);
         textEdit->setFrameShape(QFrame::NoFrame);
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
-        tableWidget->setGeometry(QRect(120, 370, 121, 131));
+        tableWidget->setGeometry(QRect(120, 420, 121, 131));
         tableWidget->setAutoFillBackground(false);
         tableWidget->setStyleSheet(QString::fromUtf8("background-image: url(:/menu_icons/cat);\n"
 ""));
@@ -74,6 +76,10 @@ public:
         tableWidget->setCornerButtonEnabled(true);
         tableWidget->horizontalHeader()->setVisible(true);
         tableWidget->verticalHeader()->setVisible(true);
+        tableView = new QTableView(centralWidget);
+        tableView->setObjectName(QString::fromUtf8("tableView"));
+        tableView->setGeometry(QRect(90, 260, 111, 121));
+        tableView->setStyleSheet(QString::fromUtf8("border-image: url(:/menu_icons/hint);"));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

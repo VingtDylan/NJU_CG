@@ -1,0 +1,2 @@
+resetCanvas 600 600 1
+drawLine 3 10 10 400 400 DDA 1

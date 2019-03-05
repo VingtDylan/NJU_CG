@@ -31,8 +31,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>370</y>
+      <x>360</x>
+      <y>380</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -44,8 +44,8 @@
    <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>270</y>
+      <x>210</x>
+      <y>300</y>
       <width>391</width>
       <height>31</height>
      </rect>
@@ -70,7 +70,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>440</y>
+      <y>480</y>
       <width>371</width>
       <height>31</height>
      </rect>
@@ -101,7 +101,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>370</y>
+      <y>420</y>
       <width>121</width>
       <height>131</height>
      </rect>
@@ -128,6 +128,19 @@ p, li { white-space: pre-wrap; }
     <attribute name="verticalHeaderVisible">
      <bool>true</bool>
     </attribute>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>260</y>
+      <width>111</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/menu_icons/hint);</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
