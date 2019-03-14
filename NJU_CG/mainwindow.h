@@ -62,9 +62,9 @@ public:
     void ExecuteCommand_drawPolygon();//TODO
     void ExecuteCommand_drawEllipse();
     void ExecuteCommand_drawCurve();//TODO
-    void ExecuteCommand_translate();//TODO
-    void ExecuteCommand_rotate();//TODO
-    void ExecuteCommand_Scale();//TODO
+    void ExecuteCommand_translate();
+    void ExecuteCommand_rotate();
+    void ExecuteCommand_Scale();
     void ExecuteCommand_Clip();//TODO
 
 private slots:
@@ -91,7 +91,7 @@ signals:
     void SendSaveCanvas(QString str);
     void SendSetColor(int R,int G,int B);
     void SendDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
-    void SendDrawPolygon();//TODO
+    //void SendDrawPolygon(int id,float x[],float y[],QString algorithm);  extra
     void SendDrawEllipse(int id,float x,float y,float rx,float ry);
     void SendDrawCurve();//TODO
     void SendTranslate(int id,float dx,float dy);

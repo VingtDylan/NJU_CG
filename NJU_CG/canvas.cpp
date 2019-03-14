@@ -34,7 +34,6 @@ void Canvas::paintEvent(QPaintEvent *)
     }
 }
 
-
 void Canvas::Generate_point(int x, int y,int id){
 //    for(int i=0;i<Points.size();i++){
 //        if(Points[i].x==x&&Points[i].y==y)
@@ -95,9 +94,9 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
         int steps;
         float xIncrement,yIncrement,xstart=x1,ystart=y1;
         if(fabsf(dx)>fabsf(dy))
-            steps=static_cast<int>(fabsf(dy));
-        else
             steps=static_cast<int>(fabsf(dx));
+        else
+            steps=static_cast<int>(fabsf(dy));
         xIncrement=static_cast<float>((dx)/float(steps));
         yIncrement=static_cast<float>((dy)/float(steps));
         for(int k=0;k<steps;k++){
@@ -110,15 +109,15 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
         qDebug()<<"Algorithm:Bresenham";
         float dx=x2-x1;
         float dy=y2-y1;
-        float xIncrement=((dx>0)*2)-1;
-        float yIncrement=((dy>0)*2)-1;
+        float xIncrement=((dx>0?1:0)*2)-1;
+        float yIncrement=((dy>0?1:0)*2)-1;
         float xstart=x1,ystart=y1,eps=0;
         if(fabsf(dx)>fabsf(dy)){
             for(;fabsf(xstart-x2)>=0.01f;xstart+=xIncrement){
                 Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
                 eps+=dy;
                 if((eps*2)>=dx){
-                    ystart+=yIncrement;
+                    xstart+=xIncrement;
                     eps-=dx;
                 }
             }
@@ -127,7 +126,7 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
                 Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
                 eps+=dx;
                 if((eps*2)>=dy){
-                    xstart+=xIncrement;
+                    ystart+=yIncrement;
                     eps-=dy;
                 }
             }
@@ -138,10 +137,12 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
     }
 }
 
-void Canvas::ReceiveDrawPolygon(){
-    update();
-    //Todo
-}
+//drawPolygon 8 4 Bresenham 100 100 300 100 300 300 100 300
+
+//void Canvas::ReceiveDrawPolygon(){
+//    update();
+//    //Todo
+//}
 
 void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
     //中心圆算法

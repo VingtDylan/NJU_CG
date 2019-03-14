@@ -13,3 +13,8 @@ setColor 255 0 0 2
 drawEllipse 4 300 300 200 100 2
 rotate 4 300 300 90 2
 scale 2 300 300 0.5 1
+setColor 0 0 255 1
+setColor 0 0 255 2
+drawPolygon 7 3 DDA 100 100 300 100 200 300
+drawPolygon 8 4 Bresenham 100 100 300 100 300 300 100 300 2
+drawPolygon 9 4 DDA 100 200 300 200 300 400 100 400 2

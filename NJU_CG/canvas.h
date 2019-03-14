@@ -48,12 +48,12 @@ private slots:
     void ReceiveSaveCanvas(QString herit);
     void ReceiveSetColor(int R,int G,int B);
     void ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
-    void ReceiveDrawPolygon();//Todo
+    //void ReceiveDrawPolygon(); extra
     void ReceiveDrawEllipse(int id,float x,float y,float rx,float ry);
     void ReceiveDrawCurve();//TODO
     void ReceiveTranslate(int id,float dx,float dy);
     void ReceiveRotate(int id,float x,float y,float r);
-    void ReceiveScale(int id,float x,float y,float s);//TODO
+    void ReceiveScale(int id,float x,float y,float s);
     void ReceiveClip();//TODO
 };
 
