@@ -107,87 +107,46 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
         update();
     }else if(algorithm=="Bresenham"){
         qDebug()<<"Algorithm:Bresenham";
-        bool static converse=false;
-        float dx=x2-x1;
-        float dy=y2-y1;
-        float dxabs=fabsf(dx);
-        float dyabs=fabsf(dy);
-        float xIncrement=(dxabs<=0.001f?0:dx/dxabs);
-        float yIncrement=(dyabs<=0.001f?0:dy/dyabs);
         float xstart=x1,ystart=y1;
-        float eps=2*dyabs-dxabs;
-        if(dxabs<dyabs){
-            converse=true;
-            this->ReceiveDrawLine(id,y1,x1,y2,x2,algorithm);
-            converse=false;
-            qDebug()<<"1"<<endl;
-            return ;
+        float dx=fabsf(x2-x1);
+        float dy=fabsf(y2-y1);
+        int xIncrement=x2>x1 ? 1 : (x2<x1 ? -1 : 0);
+        int yIncrement=y2>y1 ? 1 : (y2<y1 ? -1 : 0);
+        bool interchange=false;
+        if(dy>dx){
+            float temp=dx;
+            dx=dy;
+            dy=temp;
+            interchange=true;
         }
-        if(converse)
-            Generate_point(static_cast<int>(roundf(ystart)),static_cast<int>(roundf(xstart)),id);
-        else
+        float p=2*dy-dx;
+        for(int i=0;i<dx;i++){
             Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
-        qDebug()<<"2"<<endl;
-        if((dyabs-dxabs)<=0.001f||dyabs<=0.001f||dx<=0.001f){
-            for(int i=0;i<dxabs;i++)
-                if(converse)
-                    Generate_point(static_cast<int>(roundf(ystart+yIncrement)),static_cast<int>(roundf(xstart+xIncrement)),id);
-                else
-                    Generate_point(static_cast<int>(roundf(xstart+xIncrement)),static_cast<int>(roundf(ystart+yIncrement)),id);
-            update();
-            qDebug()<<"3"<<endl;
-            return ;
-        }
-        for(int i=0;i<dxabs;i++,xstart+=xIncrement){
-            qDebug()<<"4"<<endl;
-            if(eps<0.0f)
-                eps+=2*dyabs;
-            else {
-                ystart+=yIncrement;
-                eps+=2*(dyabs-dxabs);
-            }
-            if(converse)
-                Generate_point(static_cast<int>(roundf(ystart)),static_cast<int>(roundf(xstart)),id);
-            else
-                Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
-        }
-
-        /*float dx=x2-x1;
-        float dy=y2-y1;
-        float xIncrement=((dx>0)<<1)-1;
-        float yIncrement=((dy>0)<<1)-1;
-        float xstart=x1,ystart=y1,eps=0;
-        if(fabsf(dx)>fabsf(dy)){
-            for(;fabsf(xstart-x2)>=0.01f;xstart+=xIncrement){
-                Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
-                eps+=dy;
-                if((eps*2)>=dx){
-                    xstart+=xIncrement;
-                    eps-=dx;
-                }
-            }
-        }else{
-            for(;fabsf(ystart-y2)>=0.01f;ystart+=yIncrement){
-                Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
-                eps+=dx;
-                if((eps*2)>=dy){
+            if(p>=0){
+                if(!interchange)
                     ystart+=yIncrement;
-                    eps-=dy;
-                }
+                else
+                    xstart+=xIncrement;
+                p-=2*dx;
             }
-        }*/
+            if(!interchange)
+                xstart+=xIncrement;
+            else
+                ystart+=yIncrement;
+            p+=2*dy;
+        }
         update();
     }else {
         qDebug()<<"No such algorithm"<<endl;
     }
 }
 
-//drawPolygon 8 4 Bresenham 100 100 300 100 300 300 100 300
-
-//void Canvas::ReceiveDrawPolygon(){
-//    update();
-//    //Todo
-//}
+/*
+void Canvas::ReceiveDrawPolygon(){
+    update();
+    //Todo
+}
+*/
 
 void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
     //中心圆算法
@@ -206,24 +165,26 @@ void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
         deltax++;
         Generate_Ellipse(x,y,deltax,deltay,id);
     }
-    d=static_cast<double>(ry)*(deltax+0.5)*2+static_cast<double>(rx)*(deltay-1)*2-static_cast<double>((rx-ry))*2;
+    //d=static_cast<double>(ry)*(deltax+0.5)*2+static_cast<double>(rx)*(deltay-1)*2-static_cast<double>((rx-ry))*2;
+    d=square_ry*(deltax+0.5)*(deltax+0.5)+square_rx*(deltay-1)*(deltay-1)-square_rx*square_ry;
     while(deltay>0){
         if(d<0){
             d+=square_ry*(2*deltax+2)+square_rx*((-2)*deltay+3);
             deltax++;
-        }else{
+        }else
             d+=square_rx*((-2)*deltay+3);
-        }
         deltay--;
         Generate_Ellipse(x,y,deltax,deltay,id);
     }
     update();
 }
 
+/*
 void Canvas::ReceiveDrawCurve(){
     //TODO
     update();
 }
+*/
 
 void Canvas::ReceiveTranslate(int id,float dx,float dy){
     for(int i=0;i<Points.size();i++){

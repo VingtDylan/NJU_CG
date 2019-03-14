@@ -245,7 +245,26 @@ bool MainWindow::CommandParse(QString str)
            tmpcommand.command=str;
         }
     }else if(tmpcommand.CommandElements[0]=="drawCurve"){
-       ui->textBrowser->setText(QString("Curve has drawn"));
+       int pointsCounter=tmpcommand.CommandElements[2].toInt();
+       if(tmpcommand.CommandElements.length()==4+2*pointsCounter){
+          ui->textBrowser->setText(QString("Curve has drawn"));
+          parser=true;
+          bashmode=drawPolygon;
+          canvas_selector=false;
+       }else if(tmpcommand.CommandElements.length()==4+2*pointsCounter+1){
+          ui->textBrowser->setText(QString("Curve has drawn")+QString(" executed in canvas ")+tmpcommand.CommandElements[4+2*pointsCounter]);
+          parser=true;
+          bashmode=drawPolygon;
+          canvas_selector=true;
+          tmpcommand.canvascommandId=tmpcommand.CommandElements[4+2*pointsCounter].toInt();
+       }else{
+          ui->textBrowser->setText("Invalid Command! Check again!");
+          str+=" Invalid\n";
+          parser=false;
+          bashmode=nonemode;
+          canvas_selector=false;
+          tmpcommand.command=str;
+       }
     }else if(tmpcommand.CommandElements[0]=="translate"){
         if(tmpcommand.CommandElements.length()==4){
            ui->textBrowser->setText(QString("Translate has done"));
@@ -627,7 +646,35 @@ void MainWindow::ExecuteCommand_drawEllipse(){
 }
 
 void MainWindow::ExecuteCommand_drawCurve(){
-    //TODO
+    qDebug()<<"Command:drawCurve";
+    QString executeCanvas="1";
+    int n=CommandsLines[commandCounter].CommandElements[2].toInt();
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[4+2*n];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x1,y1,x2,y2;
+        QString algorithm=CommandsLines[commandCounter].CommandElements[3];
+        for(int i=1;i<=n;i++){
+            x1=CommandsLines[commandCounter].CommandElements[2+2*i].toFloat();
+            y1=CommandsLines[commandCounter].CommandElements[3+2*i].toFloat();
+            x2=CommandsLines[commandCounter].CommandElements[4+(2*i)%(2*n)].toFloat();
+            y2=CommandsLines[commandCounter].CommandElements[4+(1+2*i)%(2*n)].toFloat();
+            connect(this,SIGNAL(SendDrawLine(int,float,float,float,float,QString)),widget,SLOT(ReceiveDrawLine(int,float,float,float,float,QString)));
+            emit SendDrawLine(id,x1,y1,x2,y2,algorithm);
+            disconnect(this,SIGNAL(SendDrawLine(int,float,float,float,float,QString)),widget,SLOT(ReceiveDrawLine(int,float,float,float,float,QString)));
+        }
+    }
 }
 
 void MainWindow::ExecuteCommand_translate(){

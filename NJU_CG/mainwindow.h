@@ -59,7 +59,7 @@ public:
     void ExecuteCommand_saveCanvas();
     void ExecuteCommand_setColor();
     void ExecuteCommand_drawLine();
-    void ExecuteCommand_drawPolygon();//TODO
+    void ExecuteCommand_drawPolygon();
     void ExecuteCommand_drawEllipse();
     void ExecuteCommand_drawCurve();//TODO
     void ExecuteCommand_translate();
@@ -93,7 +93,7 @@ signals:
     void SendDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
     //void SendDrawPolygon(int id,float x[],float y[],QString algorithm);  extra
     void SendDrawEllipse(int id,float x,float y,float rx,float ry);
-    void SendDrawCurve();//TODO
+    void SendDrawCurve(int id,float x[],float y[],QString algorithm);
     void SendTranslate(int id,float dx,float dy);
     void SendRotate(int id,float x,float y,float r);
     void SendScale(int id,float x,float y,float s);//TODO
