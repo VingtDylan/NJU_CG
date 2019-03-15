@@ -9,7 +9,7 @@ drawLine 6 10 10 200 200 DDA 2
 translate 6 0 150 2
 setColor 128 128 128 2
 drawEllipse 3 300 300 20 40 2
-setColor 255 0 0 2
+setColor 219 2 22 2
 drawEllipse 4 300 300 200 100 2
 rotate 4 300 300 90 2
 scale 2 300 300 0.5 1
@@ -19,3 +19,6 @@ drawPolygon 7 3 DDA 100 100 300 100 200 300
 drawPolygon 8 4 Bresenham 100 100 300 100 300 300 100 300 2
 drawPolygon 8 4 Bresenham 200 200 400 200 400 400 200 400
 drawPolygon 9 4 DDA 100 200 300 200 300 400 100 400 1
+drawCurve 10 3 Bezier 100 100 200 200 300 100 2
+drawCurve 11 4 Bezier 100 300 200 110 250 400 300 200 1
+drawCurve 12 4 Bezier 200 400 250 210 350 500 440 300 2

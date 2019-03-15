@@ -249,12 +249,12 @@ bool MainWindow::CommandParse(QString str)
        if(tmpcommand.CommandElements.length()==4+2*pointsCounter){
           ui->textBrowser->setText(QString("Curve has drawn"));
           parser=true;
-          bashmode=drawPolygon;
+          bashmode=drawCurve;
           canvas_selector=false;
        }else if(tmpcommand.CommandElements.length()==4+2*pointsCounter+1){
           ui->textBrowser->setText(QString("Curve has drawn")+QString(" executed in canvas ")+tmpcommand.CommandElements[4+2*pointsCounter]);
           parser=true;
-          bashmode=drawPolygon;
+          bashmode=drawCurve;
           canvas_selector=true;
           tmpcommand.canvascommandId=tmpcommand.CommandElements[4+2*pointsCounter].toInt();
        }else{
@@ -663,17 +663,19 @@ void MainWindow::ExecuteCommand_drawCurve(){
         ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
     }else {
         int id=CommandsLines[commandCounter].CommandElements[1].toInt();
-        float x1,y1,x2,y2;
+        float tmpx,tmpy;
         QString algorithm=CommandsLines[commandCounter].CommandElements[3];
+        QVector<float> x;
+        QVector<float> y;
         for(int i=1;i<=n;i++){
-            x1=CommandsLines[commandCounter].CommandElements[2+2*i].toFloat();
-            y1=CommandsLines[commandCounter].CommandElements[3+2*i].toFloat();
-            x2=CommandsLines[commandCounter].CommandElements[4+(2*i)%(2*n)].toFloat();
-            y2=CommandsLines[commandCounter].CommandElements[4+(1+2*i)%(2*n)].toFloat();
-            connect(this,SIGNAL(SendDrawLine(int,float,float,float,float,QString)),widget,SLOT(ReceiveDrawLine(int,float,float,float,float,QString)));
-            emit SendDrawLine(id,x1,y1,x2,y2,algorithm);
-            disconnect(this,SIGNAL(SendDrawLine(int,float,float,float,float,QString)),widget,SLOT(ReceiveDrawLine(int,float,float,float,float,QString)));
+            tmpx=CommandsLines[commandCounter].CommandElements[2+2*i].toFloat();
+            tmpy=CommandsLines[commandCounter].CommandElements[3+2*i].toFloat();
+            x.push_back(tmpx);
+            y.push_back(tmpy);
         }
+        connect(this,SIGNAL(SendDrawCurve(int,QVector<float>,QVector<float>,QString,int)),widget,SLOT(ReceiveDrawCurve(int,QVector<float>,QVector<float>,QString,int)));
+        emit SendDrawCurve(id,x,y,algorithm,n);
+        disconnect(this,SIGNAL(SendDrawCurve(int,QVector<float>,QVector<float>,QString,int)),widget,SLOT(ReceiveDrawCurve(int,QVector<float>,QVector<float>,QString,int)));
     }
 }
 

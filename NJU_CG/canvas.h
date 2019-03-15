@@ -33,8 +33,10 @@ public:
     int imgheight;
     int imgsave;
 
+    double Factor(int n,int k);
     void Generate_point(int x,int y,int id);
     void Generate_Ellipse(float x,float y,float rx,float ry,int id);
+    void Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double t);
 
 private:
     Ui::Canvas *ui;
@@ -50,7 +52,7 @@ private slots:
     void ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
     //void ReceiveDrawPolygon(); extra
     void ReceiveDrawEllipse(int id,float x,float y,float rx,float ry);
-    //void ReceiveDrawCurve(); extra
+    void ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString algorithm,int n);// B-spline TODO
     void ReceiveTranslate(int id,float dx,float dy);
     void ReceiveRotate(int id,float x,float y,float r);
     void ReceiveScale(int id,float x,float y,float s);

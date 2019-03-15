@@ -9,6 +9,7 @@
 #include "../../NJU_CG/canvas.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
+#include <QtCore/QVector>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'canvas.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
@@ -21,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Canvas_t {
-    QByteArrayData data[29];
-    char stringdata0[209];
+    QByteArrayData data[32];
+    char stringdata0[243];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,22 +53,25 @@ QT_MOC_LITERAL(17, 133, 1), // "x"
 QT_MOC_LITERAL(18, 135, 1), // "y"
 QT_MOC_LITERAL(19, 137, 2), // "rx"
 QT_MOC_LITERAL(20, 140, 2), // "ry"
-QT_MOC_LITERAL(21, 143, 16), // "ReceiveTranslate"
-QT_MOC_LITERAL(22, 160, 2), // "dx"
-QT_MOC_LITERAL(23, 163, 2), // "dy"
-QT_MOC_LITERAL(24, 166, 13), // "ReceiveRotate"
-QT_MOC_LITERAL(25, 180, 1), // "r"
-QT_MOC_LITERAL(26, 182, 12), // "ReceiveScale"
-QT_MOC_LITERAL(27, 195, 1), // "s"
-QT_MOC_LITERAL(28, 197, 11) // "ReceiveClip"
+QT_MOC_LITERAL(21, 143, 16), // "ReceiveDrawCurve"
+QT_MOC_LITERAL(22, 160, 14), // "QVector<float>"
+QT_MOC_LITERAL(23, 175, 1), // "n"
+QT_MOC_LITERAL(24, 177, 16), // "ReceiveTranslate"
+QT_MOC_LITERAL(25, 194, 2), // "dx"
+QT_MOC_LITERAL(26, 197, 2), // "dy"
+QT_MOC_LITERAL(27, 200, 13), // "ReceiveRotate"
+QT_MOC_LITERAL(28, 214, 1), // "r"
+QT_MOC_LITERAL(29, 216, 12), // "ReceiveScale"
+QT_MOC_LITERAL(30, 229, 1), // "s"
+QT_MOC_LITERAL(31, 231, 11) // "ReceiveClip"
 
     },
     "Canvas\0ReceiveResetCanvas\0\0ReceiveSaveCanvas\0"
     "herit\0ReceiveSetColor\0R\0G\0B\0ReceiveDrawLine\0"
     "id\0x1\0y1\0x2\0y2\0algorithm\0ReceiveDrawEllipse\0"
-    "x\0y\0rx\0ry\0ReceiveTranslate\0dx\0dy\0"
-    "ReceiveRotate\0r\0ReceiveScale\0s\0"
-    "ReceiveClip"
+    "x\0y\0rx\0ry\0ReceiveDrawCurve\0QVector<float>\0"
+    "n\0ReceiveTranslate\0dx\0dy\0ReceiveRotate\0"
+    "r\0ReceiveScale\0s\0ReceiveClip"
 };
 #undef QT_MOC_LITERAL
 
@@ -77,7 +81,7 @@ static const uint qt_meta_data_Canvas[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -85,15 +89,16 @@ static const uint qt_meta_data_Canvas[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x08 /* Private */,
-       3,    1,   60,    2, 0x08 /* Private */,
-       5,    3,   63,    2, 0x08 /* Private */,
-       9,    6,   70,    2, 0x08 /* Private */,
-      16,    5,   83,    2, 0x08 /* Private */,
-      21,    3,   94,    2, 0x08 /* Private */,
-      24,    4,  101,    2, 0x08 /* Private */,
-      26,    4,  110,    2, 0x08 /* Private */,
-      28,    0,  119,    2, 0x08 /* Private */,
+       1,    0,   64,    2, 0x08 /* Private */,
+       3,    1,   65,    2, 0x08 /* Private */,
+       5,    3,   68,    2, 0x08 /* Private */,
+       9,    6,   75,    2, 0x08 /* Private */,
+      16,    5,   88,    2, 0x08 /* Private */,
+      21,    5,   99,    2, 0x08 /* Private */,
+      24,    3,  110,    2, 0x08 /* Private */,
+      27,    4,  117,    2, 0x08 /* Private */,
+      29,    4,  126,    2, 0x08 /* Private */,
+      31,    0,  135,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -101,9 +106,10 @@ static const uint qt_meta_data_Canvas[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    6,    7,    8,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::QString,   10,   11,   12,   13,   14,   15,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   19,   20,
-    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   10,   22,   23,
-    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   25,
-    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   27,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 22, 0x80000000 | 22, QMetaType::QString, QMetaType::Int,   10,   17,   18,   15,   23,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   10,   25,   26,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   28,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   30,
     QMetaType::Void,
 
        0        // eod
@@ -120,11 +126,24 @@ void Canvas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 2: _t->ReceiveSetColor((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 3: _t->ReceiveDrawLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
         case 4: _t->ReceiveDrawEllipse((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
-        case 5: _t->ReceiveTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
-        case 6: _t->ReceiveRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 7: _t->ReceiveScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 8: _t->ReceiveClip(); break;
+        case 5: _t->ReceiveDrawCurve((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QVector<float>(*)>(_a[2])),(*reinterpret_cast< QVector<float>(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5]))); break;
+        case 6: _t->ReceiveTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
+        case 7: _t->ReceiveRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 8: _t->ReceiveScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 9: _t->ReceiveClip(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 5:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 2:
+            case 1:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QVector<float> >(); break;
+            }
+            break;
         }
     }
 }
@@ -158,13 +177,13 @@ int Canvas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        if (_id < 10)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 10;
     }
     return _id;
 }

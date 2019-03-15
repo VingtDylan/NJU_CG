@@ -34,6 +34,17 @@ void Canvas::paintEvent(QPaintEvent *)
     }
 }
 
+double Canvas::Factor(int n, int k){
+    double sum=1;
+    for(int i=1;i<=n;i++)
+        sum*=i;
+    for(int i=1;i<=k;i++)
+        sum/=i;
+    for(int i=1;i<=n-k;i++)
+        sum/=i;
+    return sum;
+}
+
 void Canvas::Generate_point(int x, int y,int id){
 //    for(int i=0;i<Points.size();i++){
 //        if(Points[i].x==x&&Points[i].y==y)
@@ -55,6 +66,17 @@ void Canvas::Generate_Ellipse(float x,float y,float rx,float ry,int id){
     Generate_point(static_cast<int>(x-rx),static_cast<int>(y+ry),id);
     Generate_point(static_cast<int>(x+rx),static_cast<int>(y-ry),id);
     Generate_point(static_cast<int>(x+rx),static_cast<int>(y+ry),id);
+}
+
+void Canvas::Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double t){
+    double tmpx=0,tmpy=0;
+    double bezier_curve=0;
+    for(int i=0;i<n;i++){
+        bezier_curve=Factor(n-1,i)*pow(t,i)*pow(1-t,n-1-i);
+        tmpx+=static_cast<double>(x[i])*bezier_curve;
+        tmpy+=static_cast<double>(y[i])*bezier_curve;
+    }
+    Generate_point(static_cast<int>(tmpx),static_cast<int>(tmpy),id);
 }
 
 void Canvas::ReceiveResetCanvas()
@@ -179,12 +201,34 @@ void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
     update();
 }
 
-/*
-void Canvas::ReceiveDrawCurve(){
-    //TODO
+void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString algorithm,int n){
+    if(algorithm=="Bezier"){
+        qDebug()<<"Algorithm:Bezier";
+        //绘制轮廓(红色)
+        currentPencolor[0]=255;
+        currentPencolor[1]=0;
+        currentPencolor[2]=0;
+        for(int i=0;i<n-1;i++){
+            this->ReceiveDrawLine(id,x[i],y[i],x[i+1],y[i+1],"DDA");
+        }
+        //绘制曲线
+        int tpoints=500;//to be improved
+        double t=0.0;
+        double delta=1.0/tpoints;
+        currentPencolor[0]=128;
+        currentPencolor[1]=0;
+        currentPencolor[2]=128;
+        for(int i=0;i<tpoints;i++){
+            t+=delta;
+            Generate_Bezier(x,y,id,n,t);
+        }
+    }else if(algorithm=="B-spline"){
+        qDebug()<<"Algorithm:B-spline";
+    }else{
+        qDebug()<<"No such algorithm"<<endl;
+    }
     update();
 }
-*/
 
 void Canvas::ReceiveTranslate(int id,float dx,float dy){
     for(int i=0;i<Points.size();i++){
