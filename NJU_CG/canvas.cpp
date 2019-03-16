@@ -46,10 +46,6 @@ double Canvas::Factor(int n, int k){
 }
 
 void Canvas::Generate_point(int x, int y,int id){
-//    for(int i=0;i<Points.size();i++){
-//        if(Points[i].x==x&&Points[i].y==y)
-//            Points.erase(Points.begin()+i);
-//    }
     struct Point tmppoint;
     tmppoint.x=x;
     tmppoint.y=this->height()-y;
@@ -163,13 +159,6 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
     }
 }
 
-/*
-void Canvas::ReceiveDrawPolygon(){
-    update();
-    //Todo
-}
-*/
-
 void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
     //中心圆算法
     double square_rx=static_cast<double>(rx*rx);
@@ -187,7 +176,6 @@ void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
         deltax++;
         Generate_Ellipse(x,y,deltax,deltay,id);
     }
-    //d=static_cast<double>(ry)*(deltax+0.5)*2+static_cast<double>(rx)*(deltay-1)*2-static_cast<double>((rx-ry))*2;
     d=square_ry*(deltax+0.5)*(deltax+0.5)+square_rx*(deltay-1)*(deltay-1)-square_rx*square_ry;
     while(deltay>0){
         if(d<0){
@@ -224,6 +212,7 @@ void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString alg
         }
     }else if(algorithm=="B-spline"){
         qDebug()<<"Algorithm:B-spline";
+        //TODO
     }else{
         qDebug()<<"No such algorithm"<<endl;
     }

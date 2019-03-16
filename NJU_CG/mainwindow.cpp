@@ -763,8 +763,6 @@ void MainWindow::ExecuteCommand_Clip(){
 
 void MainWindow::open()
 {
-    //OpenGLDraw myOpenGLDraw;
-    //myOpenGLDraw.On_Click_CreateCanvas();
     QMessageBox::information(this, tr("Information"), tr("Canvas created!"));
 }
 
@@ -787,20 +785,3 @@ void MainWindow::on_pushButton_clicked()
     canvas = new  Canvas(Canvascounter);
     canvas->show();
 }
-
-//void MainWindow::keyPressEvent(QKeyEvent *event){
-//    if(event->key()==Qt::Key_Up){
-//        ui->textBrowser->setText("");
-//        if(currentcommand>0)
-//            ui->lineEdit->setText(CommandsLines[--currentcommand].command);
-//        else
-//            ui->lineEdit->setText("No previous command!");
-//    }
-//    if(event->key()==Qt::Key_Down){
-//        ui->textBrowser->setText("");
-//        if(currentcommand>=0&&currentcommand<commandCounter)
-//            ui->lineEdit->setText(CommandsLines[++currentcommand].command);
-//        else
-//            ui->lineEdit->setText("No later command!");
-//    }
-//}
