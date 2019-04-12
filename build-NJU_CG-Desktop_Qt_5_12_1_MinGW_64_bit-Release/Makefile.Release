@@ -115,6 +115,7 @@ release/qrc_display.cpp: ../NJU_CG/display.qrc \
 		../NJU_CG/background/bp.png \
 		../NJU_CG/background/lovemm.jpeg \
 		../NJU_CG/background/lovely.jpeg \
+		../NJU_CG/background/hint.png \
 		../NJU_CG/menu_icon/arrow.jpg
 	F:\Qt\5.12.1\mingw73_64\bin\rcc.exe -name display ..\NJU_CG\display.qrc -o release\qrc_display.cpp
 
@@ -244,6 +245,10 @@ release/moc_mainwindow.cpp: ../NJU_CG/mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QString \
 		../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QWidget \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QMouseEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../NJU_CG/canvascommand.h \
 		release/moc_predefs.h \
 		F:/Qt/5.12.1/mingw73_64/bin/moc.exe
@@ -353,6 +358,11 @@ release/moc_canvas.cpp: ../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/qfiledevice.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/qvector2d.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/qtouchdevice.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QMouseEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/qicon.h \
 		release/moc_predefs.h \
 		F:/Qt/5.12.1/mingw73_64/bin/moc.exe
 	F:\Qt\5.12.1\mingw73_64\bin\moc.exe $(DEFINES) --include C:/Users/ASUS/Desktop/CGDesign/NJU_CG/build-NJU_CG-Desktop_Qt_5_12_1_MinGW_64_bit-Release/release/moc_predefs.h -IF:/Qt/5.12.1/mingw73_64/mkspecs/win32-g++ -IC:/Users/ASUS/Desktop/CGDesign/NJU_CG/NJU_CG -IF:/Qt/5.12.1/mingw73_64/include -IF:/Qt/5.12.1/mingw73_64/include/QtOpenGL -IF:/Qt/5.12.1/mingw73_64/include/QtWidgets -IF:/Qt/5.12.1/mingw73_64/include/QtGui -IF:/Qt/5.12.1/mingw73_64/include/QtANGLE -IF:/Qt/5.12.1/mingw73_64/include/QtCore -I. -IF:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IF:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IF:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IF:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IF:/Qt/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IF:/Qt/Tools/mingw730_64/x86_64-w64-mingw32/include ..\NJU_CG\canvas.h -o release\moc_canvas.cpp
@@ -606,6 +616,10 @@ release/main.o: ../NJU_CG/main.cpp ../NJU_CG/mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QString \
 		../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QWidget \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QMouseEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../NJU_CG/canvascommand.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QApplication \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qapplication.h \
@@ -727,6 +741,10 @@ release/mainwindow.o: ../NJU_CG/mainwindow.cpp ../NJU_CG/mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QString \
 		../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QWidget \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QMouseEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		../NJU_CG/canvascommand.h \
 		UI/ui_mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QVariant \
@@ -759,14 +777,12 @@ release/mainwindow.o: ../NJU_CG/mainwindow.cpp ../NJU_CG/mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qmenu.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qaction.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qactiongroup.h \
-		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
-		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
-		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QStatusBar \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qstatusbar.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QTableView \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtableview.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QTableWidget \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtablewidget.h \
-		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtableview.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QTextBrowser \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtextbrowser.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtextedit.h \
@@ -789,7 +805,8 @@ release/mainwindow.o: ../NJU_CG/mainwindow.cpp ../NJU_CG/mainwindow.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/QPainter \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/qpainter.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QSize \
-		F:/Qt/5.12.1/mingw73_64/include/QtGui/QKeyEvent
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QKeyEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtCore/QFile
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\NJU_CG\mainwindow.cpp
 
 release/canvas.o: ../NJU_CG/canvas.cpp ../NJU_CG/canvas.h \
@@ -896,6 +913,11 @@ release/canvas.o: ../NJU_CG/canvas.cpp ../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/qfiledevice.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/qvector2d.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/qtouchdevice.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QMouseEvent \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QPushButton \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/qicon.h \
 		UI/ui_canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QVariant \
 		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QApplication \

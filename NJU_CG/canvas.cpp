@@ -4,6 +4,9 @@
 #include "QDebug"
 #include "QImage"
 #include "QtMath"
+#include <QAction>
+#include <QIcon>
+#include <QToolBar>
 
 Canvas::Canvas(int x,QWidget *parent) :
     QWidget(parent),
@@ -18,6 +21,50 @@ Canvas::Canvas(int x,QWidget *parent) :
     currentPencolor[2]=0;
     currentPointSize=1;
     imgsave=false;//emmmm
+
+    QToolBar *toolbar=new QToolBar(this);
+    actions[0]=new QAction(QIcon(":/menu_icons/mouse"),"None",this);
+    actions[1]=new QAction(QIcon(":/menu_icons/line"),"Line",this);
+    actions[2]=new QAction(QIcon(":/menu_icons/polygon"),"Polygon",this);
+    actions[3]=new QAction(QIcon(":/menu_icons/ellipse"),"Ellipse",this);
+    actions[4]=new QAction(QIcon(":/menu_icons/curve"),"Curve",this);
+    //actions[0]->setShortcut(Qt::Key_Control);
+    actions[0]->setToolTip("None mode");
+    actions[1]->setToolTip("Line mode");
+    actions[2]->setToolTip("Polygon mode");
+    actions[3]->setToolTip("Ellipse mode");
+    actions[4]->setToolTip("Curve mode");
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    for(int i=0;i<5;i++){
+        toolbar->addAction(actions[i]);
+    }
+    connect(actions[0],SIGNAL(triggered()),this,SLOT(drawNONETriggered()));
+    connect(actions[1],SIGNAL(triggered()),this,SLOT(drawLineTriggered()));
+    connect(actions[2],SIGNAL(triggered()),this,SLOT(drawPolygonTriggered()));
+    connect(actions[3],SIGNAL(triggered()),this,SLOT(drawEllipseTriggered()));
+    connect(actions[4],SIGNAL(triggered()),this,SLOT(drawCurveTriggered()));
+
+    this->setMouseTracking(true);
+}
+
+void Canvas::drawNONETriggered(){
+    mouse=NONE_;
+}
+
+void Canvas::drawLineTriggered(){
+    mouse=Line_;
+}
+
+void Canvas::drawPolygonTriggered(){
+    mouse=Polygon_;
+}
+
+void Canvas::drawEllipseTriggered(){
+    mouse=Ellipse_;
+}
+
+void Canvas::drawCurveTriggered(){
+    mouse=Curve_;
 }
 
 Canvas::~Canvas()
@@ -32,6 +79,127 @@ void Canvas::paintEvent(QPaintEvent *)
        painter.setPen(QColor(Points[i].color[0],Points[i].color[1],Points[i].color[2]));
        painter.drawPoint(Points[i].x,Points[i].y);
     }
+    for(int i=0;i<TmpPoints.size();i++){
+       painter.setPen(QColor(TmpPoints[i].color[0],TmpPoints[i].color[1],TmpPoints[i].color[2]));
+       painter.drawPoint(TmpPoints[i].x,TmpPoints[i].y);
+    }
+    for(int i=0;i<BufferPoints.size();i++){
+       painter.setPen(QColor(BufferPoints[i].color[0],BufferPoints[i].color[1],BufferPoints[i].color[2]));
+       painter.drawPoint(BufferPoints[i].x,BufferPoints[i].y);
+    }
+}
+
+void Canvas::mousePressEvent(QMouseEvent *event){
+    if(event->button()==Qt::LeftButton){
+        isDrawing=true;
+        //qDebug()<<event->x()<<endl;
+        //qDebug()<<event->y()<<endl;
+        switch(mouse){
+          case NONE_:{
+                BufferPoints.clear();
+                TmpPoints.clear();
+                break;
+            }
+          case Line_:{
+                if(TmpPoints.length()==0){
+                    Generate_Tmppoint(event->x(),event->y(),COMMONID);
+                }else if(TmpPoints.length()==1){
+                    Generate_Bufferpoint(event->x(),event->y(),COMMONID);//extra
+                    for(int i=0;i<BufferPoints.length();i++)
+                        Points.append(BufferPoints[i]);
+                    BufferPoints.clear();
+                    TmpPoints.clear();
+                }
+            }
+            break;
+          case Polygon_:{
+               Generate_Tmppoint(event->x(),event->y(),COMMONID);
+            }
+            break;
+          case Ellipse_:break;
+          case Curve_:break;
+           /*TODO*/
+        }
+    }else if(event->button()==Qt::RightButton){
+        isDrawing=false;
+        switch(mouse){
+            case NONE_:break;
+            case Line_:break;
+            case Polygon_:
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                for(int i=0;i<BufferPoints.length();i++)
+                    Points.append(BufferPoints[i]);
+                BufferPoints.clear();
+                TmpPoints.clear();
+                break;
+            case Ellipse_:break;
+            case Curve_:break;
+        }
+    }
+    update();
+}
+
+void Canvas::mouseMoveEvent(QMouseEvent *event){
+    //qDebug()<<event->x()<<event->y()<<endl;
+    switch (mouse){
+        case NONE_:break;
+        case Line_:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2);
+            }
+          }
+          break;
+        case Polygon_:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2);
+            }else if(TmpPoints.length()>1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                    x1=TmpPoints[i].x;
+                    x2=TmpPoints[i+1].x;
+                    y1=TmpPoints[i].y;
+                    y2=TmpPoints[i+1].y;
+                    drawBufferLine(COMMONID,x1,y1,x2,y2);
+                }
+                x1=TmpPoints[0].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[0].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2);
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2);
+            }
+          }
+          break;
+        case Ellipse_:break;
+        case Curve_:break;
+        /*TODO*/
+    }
+    update();
+}
+
+void Canvas::mouseReleaseEvent(QMouseEvent *event){
+    if(event->button()==Qt::LeftButton){
+        isDrawing=false;
+    }
+    update();
 }
 
 double Canvas::Factor(int n, int k){
@@ -57,6 +225,29 @@ void Canvas::Generate_point(int x, int y,int id){
     Points.push_back(tmppoint);
 }
 
+void Canvas::Generate_Tmppoint(int x, int y, int id){
+    struct Point tmppoint;
+    tmppoint.x=x;
+    tmppoint.y=this->height()-y;
+    tmppoint.color[0]=currentPencolor[0];
+    tmppoint.color[1]=currentPencolor[1];
+    tmppoint.color[2]=currentPencolor[2];
+    tmppoint.size=currentPointSize;
+    tmppoint.pid=id;
+    TmpPoints.push_back(tmppoint);
+}
+
+void Canvas::Generate_Bufferpoint(int x, int y, int id){
+    struct Point tmppoint;
+    tmppoint.x=x;
+    tmppoint.y=this->height()-y;
+    tmppoint.color[0]=currentPencolor[0];
+    tmppoint.color[1]=currentPencolor[1];
+    tmppoint.color[2]=currentPencolor[2];
+    tmppoint.size=currentPointSize;
+    tmppoint.pid=id;
+    BufferPoints.push_back(tmppoint);
+}
 void Canvas::Generate_Ellipse(float x,float y,float rx,float ry,int id){
     Generate_point(static_cast<int>(x-rx),static_cast<int>(y-ry),id);
     Generate_point(static_cast<int>(x-rx),static_cast<int>(y+ry),id);
@@ -261,4 +452,36 @@ void Canvas::ReceiveScale(int id,float x,float y,float s){
 void Canvas::ReceiveClip(){
     update();
     //TODO
+}
+
+void Canvas::drawBufferLine(int id,float x1,float y1,float x2,float y2){
+    float xstart=x1,ystart=y1;
+    float dx=fabsf(x2-x1);
+    float dy=fabsf(y2-y1);
+    int xIncrement=x2>x1 ? 1 : (x2<x1 ? -1 : 0);
+    int yIncrement=y2>y1 ? 1 : (y2<y1 ? -1 : 0);
+    bool interchange=false;
+    if(dy>dx){
+        float temp=dx;
+        dx=dy;
+        dy=temp;
+        interchange=true;
+    }
+    float p=2*dy-dx;
+      for(int i=0;i<dx;i++){
+         Generate_Bufferpoint(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
+         if(p>=0){
+            if(!interchange)
+              ystart+=yIncrement;
+            else
+              xstart+=xIncrement;
+            p-=2*dx;
+         }
+         if(!interchange)
+            xstart+=xIncrement;
+         else
+            ystart+=yIncrement;
+         p+=2*dy;
+    }
+    update();
 }

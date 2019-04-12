@@ -2,6 +2,10 @@
 #define CANVAS_H
 
 #include <QWidget>
+#include <QMouseEvent>
+#include <QPushButton>
+
+#define COMMONID 101
 
 struct Point{
     int x;
@@ -11,6 +15,14 @@ struct Point{
     int pid;
     bool chosen;//later
 };
+
+typedef enum{
+    NONE_,
+    Line_,
+    Polygon_,
+    Ellipse_,
+    Curve_,
+}Mouse_Type;
 
 namespace Ui {
 class Canvas;
@@ -33,8 +45,19 @@ public:
     int imgheight;
     int imgsave;
 
+    QAction *actions[5];
+        /*
+         * Line
+         * Polygon
+         * Curve
+         * TODO
+        */
+    Mouse_Type mouse=NONE_;
+
     double Factor(int n,int k);
     void Generate_point(int x,int y,int id);
+    void Generate_Tmppoint(int x,int y,int id);
+    void Generate_Bufferpoint(int x,int y,int id);
     void Generate_Ellipse(float x,float y,float rx,float ry,int id);
     void Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double t);
 
@@ -43,7 +66,16 @@ private:
     QPainter *painter;
     QImage *image;
     QVector<Point> Points;
+    QVector<Point> TmpPoints;
+    QVector<Point> BufferPoints;
+
+    bool isDrawing;
+
+protected:
     void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
     void ReceiveResetCanvas();
@@ -57,6 +89,16 @@ private slots:
     void ReceiveRotate(int id,float x,float y,float r);
     void ReceiveScale(int id,float x,float y,float s);
     void ReceiveClip();//TODO
+
+    void drawNONETriggered();
+    void drawLineTriggered();
+    void drawPolygonTriggered();
+    void drawEllipseTriggered();
+    void drawCurveTriggered();
+
+    void drawBufferLine(int id,float x1,float y1,float x2,float y2);
+    //void drawBufferPolygon(); extra
+
 };
 
 #endif // CANVAS_H

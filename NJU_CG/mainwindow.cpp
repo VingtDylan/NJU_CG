@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     commandCounter=-1;
     bashmode=nonemode;
     //Menu_Setting
-    this->CreateCanvasIcon();
+    //this->CreateCanvasIcon();
     Canvascounter=0;
 }
 
