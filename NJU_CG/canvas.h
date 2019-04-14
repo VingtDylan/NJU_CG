@@ -47,6 +47,7 @@ public:
 
     QAction *actions[5];
         /*
+         * Save
          * Line
          * Polygon
          * Curve

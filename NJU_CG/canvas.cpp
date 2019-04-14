@@ -16,9 +16,9 @@ Canvas::Canvas(int x,QWidget *parent) :
     canvasId=x;
     setWindowTitle("Canvas_"+QString::number(canvasId));
     currentPid=1;
-    currentPencolor[0]=255;
+    currentPencolor[0]=128;
     currentPencolor[1]=0;
-    currentPencolor[2]=0;
+    currentPencolor[2]=128;
     currentPointSize=1;
     imgsave=false;//emmmm
 
@@ -95,27 +95,23 @@ void Canvas::mousePressEvent(QMouseEvent *event){
         //qDebug()<<event->x()<<endl;
         //qDebug()<<event->y()<<endl;
         switch(mouse){
-          case NONE_:{
-                BufferPoints.clear();
-                TmpPoints.clear();
+          case NONE_:
                 break;
-            }
           case Line_:{
                 if(TmpPoints.length()==0){
                     Generate_Tmppoint(event->x(),event->y(),COMMONID);
                 }else if(TmpPoints.length()==1){
-                    Generate_Bufferpoint(event->x(),event->y(),COMMONID);//extra
                     for(int i=0;i<BufferPoints.length();i++)
                         Points.append(BufferPoints[i]);
                     BufferPoints.clear();
                     TmpPoints.clear();
                 }
+                break;
             }
-            break;
           case Polygon_:{
                Generate_Tmppoint(event->x(),event->y(),COMMONID);
+               break;
             }
-            break;
           case Ellipse_:break;
           case Curve_:break;
            /*TODO*/
@@ -126,7 +122,6 @@ void Canvas::mousePressEvent(QMouseEvent *event){
             case NONE_:break;
             case Line_:break;
             case Polygon_:
-                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
                 for(int i=0;i<BufferPoints.length();i++)
                     Points.append(BufferPoints[i]);
                 BufferPoints.clear();
