@@ -75,6 +75,7 @@ Canvas::~Canvas()
 void Canvas::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
+    //painter.drawLine(138,141,281,319);
     for(int i=0;i<Points.size();i++){
        painter.setPen(QColor(Points[i].color[0],Points[i].color[1],Points[i].color[2]));
        painter.drawPoint(Points[i].x,Points[i].y);

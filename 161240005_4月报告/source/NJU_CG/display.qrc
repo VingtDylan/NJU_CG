@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/menu_icons">
+        <file alias="arrow">menu_icon/arrow.jpg</file>
+        <file alias="lovelybg">background/lovely.jpeg</file>
+        <file alias="cat">background/hp_cat.png</file>
+        <file alias="wrong">background/bp.png</file>
+        <file alias="list">background/lovemm.jpeg</file>
+        <file alias="hint">background/hint.png</file>
+        <file alias="curve">menu_icon/curve_icon.png</file>
+        <file alias="ellipse">menu_icon/ellipse_icon.png</file>
+        <file alias="line">menu_icon/line_icon.png</file>
+        <file alias="polygon">menu_icon/polygon_icon.png</file>
+        <file alias="mouse">menu_icon/mouse.png</file>
+    </qresource>
+</RCC>

@@ -113,10 +113,15 @@ debug/qrc_display.cpp: ../NJU_CG/display.qrc \
 		F:/Qt/5.12.1/mingw73_64/bin/rcc.exe \
 		../NJU_CG/background/hp_cat.png \
 		../NJU_CG/background/bp.png \
+		../NJU_CG/menu_icon/curve_icon.png \
 		../NJU_CG/background/lovemm.jpeg \
+		../NJU_CG/menu_icon/line_icon.png \
+		../NJU_CG/menu_icon/polygon_icon.png \
+		../NJU_CG/menu_icon/mouse.png \
 		../NJU_CG/background/lovely.jpeg \
 		../NJU_CG/background/hint.png \
-		../NJU_CG/menu_icon/arrow.jpg
+		../NJU_CG/menu_icon/arrow.jpg \
+		../NJU_CG/menu_icon/ellipse_icon.png
 	F:\Qt\5.12.1\mingw73_64\bin\rcc.exe -name display ..\NJU_CG\display.qrc -o debug\qrc_display.cpp
 
 compiler_qmlcache_make_all:
@@ -934,7 +939,13 @@ debug/canvas.o: ../NJU_CG/canvas.cpp ../NJU_CG/canvas.h \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QDebug \
 		F:/Qt/5.12.1/mingw73_64/include/QtGui/QImage \
 		F:/Qt/5.12.1/mingw73_64/include/QtCore/QtMath \
-		F:/Qt/5.12.1/mingw73_64/include/QtCore/qmath.h
+		F:/Qt/5.12.1/mingw73_64/include/QtCore/qmath.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QAction \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qaction.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qactiongroup.h \
+		F:/Qt/5.12.1/mingw73_64/include/QtGui/QIcon \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/QToolBar \
+		F:/Qt/5.12.1/mingw73_64/include/QtWidgets/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\canvas.o ..\NJU_CG\canvas.cpp
 
 debug/canvascommand.o: ../NJU_CG/canvascommand.cpp ../NJU_CG/canvascommand.h \

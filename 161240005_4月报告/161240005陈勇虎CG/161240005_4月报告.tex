@@ -1,0 +1,440 @@
+\documentclass[a4paper,11pt,Unicode]{article}
+\usepackage{ctex}
+\usepackage{enumerate}
+\usepackage{times}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\renewcommand{\baselinestretch}{1.4}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,
+  tmargin=2cm,%
+  bmargin=2cm,%
+  lmargin=3cm,%
+  rmargin=3cm %
+}
+\usepackage{verbatim}
+\setlength\columnseprule{.5pt}
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usetikzlibrary{automata,positioning}
+
+\setcounter{secnumdepth}{4}
+
+\begin{document}
+\title{\textbf{《计算机图形学》4月报告}
+\author{161240005 陈勇虎}}
+\maketitle
+
+\section{综述}
+   基于Qt的GUI开发框架，使用C++语言实现的一个图形学系统，该系统可以通过读取命令行中的命
+令，或者读取存储了指令序列的文本文件，调用算法实现图元的生成和变换等功能。后续将会继续添加图形用户界面，以鼠标交互的方式进行图元的绘制的变换。
+
+\section{算法介绍}
+    \subsection{直线绘制算法}
+        \subsubsection{数字差分分析(DDA)算法}
+            \textbf{1.原理介绍}
+
+            数字差分分析方法是利用计算两个坐标方向的差分来确定线段显示的屏幕像素位置的线段扫描转换算法，也可以看成是解直线的微分方程式,即:
+            \begin{center}
+            $\frac{dy}{dx}=$常数 \quad 或 \quad $\frac{\triangle y}{\triangle x}=\frac{y_2-y_1}{x_2-x_1}$
+            \end{center}
+
+            其有限差分近似解为:
+            \begin{center}
+            $y_{i+1}=y_i+\triangle y$\\
+            $y_{i+1}=y_i+\frac{y_2-y_1}{x_2-x_1}\triangle x$
+            \end{center}
+
+            这里$x_1,y_1$和$x_2,y_2$是直线的端点,简单的DDA将会选择$\triangle x$或$\triangle y$中较大的一个.
+
+            \textbf{2.理解分析}
+
+            具体实现代码可查看canvas.cpp文件,函数实现为:
+
+            \textsl{void ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString algorithm)}
+
+            DDA方法计算像素位置将会比直接使用直线方程要快，这是因为它利用光栅特性消除了直线方程中的乘法，而在x，y方向使用合适的增量来逐步推出像素的位置，但是浮点增量的连续迭加重取整误差的累积会使长线段所计算的像素位置会偏离实际线段，而且取整操作和浮点运算十分耗时.
+
+            \textbf{3.性能测试}
+
+            绘制端点为$x_1(138,141),x_2(281,319)$的一条直线($\triangle x < \triangle y=1$)
+
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                {y}&{x}&{real x}&{error}\\
+                \hline
+                {141}&{138}&{138}&{0}\\
+                \hline
+                {142}&{139}&{138.803}&{-0.196625}\\
+                \hline
+                {143}&{140}&{139.607}&{-0.39325}\\
+                \hline
+                {144}&{140}&{140.41}&{0.410126}\\
+                \hline
+                {145}&{141}&{141.214}&{0.213501}\\
+                \hline
+                {146}&{142}&{142.017}&{0.0168762}\\
+                \hline
+                {147}&{143}&{142.82}&{-0.179749}\\
+                \hline
+                {...}&{...}&{...}&{...}\\
+                \hline
+                {274}&{245}&{244.849}&{-0.151093}\\
+                \hline
+                {275}&{246}&{245.652}&{-0.347717}\\
+                \hline
+                {276}&{246}&{246.456}&{0.455658}\\
+                \hline
+                {...}&{...}&{...}&{...}\\
+                \hline
+                {313}&{276}&{276.181}&{0.180542}\\
+                \hline
+                {314}&{277}&{276.984}&{-0.0160828}\\
+                \hline
+                {315}&{278}&{277.787}&{-0.212708}\\
+                \hline
+                {316}&{279}&{278.591}&{-0.409332}\\
+                \hline
+                {317}&{279}&{279.394}&{0.394043}\\
+                \hline
+                {318}&{280}&{280.197}&{0.197418}\\
+                \hline
+            \end{tabular}
+
+            表格中可以看出算法的误差，在部分点的计算中很大，具体可以运行附件中的DDA.cpp查看.
+
+        \subsubsection{Bresenham算法}
+            \textbf{1.原理分析}
+
+            \textbf{2.理解分析}
+
+            \textbf{3.性能测试}
+
+
+    \subsection{多边形绘制算法}
+        \textbf{1.原理分析}
+
+        \textbf{2.理解分析}
+
+        \textbf{3.性能测试}
+    \subsection{椭圆生成算法}
+        \textbf{1.原理分析}
+
+        \textbf{2.理解分析}
+
+        \textbf{3.性能测试}
+    \subsection{曲线生成算法}
+        \subsubsection{Bezier算法}
+            \textbf{1.原理分析}
+
+            \textbf{2.理解分析}
+
+            \textbf{3.性能测试}
+        \subsubsection{B-spline算法(TODO)}
+            \textbf{1.原理分析}
+
+            \textbf{2.理解分析}
+
+            \textbf{3.性能测试}
+    \subsection{裁剪算法(TODO)}
+        \subsubsection{Cohen-Sutherland算法}
+            \textbf{1.原理分析}
+
+            \textbf{2.理解分析}
+
+            \textbf{3.性能测试}
+        \subsubsection{liang-Barsky算法(TODO)}
+            \textbf{1.原理分析}
+
+            \textbf{2.理解分析}
+
+            \textbf{3.性能测试}
+    \subsection{TODO}
+\section{系统介绍}
+    \subsection{系统框架设计}
+    \includegraphics[scale=0.7]{images/SystemView.jpg}
+    \subsection{运行界面}
+        \subsubsection{主界面}
+            \includegraphics[scale=0.7]{images/Main_Window.jpg}
+        \subsubsection{画布显示界面}
+            \includegraphics[scale=0.7]{images/Canvas.jpg}
+        \subsubsection{历史命令界面}
+            \includegraphics[scale=0.7]{images/Command.jpg}
+    \subsection{运行方式}
+    系统支持两种操作，命令输入方式或者鼠标操作；
+        \subsubsection{命令输入方式}
+            \textbf{1.读取命令方式}
+
+                在主界面输入命令即可，命令支持为:
+
+                1.重置画布：resetCanvas width height canvas\_id(int)
+
+                  清空id为canvas\_id的画布，并重新设置宽高 canvas\_id缺省为1.
+
+                  width, height: int
+
+                  100 $\leq$ width, height $\leq$ 1000
+
+                2.保存画布：
+
+                  saveCanvas name canvas\_id(int)
+
+                  将id为canvas\_id画布保存为位图name.bmp canvas\_id缺省为1.
+
+                  name: string
+
+                3.设置画笔颜色：
+
+                  将id为canvas\_id的画布的画笔颜色设置为R,G,B(输入决定)，canvas\_id缺省为1.
+
+                  setColor R G B canvas\_id(int)
+
+                  R, G, B: int
+
+                  0 $\leq$ R, G, B $\leq$ 25
+
+                4.绘制线段：
+
+                  drawLine id x1 y1 x2 y2 algorithm canvas\_id(int)
+
+                  在id为canvas\_id的画布上绘制直线,canvas\_id缺省为1.
+
+                  id: int  图元编号，每个图元的编号是唯一的
+
+                  x1, y1, x2, y2 : float  起点、终点坐标
+
+                  algorithm: string 绘制使用的算法，包括“DDA”和“Bresenham”
+
+                5.绘制多边形：
+
+                  drawPolygon id n algorithm x1 y1 x2 y2 … xn yn canvas\_id(int)
+
+                  在id为canvas\_id的画布上绘制多边形,canvas\_id缺省为1.
+
+                  id: int 图元编号，每个图元的编号是唯一的
+
+                  n: int 顶点数
+
+                  x1, y1, x2, y2 ... : float 顶点坐标
+
+                  algorithm: string 绘制使用的算法，包括“DDA”和“Bresenham”
+
+                6.绘制椭圆（中点圆生成算法）：
+
+                  drawEllipse id x y rx ry canvas\_id(int)
+
+                  在id为canvas\_id的画布上绘制椭圆,canvas\_id缺省为1.
+
+                  id: int 图元编号，每个图元的编号是唯一的
+
+                  x, y: float 圆心坐标
+
+                  rx, ry: float 长短轴半径
+
+                7.绘制曲线：
+
+                  drawCurve id n algorithm  x1 y1 x2 y2 … xn yn canvas\_id(int)
+
+                  在id为canvas\_id的画布上绘制曲线,canvas\_id缺省为1.
+
+                  id: int 图元编号，每个图元的编号是唯一的
+
+                  n: int 控制点数量
+
+                  x1, y1, x2, y2 ... : float 控制点坐标
+
+                  algorithm: string 绘制使用的算法，包括“Bezier”和“B-spline”
+
+                8.对图元平移：
+
+                  translate id dx dy canvas\_id(int)
+
+                  对画布id为canvas\_id的画布上序号为id的图元进行平移,canvas\_id缺省为1.
+
+                  id: int 要平移的图元编号
+
+                  dx, dy: float 平移向量
+
+                9.对图元旋转：
+
+                  rotate id x y r canvas\_id(int)
+
+                  对画布id为canvas\_id的画布上序号为id的图元进行旋转,canvas\_id缺省为1.
+
+                  id: int 要旋转的图元编号
+
+                  x, y: float 旋转中心
+
+                  r: float 顺时针旋转角度（°）
+
+                10.对图元缩放：
+
+                  scale id x y s canvas\_id(int)
+
+                  对画布id为canvas\_id的画布上序号为id的图元进行缩放,canvas\_id缺省为1.
+
+                  id: int 要缩放的图元编号
+
+                  x, y: float 缩放中心
+
+                  s: float 缩放倍数
+
+                11.对线段裁剪：
+
+                  clip id x1 y1 x2 y2 algorithm canvas\_id(int)
+
+                  对画布id为canvas\_id的画布上序号为id的图元进行裁剪,canvas\_id缺省为1.
+
+                  id: int 要裁剪的图元编号
+
+                  x1, y1, x2, y2: float 裁剪窗口左下、右上角坐标
+
+                  algorithm: string  裁剪使用的算法，包括“Cohen-Sutherland”和“Liang-Barsky”
+
+                  12.打印历史命令
+
+                  list canvas\_id(int)
+
+
+                  打印id为canvas\_id的画布上所有执行过的正确指令,canvas\_id缺省为1.
+
+                  13.输出历史命令到文件
+
+                  output name canvas\_id(int)
+
+                  name:string 输出文件名
+
+                  打印id为canvas\_id的画布上所有执行过的正确指令,canvas\_id缺省为1.
+
+            \textbf{2.读取文件方式}
+
+                读取$*.txt$文件，文件夹位于$NJU\_CG/scripts$文件夹下，在主界面命令行中输入input name(文件名，不包含后缀)即可.(如果是运行了NJU\_CG\_boxed.exe文件，则$*.txt$在此文件夹下的script中)
+        \subsubsection{鼠标操作方式(已经完成的部分)}
+            \textbf{直线绘制}
+
+                直线绘制，点击画布界面中的图标\includegraphics[scale=0.5]{icons/line_icon.png},随后在界面中左击两个位置，即可产生一个以此两个位置为端点的直线;
+
+            \textbf{多边形绘制}
+
+                多边形绘制，点击画布界面中的图标\includegraphics[scale=0.5]{icons/polygon_icon.png},随后在界面依次左击多边形的各个顶点的位置，最后再点击一次右键，即可产生所要的多边形；
+
+            \textbf{TODO}
+    \subsection{运行结果}
+        \subsubsection{鼠标运行结果展示}
+            \textbf{直线绘制}
+
+               \includegraphics[scale=0.7]{images/Mouse_Line.jpg}
+
+            \textbf{多边形绘制}
+
+               \includegraphics[scale=0.7]{images/Mouse_Polygon.jpg}
+
+            \textbf{TODO}
+
+        \subsubsection{命令运行结果展示}
+            \textbf{重置画布}
+                原来的画布
+
+                    \includegraphics[scale=0.7]{images/ResetBefore.jpg}
+
+                重置画布后(可以通过打印历史命令确认)
+
+                    \includegraphics[scale=0.7]{images/ResetLater.jpg}
+
+
+            \textbf{保存画布}
+
+                例如若保存画布1的内容，命名为Mydraw;
+                输入saveCanvas Mydraw 1(可省略)即可,将可以在NJU\_CG/NJU\_CG/images目录中找到Mydraw.bmp文件(如果是运行了NJU\_CG\_boxed.exe文件，则MyDraw在此文件夹下的images中)
+
+
+            \textbf{直线绘制}
+
+                例如我们输入drawLine 1 50 100 300 500 DDA 4，即在第四个画布上使用DDA算法绘制一条直线，直线起点为(50,100)，中点为(300,500)，图元id为1.(4缺省的话，则是在第一个画布上绘制)。将会得到:
+
+                \includegraphics[scale=0.7]{images/drawLine.jpg}
+
+                Bresenham算法同理
+
+            \textbf{多边形绘制}
+
+                例如我们输入drawPolygon 1 5 DDA 50 50 200 50 275 100 150 200 0 100 2，即在第二个画布上使用DDA算法绘制一个多边形，一共有5个点，分别为(50,50)，(200,50),(275,100),(150,200),(0,100),图元id 为1.(2 缺省的话，则是在第一个画布上绘制)。将会得到:
+
+                \includegraphics[scale=0.7]{images/drawPolygon.jpg}
+
+
+            \textbf{椭圆绘制}
+
+                例如我们输入drawEllipse 1 200 200 200 150 3，即在第三个画布上绘制一个椭圆，圆心为(200,200),长轴为200，短轴为150,图元id 为1.(3 缺省的话，则是在第一个画布上绘制)。将会得到:
+
+                \includegraphics[scale=0.7]{images/drawEllipse.jpg}
+
+            \textbf{曲线绘制}
+
+                例如我们输入drawCurve 1 5 Bezier 10 10 50 100 100 150 150 200 400 250 2，即在第二个画布上使用Bezier算法绘制曲线，控制点数量为5，控制点坐标为(10,10),(50,100),(100,150),(150,200)(400,250),图元id 为1.(2 缺省的话，则是在第一个画布上绘制)。将会得到:
+
+                \includegraphics[scale=0.7]{images/drawCurve.jpg}
+
+            \textbf{图元平移}
+
+                平移前(drawEllipse 1 200 200 200 150):
+
+                    \includegraphics[scale=0.7]{images/drawEllipse.jpg}
+
+                平移后(translate 1 50 100)(需要注意画布id，这里都在画布1上进行):
+
+                    \includegraphics[scale=0.7]{images/translate.jpg}
+
+
+            \textbf{图元旋转}
+
+                旋转前(drawEllipse 1 200 200 200 150):
+
+                    \includegraphics[scale=0.7]{images/drawEllipse.jpg}
+
+                旋转后(rotate 1 250 250 70)(需要注意画布id，这里都在画布1上进行):
+
+                    \includegraphics[scale=0.7]{images/rotate.jpg}
+
+            \textbf{图元缩放}
+
+                缩放前(drawEllipse 1 200 200 200 150):
+
+                    \includegraphics[scale=0.7]{images/drawEllipse.jpg}
+
+                缩放后(scale 1 0 0 1.2)(需要注意画布id，这里都在画布1上进行):
+
+                    \includegraphics[scale=0.7]{images/scale.jpg}
+
+            \textbf{线段裁剪TODO}
+
+\section{总结}
+\dots
+
+\textbf{参考文献}
+
+[1] 计算机图形学第2版 徐长青，许志闻，郭晓新编 机械工业出版社
+[2]
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
