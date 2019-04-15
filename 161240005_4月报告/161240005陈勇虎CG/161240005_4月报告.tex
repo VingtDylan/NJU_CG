@@ -40,6 +40,8 @@
    基于Qt的GUI开发框架，使用C++语言实现的一个图形学系统，该系统可以通过读取命令行中的命
 令，或者读取存储了指令序列的文本文件，调用算法实现图元的生成和变换等功能。后续将会继续添加图形用户界面，以鼠标交互的方式进行图元的绘制的变换。
 
+   (如果用Qt打开源文件，需注意路径不含有中文名，比如原来压缩后文件夹中会有我的名字...)
+
 \section{算法介绍}
     \subsection{直线绘制算法}
         \subsubsection{数字差分分析(DDA)算法}
@@ -68,8 +70,9 @@
 
             \textbf{3.性能测试}
 
-            绘制端点为$x_1(138,141),x_2(281,319)$的一条直线($\triangle x < \triangle y=1$)
-
+            绘制端点为$x_1=(138,141),x_2=(281,319)$的一条直线($\triangle x < \triangle y=1$)
+            
+            \begin{center}
             \begin{tabular}{|c|c|c|c|}
                 \hline
                 {y}&{x}&{real x}&{error}\\
@@ -111,31 +114,109 @@
                 {318}&{280}&{280.197}&{0.197418}\\
                 \hline
             \end{tabular}
+            \end{center}
 
             表格中可以看出算法的误差，在部分点的计算中很大，具体可以运行附件中的DDA.cpp查看.
 
         \subsubsection{Bresenham算法}
             \textbf{1.原理分析}
-
+            
+            假定直线的斜率在0,1之间，且$x_2>x_1$,设在第i步中已经确定了最接近直线的第i个
+        像素点$(x_i,y_i)$,那么第i+1个像素点是$(x_i+1,y_i)$和$(x_i+1,y_i+1)$中的一个。在$x=x_i+1$处直线上的点y值时$y=m(x+1)+b$,该点到点$(x_i+1,y_i)$和点$(x_i+1,y_i+1)$的距离分别是$d_1$和$d_2$：
+            \begin{center}
+                $d_1=y-y_i=m(x+1)+b-y_i$\\
+                $d_2=(y_i+1)-y=(y+1)-m(x+1)-b$
+            \end{center}
+            
+            这两个距离的差是:
+                \begin{center}
+                    $d_1-d_2=2m(x_i+1)-2y_i+2b-1$
+                \end{center}
+            
+            若差值为正,则$d_1>d_2$,下一个像素点应取$(x_i+1,y_i+1)$;若此差值为负，则
+        $d_1<d_2$，下一个像素点应取$(x_i+1,y_i)$；若此差值为零，则$d_1=d_2$，下一个像素点可取上述两个像素点的任意一个.
+            
+            引入一个判别量$p_i$,以方便对$d_1-d_2$的计算:
+            \begin{center}
+                $p_i=\triangle x(d_1-d_2)=2\triangle yx_i-2\triangle xy_i+c$
+            \end{center}
+            
+            这里$\triangle x=x_2-x_1$,$\triangle y=y_2-y_1$;$c=2\triangle y+\triangle x(2b-1)$,$\triangle x>0$,故$p_i$与$d_1-d_2$同号.
+            
+            另一方面,
+            \begin{align}
+                &p_{i+1}=2\triangle y\cdot x_{i+1}-2\triangle x\cdot y_{i+1}+c\\
+                &p_{i+1}-p_i=2\triangle y-2\triangle x(y_{i+1}-y_i)\\
+                &p_{i+1}=p_i+2(\triangle y-\triangle x) \quad p_i\geq0\\
+                &p_{i+1}=p_i+2\triangle y \quad p_i<0 \\
+                &p_1=2\triangle y-\triangle x
+            \end{align}
+                        
             \textbf{2.理解分析}
+            
+            算法中只有整数运算和乘2运算，对二进制数乘2可以利用移位实现，因此该算法运行快且易于硬件实现。
 
             \textbf{3.性能测试}
+            
+            绘制端点为$x_1=(138,141),x_2=(281,319)$的一条直线
+            
+            \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                {y}&{x}&{real x}&{error}\\
+                \hline
+                {141}&{138}&{138}&{0}\\
+                \hline
+                {142}&{139}&{138.803}&{0.196625}\\
+                \hline
+                {143}&{140}&{139.607}&{0.393265}\\
+                \hline
+                {144}&{140}&{140.41}&{-0.41011}\\
+                \hline
+                {145}&{141}&{141.213}&{-0.213486}\\
+                \hline
+                {146}&{142}&{142.017}&{-0.016861}\\
+                \hline
+                {147}&{143}&{142.82}&{0.179779}\\
+                \hline
+                {148}&{144}&{143.624}&{0.376404}\\
+                \hline
+                {...}&{...}&{...}&{...}\\
+                \hline
+                {311}&{275}&{274.573}&{0.426971}\\
+                \hline
+                {312}&{275}&{275.376}&{-0.376404}\\
+                \hline
+                {313}&{276}&{276.18}&{-0.179779}\\
+                \hline
+                {314}&{277}&{276.983}&{0.0168457}\\
+                \hline
+                {315}&{278}&{277.786}&{0.213501}\\
+                \hline
+                {316}&{279}&{278.59}&{0.410095}\\
+                \hline
+                {317}&{279}&{279.393}&{-0.39325}\\
+                \hline
+                {318}&{280}&{280.197}&{-0.196625}\\
+                \hline
+            \end{tabular}
+            \end{center}
+            
 
-
-    \subsection{多边形绘制算法}
+    \subsection{多边形绘制算法待完善}
         \textbf{1.原理分析}
 
         \textbf{2.理解分析}
 
         \textbf{3.性能测试}
-    \subsection{椭圆生成算法}
+    \subsection{椭圆生成算法Done}
         \textbf{1.原理分析}
-
+            
         \textbf{2.理解分析}
 
         \textbf{3.性能测试}
     \subsection{曲线生成算法}
-        \subsubsection{Bezier算法}
+        \subsubsection{Bezier算法Done}
             \textbf{1.原理分析}
 
             \textbf{2.理解分析}
