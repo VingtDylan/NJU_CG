@@ -3,8 +3,12 @@ debug/mainwindow.o
 debug/canvas.o
 debug/canvascommand.o
 debug/resetdialog.o
+debug/rotatedialog.o
+debug/scaledialog.o
 debug/qrc_display.o
 debug/moc_mainwindow.o
 debug/moc_canvas.o
 debug/moc_canvascommand.o
 debug/moc_resetdialog.o
+debug/moc_rotatedialog.o
+debug/moc_scaledialog.o

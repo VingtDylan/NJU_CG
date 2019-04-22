@@ -117,6 +117,8 @@ private slots:
     void ReceiveClip();//TODO
 
     void ResetParams(QString width,QString height);
+    void RotateParams(int id,float x,float y,float r);
+    void ScaleParams(int id,float x,float y,float s);
 
     void resetCanvasTriggered();
     void saveCanvasTriggered();

@@ -11,6 +11,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "resetdialog.h"
+#include "rotatedialog.h"
 
 Canvas::Canvas(int x,QWidget *parent) :
     QWidget(parent),
@@ -176,10 +177,25 @@ void Canvas::translateTriggered(){
 
 void Canvas::rotateTriggered(){
     mouse=rotate_;
+    mdialog=new RotateDialog();
+    mdialog->show();
+    connect(mdialog, SIGNAL(sendString(int,float,float,float)), this, SLOT(RotateParams(int,float,float,float)));
+}
+
+void Canvas::RotateParams(int id,float x,float y,float r){
+    //qDebug()<<id<<x<<y<<r<<endl;
+    this->ReceiveRotate(id,x,y,r);
 }
 
 void Canvas::scaleTriggered(){
     mouse=scale_;
+    mdialog=new RotateDialog();
+    mdialog->show();
+    connect(mdialog, SIGNAL(sendString(int,float,float,float)), this, SLOT(ScaleParams(int,float,float,float)));
+}
+
+void Canvas::ScaleParams(int id,float x,float y,float s){
+    this->ReceiveScale(id,x,y,s);
 }
 
 void Canvas::clipTriggered(){
@@ -286,10 +302,8 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                tmpChosenPos[1]=event->y();
             }
                break;
-          case rotate_:
-               break;
-          case scale_:
-               break;
+          case rotate_:break;
+          case scale_:break;
           case clip_:
                break;
            /*TODO*/

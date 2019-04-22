@@ -3,8 +3,12 @@ release/mainwindow.o
 release/canvas.o
 release/canvascommand.o
 release/resetdialog.o
+release/rotatedialog.o
+release/scaledialog.o
 release/qrc_display.o
 release/moc_mainwindow.o
 release/moc_canvas.o
 release/moc_canvascommand.o
 release/moc_resetdialog.o
+release/moc_rotatedialog.o
+release/moc_scaledialog.o

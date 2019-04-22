@@ -1,5 +1,5 @@
-#ifndef DIALOG_H_
-#define RESET_DIALOG_H_
+#ifndef RESETDIALOG_H_
+#define RESETDIALOG_H_
 
 #include <QDialog>
 
@@ -7,11 +7,9 @@ namespace Ui {
     class Dialog;
 }
 
-
 class ResetDialog : public QDialog
 {
     Q_OBJECT
-
 
 public:
     explicit ResetDialog(QWidget *parent = nullptr);
