@@ -7,6 +7,10 @@
 #include <QAction>
 #include <QIcon>
 #include <QToolBar>
+#include <QColorDialog>
+#include <QFileDialog>
+#include <QMessageBox>
+#include "resetdialog.h"
 
 Canvas::Canvas(int x,QWidget *parent) :
     QWidget(parent),
@@ -14,6 +18,7 @@ Canvas::Canvas(int x,QWidget *parent) :
 {
     ui->setupUi(this);
     canvasId=x;
+    setWindowIcon(QIcon(":/menu_icons/NJU"));
     setWindowTitle("Canvas_"+QString::number(canvasId));
     currentPid=1;
     currentPencolor[0]=128;
@@ -23,48 +28,162 @@ Canvas::Canvas(int x,QWidget *parent) :
     imgsave=false;//emmmm
 
     QToolBar *toolbar=new QToolBar(this);
-    actions[0]=new QAction(QIcon(":/menu_icons/mouse"),"None",this);
-    actions[1]=new QAction(QIcon(":/menu_icons/line"),"Line",this);
-    actions[2]=new QAction(QIcon(":/menu_icons/polygon"),"Polygon",this);
-    actions[3]=new QAction(QIcon(":/menu_icons/ellipse"),"Ellipse",this);
-    actions[4]=new QAction(QIcon(":/menu_icons/curve"),"Curve",this);
+    toolbar->setIconSize(QSize(15,15));
+    actions[0]=new QAction(QIcon(":/menu_icons/reset"),"",this);
+    actions[1]=new QAction(QIcon(":/menu_icons/save"),"",this);
+    actions[2]=new QAction(QIcon(":/menu_icons/choose"),"",this);
+    actions[3]=new QAction(QIcon(":/menu_icons/color"),"",this);
+    actions[4]=new QAction(QIcon(":/menu_icons/point"),"",this);
+    actions[5]=new QAction(QIcon(":/menu_icons/line"),"",this);
+    actions[6]=new QAction(QIcon(":/menu_icons/polygon"),"",this);
+    actions[7]=new QAction(QIcon(":/menu_icons/polygon_fill"),"",this);
+    actions[8]=new QAction(QIcon(":/menu_icons/ellipse"),"",this);
+    actions[9]=new QAction(QIcon(":/menu_icons/curve"),"",this);
+    actions[10]=new QAction(QIcon(":/menu_icons/translate"),"",this);
+    actions[11]=new QAction(QIcon(":/menu_icons/rotate"),"",this);
+    actions[12]=new QAction(QIcon(":/menu_icons/scale"),"",this);
+    actions[13]=new QAction(QIcon(":/menu_icons/clip"),"",this);
     //actions[0]->setShortcut(Qt::Key_Control);
-    actions[0]->setToolTip("None mode");
-    actions[1]->setToolTip("Line mode");
-    actions[2]->setToolTip("Polygon mode");
-    actions[3]->setToolTip("Ellipse mode");
-    actions[4]->setToolTip("Curve mode");
+    actions[0]->setToolTip("resetCanvas");
+    actions[1]->setToolTip("saveCanvas");
+    actions[2]->setToolTip("chooseID");
+    actions[3]->setToolTip("setColor");
+    actions[4]->setToolTip("drawPoint");
+    actions[5]->setToolTip("drawLine");
+    actions[6]->setToolTip("drawPolygon");
+    actions[7]->setToolTip("drawFillPolygon");
+    actions[8]->setToolTip("drawEllipse");
+    actions[9]->setToolTip("drawCurve");
+    actions[10]->setToolTip("translate");
+    actions[11]->setToolTip("rotate");
+    actions[12]->setToolTip("scale");
+    actions[13]->setToolTip("clip");
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    for(int i=0;i<5;i++){
+    for(int i=0;i<14;i++){
         toolbar->addAction(actions[i]);
     }
-    connect(actions[0],SIGNAL(triggered()),this,SLOT(drawNONETriggered()));
-    connect(actions[1],SIGNAL(triggered()),this,SLOT(drawLineTriggered()));
-    connect(actions[2],SIGNAL(triggered()),this,SLOT(drawPolygonTriggered()));
-    connect(actions[3],SIGNAL(triggered()),this,SLOT(drawEllipseTriggered()));
-    connect(actions[4],SIGNAL(triggered()),this,SLOT(drawCurveTriggered()));
+    connect(actions[0],SIGNAL(triggered()),this,SLOT(resetCanvasTriggered()));
+    connect(actions[1],SIGNAL(triggered()),this,SLOT(saveCanvasTriggered()));
+    connect(actions[2],SIGNAL(triggered()),this,SLOT(chooseIDTriggered()));
+    connect(actions[3],SIGNAL(triggered()),this,SLOT(SetColorTriggered()));
+    connect(actions[4],SIGNAL(triggered()),this,SLOT(drawPointTriggered()));
+    connect(actions[5],SIGNAL(triggered()),this,SLOT(drawLineTriggered()));
+    connect(actions[6],SIGNAL(triggered()),this,SLOT(drawPolygonTriggered()));
+    connect(actions[7],SIGNAL(triggered()),this,SLOT(drawFillPolygonTriggered()));
+    connect(actions[8],SIGNAL(triggered()),this,SLOT(drawEllipseTriggered()));
+    connect(actions[9],SIGNAL(triggered()),this,SLOT(drawCurveTriggered()));
+    connect(actions[10],SIGNAL(triggered()),this,SLOT(translateTriggered()));
+    connect(actions[11],SIGNAL(triggered()),this,SLOT(rotateTriggered()));
+    connect(actions[12],SIGNAL(triggered()),this,SLOT(scaleTriggered()));
+    connect(actions[13],SIGNAL(triggered()),this,SLOT(clipTriggered()));
 
     this->setMouseTracking(true);
+
+    for(int i=100;i<200;i++){
+        for(int j=100;j<200;j++){
+            currentPencolor[0]=0;
+            currentPencolor[1]=0;
+            currentPencolor[2]=0;
+            Generate_point(i,j,COMMONID);
+        }
+    }
 }
 
-void Canvas::drawNONETriggered(){
-    mouse=NONE_;
+void Canvas::resetCanvasTriggered(){
+    mouse=resetCanvas_;
+    mdialog=new ResetDialog();
+    mdialog->show();
+    connect(mdialog, SIGNAL(sendString(QString,QString)), this, SLOT(ResetParams(QString,QString)));
+    Points.clear();
+}
+
+void Canvas::ResetParams(QString width,QString height){
+    //qDebug()<<width.toInt()<<" "<<height.toInt()<<endl;
+    this->setGeometry(640,320,width.toInt(),height.toInt());
+}
+
+void Canvas::saveCanvasTriggered(){
+    mouse=saveCanvas_;
+    QString filename = QFileDialog::getSaveFileName(this,
+        tr("Save Image"),
+        "",
+        tr("*.bmp;; *.png;; *.jpg;; *.tif;; *.GIF")); //选择路径
+    imgwidth=this->width();
+    imgheight=this->height();
+    QImage image(imgwidth,imgwidth,QImage::Format_RGB32);
+    QPainter img_painter;
+    img_painter.begin(&image);
+    //image.fill(Qt::transparent);
+    image.fill(QColor(219,207,202));
+    for(int i=0;i<Points.size();i++){
+        img_painter.setPen(QColor(Points[i].color[0],Points[i].color[1],Points[i].color[2]));
+        img_painter.drawPoint(Points[i].x,Points[i].y);
+    }
+    img_painter.end();
+    if(filename.isEmpty()){
+      return;
+    }
+    else{
+      if(!(image.save(filename,"BMP",100))){
+         QMessageBox::information(this,
+            tr("Failed to save the image"),
+            tr("Failed to save the image!"));
+         return;
+      }
+    }
+}
+
+void Canvas::chooseIDTriggered(){
+    mouse=chooseID_;
+}
+
+void Canvas::SetColorTriggered(){
+    mouse=SetColor_;
+    QColorDialog getcolor;
+    QColor color=getcolor.getColor();
+    currentPencolor[0]=color.red();
+    currentPencolor[1]=color.green();
+    currentPencolor[2]=color.blue();
+}
+
+void Canvas::drawPointTriggered(){
+    mouse=drawPoint_;
 }
 
 void Canvas::drawLineTriggered(){
-    mouse=Line_;
+    mouse=drawLine_;
 }
 
 void Canvas::drawPolygonTriggered(){
-    mouse=Polygon_;
+    mouse=drawPolygon_;
+}
+
+void Canvas::drawFillPolygonTriggered(){
+    mouse=drawFillPolygon_;
 }
 
 void Canvas::drawEllipseTriggered(){
-    mouse=Ellipse_;
+    mouse=drawEllipse_;
 }
 
 void Canvas::drawCurveTriggered(){
-    mouse=Curve_;
+    mouse=drawCurve_;
+}
+
+void Canvas::translateTriggered(){
+    mouse=translate_;
+}
+
+void Canvas::rotateTriggered(){
+    mouse=rotate_;
+}
+
+void Canvas::scaleTriggered(){
+    mouse=scale_;
+}
+
+void Canvas::clipTriggered(){
+    mouse=clip_;
 }
 
 Canvas::~Canvas()
@@ -74,6 +193,7 @@ Canvas::~Canvas()
 
 void Canvas::paintEvent(QPaintEvent *)
 {
+    //qDebug()<<Points.length()<<TmpPoints.length()<<BufferPoints.length()<<endl;
     QPainter painter(this);
     //painter.drawLine(138,141,281,319);
     for(int i=0;i<Points.size();i++){
@@ -96,40 +216,107 @@ void Canvas::mousePressEvent(QMouseEvent *event){
         //qDebug()<<event->x()<<endl;
         //qDebug()<<event->y()<<endl;
         switch(mouse){
-          case NONE_:
-                break;
-          case Line_:{
-                if(TmpPoints.length()==0){
+          case resetCanvas_:
+          case saveCanvas_:break;
+          case chooseID_:{
+               bool choose=false;
+               for(int i=0;i<Points.length();i++){
+                 if(Points[i].x==event->x()&&Points[i].y==event->y()){
+                    tmpChosePid=Points[i].pid;
+                    choose=true;
+                 }
+               }
+               if(choose){
+                   BufferPoints.clear();
+                   for(int i=0;i<Points.length();i++){
+                       if(Points[i].pid==tmpChosePid){
+                           Generate_Bufferpoint(Points[i].x,this->height()-Points[i].y,Points[i].pid);
+                       }
+                   }
+               }else{
+                   tmpChosePid=COMMONID+1;//No Chosen
+               }
+            }
+            break;
+          case SetColor_:break;
+          case drawPoint_:
+               for(int i=0;i<2;i++)
+                 for(int j=0;j<2;j++)
+                   Generate_point(event->x()+i,this->height()-(event->y()+j),COMMONID);
+               break;
+          case drawLine_:
+               if(TmpPoints.length()==0){
                     Generate_Tmppoint(event->x(),event->y(),COMMONID);
-                }else if(TmpPoints.length()==1){
+               }else if(TmpPoints.length()==1){
                     for(int i=0;i<BufferPoints.length();i++)
                         Points.append(BufferPoints[i]);
                     BufferPoints.clear();
                     TmpPoints.clear();
-                }
-                break;
-            }
-          case Polygon_:{
+               }
+               break;
+          case drawPolygon_:
                Generate_Tmppoint(event->x(),event->y(),COMMONID);
                break;
+          case drawFillPolygon_:
+               break;
+          case drawEllipse_:
+               break;
+          case drawCurve_:
+               break;
+          case translate_:{
+               bool choose=false;
+               for(int i=0;i<Points.length();i++){
+                 if(Points[i].x==event->x()&&Points[i].y==event->y()){
+                    tmpChosePid=Points[i].pid;
+                    choose=true;
+                 }
+               }
+               if(choose){
+                 BufferPoints.clear();
+                 for(int i=0;i<Points.length();i++){
+                   if(Points[i].pid==tmpChosePid){
+                     Generate_ColorBufferpoint(Points[i].x,this->height()-Points[i].y,Points[i].pid,Points[i].color);
+                     Generate_ColorTmppoint(Points[i].x,this->height()-Points[i].y,Points[i].pid,Points[i].color);
+                   }
+                 }
+               }else{
+                   tmpChosePid=COMMONID+1;
+               }
+               tmpChosenPos[0]=event->x();
+               tmpChosenPos[1]=event->y();
             }
-          case Ellipse_:break;
-          case Curve_:break;
+               break;
+          case rotate_:
+               break;
+          case scale_:
+               break;
+          case clip_:
+               break;
            /*TODO*/
         }
     }else if(event->button()==Qt::RightButton){
         isDrawing=false;
         switch(mouse){
-            case NONE_:break;
-            case Line_:break;
-            case Polygon_:
+            case resetCanvas_:break;
+            case saveCanvas_:break;
+            case chooseID_:break;
+            case SetColor_:break;
+            case drawPoint_:break;
+            case drawLine_:break;
+            case drawPolygon_:{
                 for(int i=0;i<BufferPoints.length();i++)
                     Points.append(BufferPoints[i]);
                 BufferPoints.clear();
                 TmpPoints.clear();
                 break;
-            case Ellipse_:break;
-            case Curve_:break;
+              }
+            case drawFillPolygon_:break;
+            case drawEllipse_:break;
+            case drawCurve_:break;
+            case translate_:break;
+            case rotate_:break;
+            case scale_:break;
+            case clip_:break;
         }
     }
     update();
@@ -138,8 +325,12 @@ void Canvas::mousePressEvent(QMouseEvent *event){
 void Canvas::mouseMoveEvent(QMouseEvent *event){
     //qDebug()<<event->x()<<event->y()<<endl;
     switch (mouse){
-        case NONE_:break;
-        case Line_:{
+        case resetCanvas_:
+        case saveCanvas_:
+        case chooseID_:
+        case SetColor_:
+        case drawPoint_:break;
+        case drawLine_:{
             if(TmpPoints.length()==1){
                 BufferPoints.clear();
                 Generate_Bufferpoint(event->x(),event->y(),COMMONID);
@@ -151,7 +342,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
             }
           }
           break;
-        case Polygon_:{
+        case drawPolygon_:{
             if(TmpPoints.length()==1){
                 BufferPoints.clear();
                 Generate_Bufferpoint(event->x(),event->y(),COMMONID);
@@ -184,8 +375,24 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
             }
           }
           break;
-        case Ellipse_:break;
-        case Curve_:break;
+        case drawFillPolygon_:break;
+        case drawEllipse_:break;
+        case drawCurve_:break;
+        case translate_:{
+            if(isDrawing){
+                int dx=event->x()-tmpChosenPos[0];
+                int dy=event->y()-tmpChosenPos[1];
+                //qDebug()<<tmpChosenPos[0]<<tmpChosenPos[1]<<endl;
+                for(int i=0;i<BufferPoints.length();i++){
+                    BufferPoints[i].x=TmpPoints[i].x+dx;
+                    BufferPoints[i].y=TmpPoints[i].y+dy;
+                }
+            }
+           }
+           break;
+        case rotate_:break;
+        case scale_:break;
+        case clip_:break;
         /*TODO*/
     }
     update();
@@ -194,6 +401,31 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
 void Canvas::mouseReleaseEvent(QMouseEvent *event){
     if(event->button()==Qt::LeftButton){
         isDrawing=false;
+        switch (mouse) {
+            case chooseID_:BufferPoints.clear();break;
+            case translate_:
+                TmpPoints.clear();
+                if(BufferPoints.length()>0){
+                    int s=0;
+                    for(int i=0;i<Points.length();i++){
+                        if(Points[i].pid==tmpChosePid){
+                            s++;
+                            Points.remove(i);
+                            i--;/*这个bug我是哭了！*/
+                        }
+                    }
+                    //qDebug()<<"s"<<s<<endl;
+                    //qDebug()<<"Pid"<<tmpChosePid<<endl;
+                    //qDebug()<<Points.length()<<endl;
+                    for(int i=0;i<BufferPoints.length();i++){
+                        Points.append(BufferPoints[i]);
+                    }
+                    BufferPoints.clear();
+                }
+                break;
+            default:break;
+        }
+
     }
     update();
 }
@@ -218,6 +450,7 @@ void Canvas::Generate_point(int x, int y,int id){
     tmppoint.color[2]=currentPencolor[2];
     tmppoint.size=currentPointSize;
     tmppoint.pid=id;
+    tmppoint.chosen=false;
     Points.push_back(tmppoint);
 }
 
@@ -230,6 +463,20 @@ void Canvas::Generate_Tmppoint(int x, int y, int id){
     tmppoint.color[2]=currentPencolor[2];
     tmppoint.size=currentPointSize;
     tmppoint.pid=id;
+    tmppoint.chosen=false;
+    TmpPoints.push_back(tmppoint);
+}
+
+void Canvas::Generate_ColorTmppoint(int x, int y, int id,int color[]){
+    struct Point tmppoint;
+    tmppoint.x=x;
+    tmppoint.y=this->height()-y;
+    tmppoint.color[0]=color[0];
+    tmppoint.color[1]=color[1];
+    tmppoint.color[2]=color[2];
+    tmppoint.size=currentPointSize;
+    tmppoint.pid=id;
+    tmppoint.chosen=false;
     TmpPoints.push_back(tmppoint);
 }
 
@@ -237,13 +484,28 @@ void Canvas::Generate_Bufferpoint(int x, int y, int id){
     struct Point tmppoint;
     tmppoint.x=x;
     tmppoint.y=this->height()-y;
-    tmppoint.color[0]=currentPencolor[0];
-    tmppoint.color[1]=currentPencolor[1];
-    tmppoint.color[2]=currentPencolor[2];
+    tmppoint.color[0]=128;
+    tmppoint.color[1]=0;
+    tmppoint.color[2]=128;
     tmppoint.size=currentPointSize;
     tmppoint.pid=id;
+    tmppoint.chosen=false;
     BufferPoints.push_back(tmppoint);
 }
+
+void Canvas::Generate_ColorBufferpoint(int x, int y, int id,int color[]){
+    struct Point tmppoint;
+    tmppoint.x=x;
+    tmppoint.y=this->height()-y;
+    tmppoint.color[0]=color[0];
+    tmppoint.color[1]=color[1];
+    tmppoint.color[2]=color[2];
+    tmppoint.size=currentPointSize;
+    tmppoint.pid=id;
+    tmppoint.chosen=false;
+    BufferPoints.push_back(tmppoint);
+}
+
 void Canvas::Generate_Ellipse(float x,float y,float rx,float ry,int id){
     Generate_point(static_cast<int>(x-rx),static_cast<int>(y-ry),id);
     Generate_point(static_cast<int>(x-rx),static_cast<int>(y+ry),id);
@@ -274,6 +536,7 @@ void Canvas::ReceiveSaveCanvas(QString herit)
     QImage image(imgwidth,imgwidth,QImage::Format_RGB32);
     QPainter img_painter;
     img_painter.begin(&image);
+    //image.fill(Qt::transparent);
     image.fill(QColor(219,207,202));
     for(int i=0;i<Points.size();i++){
         img_painter.setPen(QColor(Points[i].color[0],Points[i].color[1],Points[i].color[2]));
@@ -379,6 +642,10 @@ void Canvas::ReceiveDrawEllipse(int id,float x,float y,float rx,float ry){
 void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString algorithm,int n){
     if(algorithm=="Bezier"){
         qDebug()<<"Algorithm:Bezier";
+        //暂存画笔颜色
+        tmpPencolor[0]=currentPencolor[0];
+        tmpPencolor[1]=currentPencolor[1];
+        tmpPencolor[2]=currentPencolor[2];
         //绘制轮廓(红色)
         currentPencolor[0]=255;
         currentPencolor[1]=0;
@@ -390,9 +657,12 @@ void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString alg
         int tpoints=500;//to be improved
         double t=0.0;
         double delta=1.0/tpoints;
-        currentPencolor[0]=128;
-        currentPencolor[1]=0;
-        currentPencolor[2]=128;
+        //currentPencolor[0]=128;
+        //currentPencolor[1]=0;
+        //currentPencolor[2]=128;
+        currentPencolor[0]=tmpPencolor[0];
+        currentPencolor[1]=tmpPencolor[1];
+        currentPencolor[2]=tmpPencolor[2];
         for(int i=0;i<tpoints;i++){
             t+=delta;
             Generate_Bezier(x,y,id,n,t);

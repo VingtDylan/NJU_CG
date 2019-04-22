@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     //主窗口ui
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/menu_icons/NJU"));
     setWindowTitle(tr("CG_Design"));
     setFixedSize(this->width(), this->height());
     setGeometry(300,200,this->width(),this->height());

@@ -28,17 +28,20 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         canvas.cpp \
-        canvascommand.cpp
+        canvascommand.cpp \
+    resetdialog.cpp
 
 HEADERS += \
         mainwindow.h \
         canvas.h \
-        canvascommand.h
+        canvascommand.h \
+    resetdialog.h
 
 FORMS += \
         mainwindow.ui \
         canvas.ui \
-        canvascommand.ui
+        canvascommand.ui \
+    resetdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

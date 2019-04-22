@@ -1,11 +1,13 @@
 #include "canvascommand.h"
 #include "ui_canvascommand.h"
+#include "QIcon"
 
 CanvasCommand::CanvasCommand(QString id,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CanvasCommand)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/menu_icons/NJU"));
     setWindowTitle("CanvasCommand_"+id);
 
     this->setAutoFillBackground(true);
