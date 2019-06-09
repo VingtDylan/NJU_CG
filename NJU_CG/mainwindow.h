@@ -65,7 +65,7 @@ public:
     void ExecuteCommand_translate();
     void ExecuteCommand_rotate();
     void ExecuteCommand_Scale();
-    void ExecuteCommand_Clip();//TODO
+    void ExecuteCommand_Clip();
 
 private slots:
     void open();
@@ -96,7 +96,7 @@ signals:
     void SendDrawCurve(int id,QVector<float>x,QVector<float>y,QString algorithm,int n);
     void SendTranslate(int id,float dx,float dy);
     void SendRotate(int id,float x,float y,float r);
-    void SendScale(int id,float x,float y,float s);//TODO
-    void SendClip();//TODO
+    void SendScale(int id,float x,float y,float s);
+    void SendClip(int id,float x1,float y1,float x2,float y2,QString algorithm);
 };
 #endif // MAINWINDOW_H

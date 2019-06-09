@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Canvas_t {
-    QByteArrayData data[52];
-    char stringdata0[572];
+    QByteArrayData data[53];
+    char stringdata0[583];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -69,21 +69,22 @@ QT_MOC_LITERAL(33, 255, 5), // "width"
 QT_MOC_LITERAL(34, 261, 6), // "height"
 QT_MOC_LITERAL(35, 268, 12), // "RotateParams"
 QT_MOC_LITERAL(36, 281, 11), // "ScaleParams"
-QT_MOC_LITERAL(37, 293, 20), // "resetCanvasTriggered"
-QT_MOC_LITERAL(38, 314, 19), // "saveCanvasTriggered"
-QT_MOC_LITERAL(39, 334, 17), // "chooseIDTriggered"
-QT_MOC_LITERAL(40, 352, 17), // "SetColorTriggered"
-QT_MOC_LITERAL(41, 370, 18), // "drawPointTriggered"
-QT_MOC_LITERAL(42, 389, 17), // "drawLineTriggered"
-QT_MOC_LITERAL(43, 407, 20), // "drawPolygonTriggered"
-QT_MOC_LITERAL(44, 428, 24), // "drawFillPolygonTriggered"
-QT_MOC_LITERAL(45, 453, 20), // "drawEllipseTriggered"
-QT_MOC_LITERAL(46, 474, 18), // "drawCurveTriggered"
-QT_MOC_LITERAL(47, 493, 18), // "translateTriggered"
-QT_MOC_LITERAL(48, 512, 15), // "rotateTriggered"
-QT_MOC_LITERAL(49, 528, 14), // "scaleTriggered"
-QT_MOC_LITERAL(50, 543, 13), // "clipTriggered"
-QT_MOC_LITERAL(51, 557, 14) // "drawBufferLine"
+QT_MOC_LITERAL(37, 293, 10), // "ClipParams"
+QT_MOC_LITERAL(38, 304, 20), // "resetCanvasTriggered"
+QT_MOC_LITERAL(39, 325, 19), // "saveCanvasTriggered"
+QT_MOC_LITERAL(40, 345, 17), // "chooseIDTriggered"
+QT_MOC_LITERAL(41, 363, 17), // "SetColorTriggered"
+QT_MOC_LITERAL(42, 381, 18), // "drawPointTriggered"
+QT_MOC_LITERAL(43, 400, 17), // "drawLineTriggered"
+QT_MOC_LITERAL(44, 418, 20), // "drawPolygonTriggered"
+QT_MOC_LITERAL(45, 439, 24), // "drawFillPolygonTriggered"
+QT_MOC_LITERAL(46, 464, 20), // "drawEllipseTriggered"
+QT_MOC_LITERAL(47, 485, 18), // "drawCurveTriggered"
+QT_MOC_LITERAL(48, 504, 18), // "translateTriggered"
+QT_MOC_LITERAL(49, 523, 15), // "rotateTriggered"
+QT_MOC_LITERAL(50, 539, 14), // "scaleTriggered"
+QT_MOC_LITERAL(51, 554, 13), // "clipTriggered"
+QT_MOC_LITERAL(52, 568, 14) // "drawBufferLine"
 
     },
     "Canvas\0ReceiveResetCanvas\0\0ReceiveSaveCanvas\0"
@@ -93,14 +94,14 @@ QT_MOC_LITERAL(51, 557, 14) // "drawBufferLine"
     "n\0ReceiveTranslate\0dx\0dy\0ReceiveRotate\0"
     "r\0ReceiveScale\0s\0ReceiveClip\0ResetParams\0"
     "width\0height\0RotateParams\0ScaleParams\0"
-    "resetCanvasTriggered\0saveCanvasTriggered\0"
-    "chooseIDTriggered\0SetColorTriggered\0"
-    "drawPointTriggered\0drawLineTriggered\0"
-    "drawPolygonTriggered\0drawFillPolygonTriggered\0"
-    "drawEllipseTriggered\0drawCurveTriggered\0"
-    "translateTriggered\0rotateTriggered\0"
-    "scaleTriggered\0clipTriggered\0"
-    "drawBufferLine"
+    "ClipParams\0resetCanvasTriggered\0"
+    "saveCanvasTriggered\0chooseIDTriggered\0"
+    "SetColorTriggered\0drawPointTriggered\0"
+    "drawLineTriggered\0drawPolygonTriggered\0"
+    "drawFillPolygonTriggered\0drawEllipseTriggered\0"
+    "drawCurveTriggered\0translateTriggered\0"
+    "rotateTriggered\0scaleTriggered\0"
+    "clipTriggered\0drawBufferLine"
 };
 #undef QT_MOC_LITERAL
 
@@ -110,7 +111,7 @@ static const uint qt_meta_data_Canvas[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      28,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -118,34 +119,35 @@ static const uint qt_meta_data_Canvas[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  154,    2, 0x08 /* Private */,
-       3,    1,  155,    2, 0x08 /* Private */,
-       5,    3,  158,    2, 0x08 /* Private */,
-       9,    6,  165,    2, 0x08 /* Private */,
-      16,    5,  178,    2, 0x08 /* Private */,
-      21,    5,  189,    2, 0x08 /* Private */,
-      24,    3,  200,    2, 0x08 /* Private */,
-      27,    4,  207,    2, 0x08 /* Private */,
-      29,    4,  216,    2, 0x08 /* Private */,
-      31,    0,  225,    2, 0x08 /* Private */,
-      32,    2,  226,    2, 0x08 /* Private */,
-      35,    4,  231,    2, 0x08 /* Private */,
-      36,    4,  240,    2, 0x08 /* Private */,
-      37,    0,  249,    2, 0x08 /* Private */,
-      38,    0,  250,    2, 0x08 /* Private */,
-      39,    0,  251,    2, 0x08 /* Private */,
-      40,    0,  252,    2, 0x08 /* Private */,
-      41,    0,  253,    2, 0x08 /* Private */,
-      42,    0,  254,    2, 0x08 /* Private */,
-      43,    0,  255,    2, 0x08 /* Private */,
-      44,    0,  256,    2, 0x08 /* Private */,
-      45,    0,  257,    2, 0x08 /* Private */,
-      46,    0,  258,    2, 0x08 /* Private */,
-      47,    0,  259,    2, 0x08 /* Private */,
-      48,    0,  260,    2, 0x08 /* Private */,
-      49,    0,  261,    2, 0x08 /* Private */,
-      50,    0,  262,    2, 0x08 /* Private */,
-      51,    5,  263,    2, 0x08 /* Private */,
+       1,    0,  159,    2, 0x08 /* Private */,
+       3,    1,  160,    2, 0x08 /* Private */,
+       5,    3,  163,    2, 0x08 /* Private */,
+       9,    6,  170,    2, 0x08 /* Private */,
+      16,    5,  183,    2, 0x08 /* Private */,
+      21,    5,  194,    2, 0x08 /* Private */,
+      24,    3,  205,    2, 0x08 /* Private */,
+      27,    4,  212,    2, 0x08 /* Private */,
+      29,    4,  221,    2, 0x08 /* Private */,
+      31,    6,  230,    2, 0x08 /* Private */,
+      32,    2,  243,    2, 0x08 /* Private */,
+      35,    4,  248,    2, 0x08 /* Private */,
+      36,    4,  257,    2, 0x08 /* Private */,
+      37,    6,  266,    2, 0x08 /* Private */,
+      38,    0,  279,    2, 0x08 /* Private */,
+      39,    0,  280,    2, 0x08 /* Private */,
+      40,    0,  281,    2, 0x08 /* Private */,
+      41,    0,  282,    2, 0x08 /* Private */,
+      42,    0,  283,    2, 0x08 /* Private */,
+      43,    0,  284,    2, 0x08 /* Private */,
+      44,    0,  285,    2, 0x08 /* Private */,
+      45,    0,  286,    2, 0x08 /* Private */,
+      46,    0,  287,    2, 0x08 /* Private */,
+      47,    0,  288,    2, 0x08 /* Private */,
+      48,    0,  289,    2, 0x08 /* Private */,
+      49,    0,  290,    2, 0x08 /* Private */,
+      50,    0,  291,    2, 0x08 /* Private */,
+      51,    0,  292,    2, 0x08 /* Private */,
+      52,    5,  293,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -157,10 +159,11 @@ static const uint qt_meta_data_Canvas[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   10,   25,   26,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   28,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   30,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::QString,   10,   11,   12,   13,   14,   15,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   33,   34,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   28,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   10,   17,   18,   30,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::QString,   10,   11,   12,   13,   14,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -195,25 +198,26 @@ void Canvas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 6: _t->ReceiveTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
         case 7: _t->ReceiveRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
         case 8: _t->ReceiveScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 9: _t->ReceiveClip(); break;
+        case 9: _t->ReceiveClip((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
         case 10: _t->ResetParams((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 11: _t->RotateParams((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
         case 12: _t->ScaleParams((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 13: _t->resetCanvasTriggered(); break;
-        case 14: _t->saveCanvasTriggered(); break;
-        case 15: _t->chooseIDTriggered(); break;
-        case 16: _t->SetColorTriggered(); break;
-        case 17: _t->drawPointTriggered(); break;
-        case 18: _t->drawLineTriggered(); break;
-        case 19: _t->drawPolygonTriggered(); break;
-        case 20: _t->drawFillPolygonTriggered(); break;
-        case 21: _t->drawEllipseTriggered(); break;
-        case 22: _t->drawCurveTriggered(); break;
-        case 23: _t->translateTriggered(); break;
-        case 24: _t->rotateTriggered(); break;
-        case 25: _t->scaleTriggered(); break;
-        case 26: _t->clipTriggered(); break;
-        case 27: _t->drawBufferLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
+        case 13: _t->ClipParams((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
+        case 14: _t->resetCanvasTriggered(); break;
+        case 15: _t->saveCanvasTriggered(); break;
+        case 16: _t->chooseIDTriggered(); break;
+        case 17: _t->SetColorTriggered(); break;
+        case 18: _t->drawPointTriggered(); break;
+        case 19: _t->drawLineTriggered(); break;
+        case 20: _t->drawPolygonTriggered(); break;
+        case 21: _t->drawFillPolygonTriggered(); break;
+        case 22: _t->drawEllipseTriggered(); break;
+        case 23: _t->drawCurveTriggered(); break;
+        case 24: _t->translateTriggered(); break;
+        case 25: _t->rotateTriggered(); break;
+        case 26: _t->scaleTriggered(); break;
+        case 27: _t->clipTriggered(); break;
+        case 28: _t->drawBufferLine((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -260,13 +264,13 @@ int Canvas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 28)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 28;
+        _id -= 29;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 28)
+        if (_id < 29)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 28;
+        _id -= 29;
     }
     return _id;
 }

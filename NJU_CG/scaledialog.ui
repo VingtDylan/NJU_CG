@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>ScaleDialog</class>
+ <widget class="QDialog" name="ScaleDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,83 +13,11 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="id">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>55</y>
-     <width>54</width>
-     <height>12</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>id</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="id_input">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>50</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="y">
-   <property name="geometry">
-    <rect>
-     <x>175</x>
-     <y>190</y>
-     <width>51</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>s:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="x_input">
-   <property name="geometry">
-    <rect>
-     <x>190</x>
-     <y>100</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="x">
-   <property name="geometry">
-    <rect>
-     <x>175</x>
-     <y>105</y>
-     <width>54</width>
-     <height>12</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>x:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>230</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>confirm</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="s">
    <property name="geometry">
     <rect>
-     <x>175</x>
-     <y>145</y>
+     <x>130</x>
+     <y>120</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -98,21 +26,93 @@
     <string>y:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="y_input">
+  <widget class="QLabel" name="id">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>140</y>
-     <width>113</width>
+     <x>130</x>
+     <y>50</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>id</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="y">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>150</y>
+     <width>51</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>s:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>190</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>confirm</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="s_input">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>190</y>
+     <x>150</x>
+     <y>150</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="x">
+   <property name="geometry">
+    <rect>
+     <x>133</x>
+     <y>80</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>x:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="id_input">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>47</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="y_input">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>120</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="x_input">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>83</y>
      <width>113</width>
      <height>20</height>
     </rect>

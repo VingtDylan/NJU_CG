@@ -1,5 +1,7 @@
 #include "rotatedialog.h"
 #include "ui_rotatedialog.h"
+#include "QDebug"
+
 RotateDialog::RotateDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -20,5 +22,6 @@ void RotateDialog::on_pushButton_clicked()
     y=ui->y_input->text().toFloat();
     r=ui->r_input->text().toFloat();
     emit sendString(id,x,y,r);
+    //qDebug()<<id<<x<<y<<r;
     this->close();
 }

@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif // DIALOG_H
+#endif // RESETDIALOG_H

@@ -32,15 +32,15 @@
 \setcounter{secnumdepth}{4}
 
 \begin{document}
-\title{\textbf{《计算机图形学》5月报告}
+\title{\textbf{《计算机图形学》6月报告}
 \author{161240005 陈勇虎}}
 \maketitle
 
 \section{综述}
    基于Qt的GUI开发框架，使用C++语言实现的一个图形学系统，该系统可以通过读取命令行中的命
-令，或者读取存储了指令序列的文本文件，调用算法实现图元的生成和变换等功能。添加了几个功能的鼠标运行方式。
+令，包括通过命读取存储了指令序列的文本文件，调用算法实现图元的生成和变换等功能。同时，也支持鼠标交互的方式进行操作。
 
-   (如果用Qt打开源文件，需注意路径不含有中文名，比如原来压缩后文件夹中会有我的名字...)
+   (如果用Qt打开源文件，需注意路径不含有中文名，比如压缩后文件夹路径中会有我的名字等问题...)
 
 \section{算法介绍}
     \subsection{直线绘制算法}
@@ -223,6 +223,7 @@
 
             \textbf{3.性能测试}
         \subsubsection{B-spline算法(TODO)}
+            实验中只考虑三阶B样条曲线
             \textbf{1.原理分析}
 
             \textbf{2.理解分析}
@@ -413,24 +414,24 @@
             \textbf{TODO}
     \subsection{运行结果}
         \subsubsection{鼠标运行结果展示}
-        
+
         菜单选项功能依次为:1.重置画布，2.重置画布，3.清空画笔模式,4.改变颜色,5.绘制点模式,6.绘制直线模式，7.绘制多边形模式,8.绘制填充多边形模式(TODO),9.绘制椭圆模式(TODO),10.绘制曲线(TODO)，11.平移按钮,12.旋转按钮,13.放缩按钮,14，删除按钮(TODO)
-        
+
         清空画笔模式，绘制一个点功能就不做展示了.
-        
+
             \textbf{重置画布}
             重置前
-            
+
                \includegraphics[scale=0.7]{images/Mouse_reset1.jpg}
-            
+
             点击重置按钮后，画布清空，对话框提示输入新的画布度和高度
-            
+
                \includegraphics[scale=0.7]{images/Mouse_reset2.jpg}
-            
-            
+
+
             随后确认以后，即可。
 
-        
+
             \textbf{直线绘制}
 
                \includegraphics[scale=0.7]{images/Mouse_Line.jpg}

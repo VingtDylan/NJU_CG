@@ -29,25 +29,28 @@ SOURCES += \
         mainwindow.cpp \
         canvas.cpp \
         canvascommand.cpp \
-    resetdialog.cpp \
-    rotatedialog.cpp \
-    scaledialog.cpp
+        resetdialog.cpp \
+        rotatedialog.cpp \
+    scaledialog.cpp \
+    clipdialog.cpp
 
 HEADERS += \
         mainwindow.h \
         canvas.h \
         canvascommand.h \
-    resetdialog.h \
-    rotatedialog.h \
-    scaledialog.h
+        resetdialog.h \
+        rotatedialog.h \
+    scaledialog.h \
+    clipdialog.h
 
 FORMS += \
         mainwindow.ui \
         canvas.ui \
         canvascommand.ui \
-    resetdialog.ui \
-    rotatedialog.ui \
-    scaledialog.ui
+        resetdialog.ui \
+        rotatedialog.ui \
+    scaledialog.ui \
+    clipdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

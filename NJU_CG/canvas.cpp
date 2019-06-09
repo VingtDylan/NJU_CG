@@ -12,6 +12,8 @@
 #include <QMessageBox>
 #include "resetdialog.h"
 #include "rotatedialog.h"
+#include "scaledialog.h"
+#include "clipdialog.h"
 
 Canvas::Canvas(int x,QWidget *parent) :
     QWidget(parent),
@@ -96,6 +98,9 @@ void Canvas::resetCanvasTriggered(){
     mdialog->show();
     connect(mdialog, SIGNAL(sendString(QString,QString)), this, SLOT(ResetParams(QString,QString)));
     Points.clear();
+    if(mdialog->exec()==QDialog::Accepted){
+    }
+    delete mdialog;
 }
 
 void Canvas::ResetParams(QString width,QString height){
@@ -145,6 +150,7 @@ void Canvas::SetColorTriggered(){
     currentPencolor[0]=color.red();
     currentPencolor[1]=color.green();
     currentPencolor[2]=color.blue();
+    //qDebug()<<currentPencolor[0]<<currentPencolor[1]<<currentPencolor[2]<<endl;
 }
 
 void Canvas::drawPointTriggered(){
@@ -181,6 +187,9 @@ void Canvas::rotateTriggered(){
     mdialog=new RotateDialog();
     mdialog->show();
     connect(mdialog, SIGNAL(sendString(int,float,float,float)), this, SLOT(RotateParams(int,float,float,float)));
+    if(mdialog->exec()==QDialog::Accepted){
+    }
+    delete mdialog;
 }
 
 void Canvas::RotateParams(int id,float x,float y,float r){
@@ -190,9 +199,12 @@ void Canvas::RotateParams(int id,float x,float y,float r){
 
 void Canvas::scaleTriggered(){
     mouse=scale_;
-    mdialog=new RotateDialog();
+    mdialog=new ScaleDialog();
     mdialog->show();
     connect(mdialog, SIGNAL(sendString(int,float,float,float)), this, SLOT(ScaleParams(int,float,float,float)));
+    if(mdialog->exec()==QDialog::Accepted){
+    }
+    delete mdialog;
 }
 
 void Canvas::ScaleParams(int id,float x,float y,float s){
@@ -201,6 +213,16 @@ void Canvas::ScaleParams(int id,float x,float y,float s){
 
 void Canvas::clipTriggered(){
     mouse=clip_;
+    mdialog=new ClipDialog();
+    mdialog->show();
+    connect(mdialog,SIGNAL(sendString(int,float,float,float,float,QString)),this,SLOT(ClipParams(int,float,float,float,float,QString)));
+    if(mdialog->exec()==QDialog::Accepted){
+    }
+    delete mdialog;
+}
+
+void Canvas::ClipParams(int id,float x1,float y1,float x2,float y2,QString algorithm){
+    this->ReceiveClip(id,x1,y1,x2,y2,algorithm);
 }
 
 Canvas::~Canvas()
@@ -252,6 +274,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                    }
                }else{
                    tmpChosePid=COMMONID+1;//No Chosen
+                   COMMONID++;
                }
             }
             break;
@@ -298,6 +321,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                  }
                }else{
                    tmpChosePid=COMMONID+1;
+                   COMMONID++;
                }
                tmpChosenPos[0]=event->x();
                tmpChosenPos[1]=event->y();
@@ -305,9 +329,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                break;
           case rotate_:break;
           case scale_:break;
-          case clip_:
-               break;
-           /*TODO*/
+          case clip_:break;
         }
     }else if(event->button()==Qt::RightButton){
         isDrawing=false;
@@ -499,9 +521,12 @@ void Canvas::Generate_Bufferpoint(int x, int y, int id){
     struct Point tmppoint;
     tmppoint.x=x;
     tmppoint.y=this->height()-y;
-    tmppoint.color[0]=128;
-    tmppoint.color[1]=0;
-    tmppoint.color[2]=128;
+//    tmppoint.color[0]=128;
+//    tmppoint.color[1]=0;
+//    tmppoint.color[2]=128;
+    tmppoint.color[0]=currentPencolor[0];
+    tmppoint.color[1]=currentPencolor[1];
+    tmppoint.color[2]=currentPencolor[2];
     tmppoint.size=currentPointSize;
     tmppoint.pid=id;
     tmppoint.chosen=false;
@@ -604,7 +629,7 @@ void Canvas::ReceiveDrawLine(int id,float x1,float y1,float x2,float y2,QString 
         }
         float p=2*dy-dx;
         for(int i=0;i<dx;i++){
-            Generate_point(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
+            Generate_point(static_cast<int>(floorf(xstart)),static_cast<int>(floorf(ystart)),id);
             if(p>=0){
                 if(!interchange)
                     ystart+=yIncrement;
@@ -684,7 +709,39 @@ void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString alg
         }
     }else if(algorithm=="B-spline"){
         qDebug()<<"Algorithm:B-spline";
-        //TODO
+        //drawCurve 1 7 B-spline 0 200 50 100 70 300 150 320 230 300 300 400 450 100 1
+        //暂存画笔颜色
+        tmpPencolor[0]=currentPencolor[0];
+        tmpPencolor[1]=currentPencolor[1];
+        tmpPencolor[2]=currentPencolor[2];
+        //绘制轮廓(红色)
+        currentPencolor[0]=255;
+        currentPencolor[1]=0;
+        currentPencolor[2]=0;
+        for(int i=0;i<n-1;i++){
+            this->ReceiveDrawLine(id,x[i],y[i],x[i+1],y[i+1],"DDA");
+        }
+        //绘制曲线
+        currentPencolor[0]=tmpPencolor[0];
+        currentPencolor[1]=tmpPencolor[1];
+        currentPencolor[2]=tmpPencolor[2];
+        //!!!实验要求生成三阶B-spline
+        int tpoints=200;
+        float delta=static_cast<float>(1.0/tpoints);
+        float T;
+        float f1,f2,f3,f4;
+        for(int i=0;i<n-3;i++){
+            for(int j=0;j<=tpoints;j++){
+                T=j*delta;
+                f1=(-T*T*T+3*T*T-3*T+1)/6.0f;
+                f2=(3*T*T*T-6*T*T+4)/6.0f;
+                f3=(-3*T*T*T+3*T*T+3*T+1)/6.0f;
+                f4=(T*T*T)/6.0f;
+                Generate_point(static_cast<int>(f1*x[i]+f2*x[i+1]+f3*x[i+2]+f4*x[i+3]),static_cast<int>(f1*y[i]+f2*y[i+1]+f3*y[i+2]+f4*y[i+3]),id);
+            }
+        }
+
+
     }else{
         qDebug()<<"No such algorithm"<<endl;
     }
@@ -730,9 +787,194 @@ void Canvas::ReceiveScale(int id,float x,float y,float s){
     update();
 }
 
-void Canvas::ReceiveClip(){
+void Canvas::clipMakeCode(float x,float y,float x1,float y1,float x2,float y2,int *code){
+    //qDebug()<<"ads"<<x<<y<<x1<<y1<<x2<<y2<<endl;
+    int ccode=0;
+    if(x<x1){
+        ccode=1;
+        //qDebug()<<"code1"<<ccode<<endl;
+    }
+    else if(x>x2){
+        ccode=2;
+        //qDebug()<<"code2"<<ccode<<endl;
+    }
+    if(y<y1){
+        ccode+=4;
+        //qDebug()<<"code3"<<ccode<<endl;
+    }
+    else if(y>y2){
+        ccode+=8;
+        //qDebug()<<"code4"<<ccode<<endl;
+    }
+    *code=ccode;
+}
+
+bool Canvas::clipvisible(float q,float d,float *t0,float *t1){
+    float r;
+    if(q<0){
+        r=d/q;
+        float tt0=*t0;
+        float tt1=*t1;
+        if(r>tt1)
+            return false;
+        else if(r>tt0)
+            tt0=r;
+        *t0=tt0;
+    }else if(q>0){
+        r=d/q;
+        float tt0=*t0;
+        float tt1=*t1;
+        if(r<tt0)
+            return false;
+        else if(r<tt1)
+            tt1=r;
+        *t1=tt1;
+    }else if(d<0){
+        return false;
+    }
+    return true;
+}
+
+void Canvas::ReceiveClip(int id,float xl,float yb,float xr,float yt,QString algorithm){
+    //qDebug()<<id<<xl<<yb<<xr<<yt<<algorithm;
+    if(algorithm=="Cohen-Sutherland"){
+        //drawLine 1 0 100 201 301 DDA 1
+        //drawPolygon 2 4 DDA 100 100 300 100 300 300 100 300 1
+        //clip 1 100 100 300 300 Cohen-Sutherland 1
+        qDebug()<<algorithm<<endl;
+        int code,code1=10,code2=10;
+        float x=0,y=0;
+        //float x0=0,y0=101,x2=201,y2=301;
+        int x0=MAX,x2=-MAX,y0=MAX,y2=-MAX;
+        bool accept=false;
+        for(int i=0;i<Points.length();i++){
+            //qDebug()<<Points[i].x<<this->height()-Points[i].y<<endl;
+            if(Points[i].pid==id){
+                if(Points[i].x<x0){
+                    x0=Points[i].x;
+                    y0=this->height()-Points[i].y;
+                }else if(Points[i].x>x2){
+                    x2=Points[i].x;
+                    y2=this->height()-Points[i].y;
+                }else {
+                    if(x0==x2&&accept){
+                        if(Points[i].y>y2){
+                            x2=Points[i].x;
+                            y2=this->height()-Points[i].y;
+                        }else if(Points[i].y<y0){
+                            x0=Points[i].x;
+                            y0=this->height()-Points[i].y;
+                        }else{
+                            qDebug()<<"Clip wrong"<<Points[i].x<<this->height()-Points[i].y<<endl;
+                        }
+                    }
+                    if(!accept)
+                        accept=true;
+                }
+                Points.remove(i);
+                i--;
+            }
+        }
+        qDebug()<<x0<<y0<<x2<<y2<<endl;
+        clipMakeCode(x0,y0,xl,yb,xr,yt,&code1);
+        clipMakeCode(x2,y2,xl,yb,xr,yt,&code2);
+        //qDebug()<<"code1&code2"<<code1<<code2<<endl;
+        //int s=0;
+        while(code1!=0||code2!=0){
+            if((code1&code2)!=0)
+                return ;
+            /*s++;
+            if(s>100){
+                qDebug()<<"quit"<<code1<<code2<<endl;
+                break;
+            }*/
+            code=code1;
+            if(code==0)
+                code=code2;
+            if(code&1){
+                y=y0+(y2-y0)*(xl-x0)/(x2-x0);
+                x=xl;
+            }else if(code&2){
+                y=y0+(y2-y0)*(xr-x0)/(x2-x0);
+                x=xr;
+            }else if(code&4){
+                x=x0+(x2-x0)*(yb-y0)/(y2-y0);
+                y=yb;
+            }else if(code&8){
+                x=x0+(x2-x0)*(yt-y0)/(y2-y0);
+                y=yt;
+            }
+            if(code==code1){
+                x0=static_cast<int>(x);
+                y0=static_cast<int>(y);
+                clipMakeCode(x,y,xl,yb,xr,yt,&code1);
+            }else{
+                x2=static_cast<int>(x);
+                y2=static_cast<int>(y);
+                clipMakeCode(x,y,xl,yb,xr,yt,&code2);
+            }
+        }
+        this->ReceiveDrawLine(id,x0,y0,x2,y2,"DDA");
+    }else if(algorithm=="Liang-Barsky"){
+        //drawLine 1 0 100 201 301 DDA 1
+        //drawPolygon 2 4 DDA 100 100 300 100 300 300 100 300 1
+        //clip 1 100 100 300 300 Liang-Barsky 1
+        qDebug()<<algorithm<<endl;
+        //float x0=0,y0=101,x2=201,y2=301;
+        int x0=MAX,x2=-MAX,y0=MAX,y2=-MAX;
+        bool accept=false;
+        for(int i=0;i<Points.length();i++){
+            //qDebug()<<Points[i].x<<this->height()-Points[i].y<<endl;
+            if(Points[i].pid==id){
+                if(Points[i].x<x0){
+                    x0=Points[i].x;
+                    y0=this->height()-Points[i].y;
+                }else if(Points[i].x>x2){
+                    x2=Points[i].x;
+                    y2=this->height()-Points[i].y;
+                }else {
+                    if(x0==x2&&accept){
+                        if(Points[i].y>y2){
+                            x2=Points[i].x;
+                            y2=this->height()-Points[i].y;
+                        }else if(Points[i].y<y0){
+                            x0=Points[i].x;
+                            y0=this->height()-Points[i].y;
+                        }else{
+                            qDebug()<<"Clip wrong"<<Points[i].x<<this->height()-Points[i].y<<endl;
+                        }
+                    }
+                    if(!accept)
+                        accept=true;
+                }
+                Points.remove(i);
+                i--;
+            }
+        }
+        qDebug()<<x0<<y0<<x2<<y2<<endl;
+        float t0,t1;
+        int deltax,deltay;
+        t0=0.0;
+        t1=1.0;
+        deltax=x2-x0;
+        if(!clipvisible(-deltax,x0-xl,&t0,&t1))
+            return ;
+        if(!clipvisible(deltax,xr-x0,&t0,&t1))
+            return ;
+        deltay=y2-y0;
+        if(!clipvisible(-deltay,y0-yb,&t0,&t1))
+            return;
+        if(!clipvisible(deltay,yt-y0,&t0,&t1))
+            return;
+        x2=static_cast<int>(x0+t1*deltax);
+        y2=static_cast<int>(y0+t1*deltay);
+        x0=static_cast<int>(x0+t0*deltax);
+        y0=static_cast<int>(y0+t0*deltay);
+        this->ReceiveDrawLine(id,x0,y0,x2,y2,"DDA");
+    }else{
+        qDebug()<<"No such algorirhm"<<endl;
+    }
     update();
-    //TODO
 }
 
 void Canvas::drawBufferLine(int id,float x1,float y1,float x2,float y2){

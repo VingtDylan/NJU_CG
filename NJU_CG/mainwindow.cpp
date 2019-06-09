@@ -327,7 +327,25 @@ bool MainWindow::CommandParse(QString str)
            tmpcommand.command=str;
         }
     }else if(tmpcommand.CommandElements[0]=="clip"){
-       ui->textBrowser->setText("Cilp completed");
+       if(tmpcommand.CommandElements.length()==7){
+          ui->textBrowser->setText("Cilp completed");
+          parser=true;
+          bashmode=clip;
+          canvas_selector=false;
+       }else if(tmpcommand.CommandElements.length()==8){
+          ui->textBrowser->setText(QString("Clip completed")+QString(" executed in canvas ")+tmpcommand.CommandElements[5]);
+          parser=true;
+          bashmode=clip;
+          canvas_selector=true;
+          tmpcommand.canvascommandId=tmpcommand.CommandElements[7].toInt();
+        }else{
+          ui->textBrowser->setText("Invalid Command! Check again!");
+          str+=" Invalid\n";
+          parser=false;
+          bashmode=nonemode;
+          canvas_selector=false;
+          tmpcommand.command=str;
+       }
     }else{
        ui->textBrowser->setText("Invalid Command!");
        str+=" Invalid\n";
@@ -758,7 +776,31 @@ void MainWindow::ExecuteCommand_Scale(){
 }
 
 void MainWindow::ExecuteCommand_Clip(){
-    //TODO
+    qDebug()<<"Command:Clip";
+    QString executeCanvas="1";
+    if(canvas_selector){
+        executeCanvas=CommandsLines[commandCounter].CommandElements[7];
+        canvas_selector=false;
+    }
+    widgetList = QApplication::allWidgets();
+    widget=nullptr;
+    for(int i=0;i<widgetList.length();i++){
+        if(widgetList.at(i)->windowTitle()=="Canvas_"+executeCanvas)
+            widget=widgetList.at(i);
+    }
+    if(widget==nullptr){
+        ui->textBrowser->setText("Invalid Command! Check again!(Hints:no such win!)");
+    }else {
+        int id=CommandsLines[commandCounter].CommandElements[1].toInt();
+        float x1=CommandsLines[commandCounter].CommandElements[2].toFloat();
+        float y1=CommandsLines[commandCounter].CommandElements[3].toFloat();
+        float x2=CommandsLines[commandCounter].CommandElements[4].toFloat();
+        float y2=CommandsLines[commandCounter].CommandElements[5].toFloat();
+        QString algorithm=CommandsLines[commandCounter].CommandElements[6];
+        connect(this,SIGNAL(SendClip(int,float,float,float,float,QString)),widget,SLOT(ReceiveClip(int,float,float,float,float,QString)));
+        emit SendClip(id,x1,y1,x2,y2,algorithm);
+        disconnect(this,SIGNAL(SendClip(int,float,float,float,float,QString)),widget,SLOT(ReceiveClip(int,float,float,float,float,QString)));
+    }
 }
 
 

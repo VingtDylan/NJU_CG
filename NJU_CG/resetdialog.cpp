@@ -1,5 +1,6 @@
 #include "resetdialog.h"
 #include "ui_resetdialog.h"
+
 ResetDialog::ResetDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)

@@ -106,12 +106,12 @@ static const uint qt_meta_data_MainWindow[] = {
       26,    3,  133,    2, 0x06 /* Public */,
       29,    4,  140,    2, 0x06 /* Public */,
       31,    4,  149,    2, 0x06 /* Public */,
-      33,    0,  158,    2, 0x06 /* Public */,
+      33,    6,  158,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      34,    0,  159,    2, 0x08 /* Private */,
-      35,    0,  160,    2, 0x08 /* Private */,
-      36,    0,  161,    2, 0x08 /* Private */,
+      34,    0,  171,    2, 0x08 /* Private */,
+      35,    0,  172,    2, 0x08 /* Private */,
+      36,    0,  173,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -124,7 +124,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float,   12,   27,   28,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   12,   19,   20,   30,
     QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float,   12,   19,   20,   32,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::QString,   12,   13,   14,   15,   16,   17,
 
  // slots: parameters
     QMetaType::Void,
@@ -150,7 +150,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 7: _t->SendTranslate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3]))); break;
         case 8: _t->SendRotate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
         case 9: _t->SendScale((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 10: _t->SendClip(); break;
+        case 10: _t->SendClip((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4])),(*reinterpret_cast< float(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
         case 11: _t->open(); break;
         case 12: _t->ReadCommand(); break;
         case 13: _t->on_pushButton_clicked(); break;
@@ -241,7 +241,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (MainWindow::*)();
+            using _t = void (MainWindow::*)(int , float , float , float , float , QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::SendClip)) {
                 *result = 10;
                 return;
@@ -360,9 +360,10 @@ void MainWindow::SendScale(int _t1, float _t2, float _t3, float _t4)
 }
 
 // SIGNAL 10
-void MainWindow::SendClip()
+void MainWindow::SendClip(int _t1, float _t2, float _t3, float _t4, float _t5, QString _t6)
 {
-    QMetaObject::activate(this, &staticMetaObject, 10, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

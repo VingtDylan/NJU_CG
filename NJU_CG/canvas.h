@@ -5,7 +5,8 @@
 #include <QMouseEvent>
 #include <QPushButton>
 
-#define COMMONID 101
+//#define COMMONID 101
+#define MAX 10000
 
 struct Point{
     int x;
@@ -57,6 +58,8 @@ public:
     int imgheight;
     int imgsave;
 
+    int COMMONID=100;
+
     QAction *actions[14];
         /*
          * 1.resetCanvas_
@@ -86,6 +89,8 @@ public:
     void Generate_Ellipse(float x,float y,float rx,float ry,int id);
     void Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double t);
 
+    void clipMakeCode(float x,float y,float x1,float y1,float x2,float y2,int *code);
+    bool clipvisible(float q,float d,float *t0,float *t1);
 private:
     Ui::Canvas *ui;
     QPainter *painter;
@@ -114,11 +119,12 @@ private slots:
     void ReceiveTranslate(int id,float dx,float dy);
     void ReceiveRotate(int id,float x,float y,float r);
     void ReceiveScale(int id,float x,float y,float s);
-    void ReceiveClip();//TODO
+    void ReceiveClip(int id,float x1,float y1,float x2,float y2,QString algorithm);
 
     void ResetParams(QString width,QString height);
     void RotateParams(int id,float x,float y,float r);
     void ScaleParams(int id,float x,float y,float s);
+    void ClipParams(int id,float x1,float y1,float x2,float y2,QString algorithm);
 
     void resetCanvasTriggered();
     void saveCanvasTriggered();

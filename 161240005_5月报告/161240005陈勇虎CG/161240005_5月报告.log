@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.9.6)  26 MAY 2019 22:46
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2017.9.6)  9 JUN 2019 22:15
 entering extended mode
-**C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/161240005_5�
-�报告.tex
+**C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇虎
+CG/161240005_5月报告.tex
 
-(C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/161240005_5月
-报告.tex
+(C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇虎C
+G/161240005_5月报告.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
 (C:\CTEX\MiKTeX\tex\latex\base\article.cls
@@ -801,8 +801,8 @@ LaTeX Warning: Unused global option(s):
     [Unicode].
 
 
-(C:\Users\ASUS\Desktop\161240005_5月报告\161240005陈勇虎CG\161240005_5月
-报告.aux)
+(C:\Users\ASUS\Desktop\CGDesign\NJU_CG\161240005_5月报告\161240005陈勇虎C
+G\161240005_5月报告.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
@@ -972,100 +972,101 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
  [1
 
 ] [2] [3]
-<images/SystemView.jpg, id=74, 423.08063pt x 389.20406pt>
+<images/SystemView.jpg, id=75, 423.08063pt x 389.20406pt>
 File: images/SystemView.jpg Graphic file (type jpg)
 
 <use images/SystemView.jpg>
-Package pdftex.def Info: images/SystemView.jpg used on input line 247.
+Package pdftex.def Info: images/SystemView.jpg used on input line 248.
 (pdftex.def)             Requested size: 296.15442pt x 272.44098pt.
  [4]
-<images/Main_Window.jpg, id=82, 487.06969pt x 529.22719pt>
+<images/Main_Window.jpg, id=83, 487.06969pt x 529.22719pt>
 File: images/Main_Window.jpg Graphic file (type jpg)
 
 <use images/Main_Window.jpg>
-Package pdftex.def Info: images/Main_Window.jpg used on input line 250.
+Package pdftex.def Info: images/Main_Window.jpg used on input line 251.
 (pdftex.def)             Requested size: 340.94644pt x 370.4565pt.
- [5 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/Sys
-temView.jpg>]
-<images/Canvas.jpg, id=87, 478.03593pt x 359.84438pt>
+ [5 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇
+虎CG/images/SystemView.jpg>]
+<images/Canvas.jpg, id=88, 478.03593pt x 359.84438pt>
 File: images/Canvas.jpg Graphic file (type jpg)
  <use images/Canvas.jpg>
-Package pdftex.def Info: images/Canvas.jpg used on input line 252.
+Package pdftex.def Info: images/Canvas.jpg used on input line 253.
 (pdftex.def)             Requested size: 334.62286pt x 251.88934pt.
 
-<images/Command.jpg, id=88, 529.22719pt x 544.28343pt>
+<images/Command.jpg, id=89, 529.22719pt x 544.28343pt>
 File: images/Command.jpg Graphic file (type jpg)
 
 <use images/Command.jpg>
-Package pdftex.def Info: images/Command.jpg used on input line 254.
+Package pdftex.def Info: images/Command.jpg used on input line 255.
 (pdftex.def)             Requested size: 370.4565pt x 380.9958pt.
- [6 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/Mai
-n_Window.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/
-images/Canvas.jpg>] [7 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈
-勇虎CG/images/Command.jpg>] [8]
+ [6 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇
+虎CG/images/Main_Window.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_
+5月报告/161240005陈勇虎CG/images/Canvas.jpg>]
+[7 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇�
+��CG/images/Command.jpg>] [8]
 <icons/line_icon.png, id=102, 22.58438pt x 22.58438pt>
 File: icons/line_icon.png Graphic file (type png)
 
 <use icons/line_icon.png>
-Package pdftex.def Info: icons/line_icon.png used on input line 407.
+Package pdftex.def Info: icons/line_icon.png used on input line 408.
 (pdftex.def)             Requested size: 11.29214pt x 11.29214pt.
 
 <icons/polygon_icon.png, id=104, 22.58438pt x 22.58438pt>
 File: icons/polygon_icon.png Graphic file (type png)
 
 <use icons/polygon_icon.png>
-Package pdftex.def Info: icons/polygon_icon.png used on input line 411.
+Package pdftex.def Info: icons/polygon_icon.png used on input line 412.
 (pdftex.def)             Requested size: 11.29214pt x 11.29214pt.
- [9 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/icons/line
-_icon.png> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/ico
-ns/polygon_icon.png>]
-<images/Mouse_reset1.jpg, id=111, 477.28313pt x 344.78813pt>
+ [9 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇
+虎CG/icons/line_icon.png> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5�
+�报告/161240005陈勇虎CG/icons/polygon_icon.png>] <images/Mouse_reset1.jpg,
+ id=111, 477.28313pt x 344.78813pt>
 File: images/Mouse_reset1.jpg Graphic file (type jpg)
 
 <use images/Mouse_reset1.jpg>
-Package pdftex.def Info: images/Mouse_reset1.jpg used on input line 424.
+Package pdftex.def Info: images/Mouse_reset1.jpg used on input line 425.
 (pdftex.def)             Requested size: 334.0959pt x 241.35004pt.
 
 <images/Mouse_reset2.jpg, id=112, 479.54156pt x 361.35pt>
 File: images/Mouse_reset2.jpg Graphic file (type jpg)
 
 <use images/Mouse_reset2.jpg>
-Package pdftex.def Info: images/Mouse_reset2.jpg used on input line 428.
+Package pdftex.def Info: images/Mouse_reset2.jpg used on input line 429.
 (pdftex.def)             Requested size: 335.6768pt x 252.94327pt.
 
 <images/Mouse_Line.jpg, id=113, 474.27188pt x 359.09157pt>
 File: images/Mouse_Line.jpg Graphic file (type jpg)
 
 <use images/Mouse_Line.jpg>
-Package pdftex.def Info: images/Mouse_Line.jpg used on input line 436.
+Package pdftex.def Info: images/Mouse_Line.jpg used on input line 437.
 (pdftex.def)             Requested size: 331.98805pt x 251.36238pt.
- [10 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/Mo
-use_reset1.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎C
-G/images/Mouse_reset2.jpg>]
-<images/Mouse_Polygon.jpg, id=118, 478.78876pt x 360.59718pt>
+ [10 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/Mouse_reset1.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/16124000
+5_5月报告/161240005陈勇虎CG/images/Mouse_reset2.jpg>] <images/Mouse_Polyg
+on.jpg, id=118, 478.78876pt x 360.59718pt>
 File: images/Mouse_Polygon.jpg Graphic file (type jpg)
 
 <use images/Mouse_Polygon.jpg>
-Package pdftex.def Info: images/Mouse_Polygon.jpg used on input line 440.
+Package pdftex.def Info: images/Mouse_Polygon.jpg used on input line 441.
 (pdftex.def)             Requested size: 335.14984pt x 252.4163pt.
 
 <images/ResetBefore.jpg, id=119, 447.17062pt x 454.69875pt>
 File: images/ResetBefore.jpg Graphic file (type jpg)
 
 <use images/ResetBefore.jpg>
-Package pdftex.def Info: images/ResetBefore.jpg used on input line 448.
+Package pdftex.def Info: images/ResetBefore.jpg used on input line 449.
 (pdftex.def)             Requested size: 313.01729pt x 318.28694pt.
- [11 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/Mo
-use_Line.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/
-images/Mouse_Polygon.jpg>]
-<images/ResetLater.jpg, id=123, 478.03593pt x 356.83313pt>
+ [11 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/Mouse_Line.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_
+5月报告/161240005陈勇虎CG/images/Mouse_Polygon.jpg>] <images/ResetLater.j
+pg, id=123, 478.03593pt x 356.83313pt>
 File: images/ResetLater.jpg Graphic file (type jpg)
 
 <use images/ResetLater.jpg>
-Package pdftex.def Info: images/ResetLater.jpg used on input line 452.
+Package pdftex.def Info: images/ResetLater.jpg used on input line 453.
 (pdftex.def)             Requested size: 334.62286pt x 249.78148pt.
 
-Overfull \hbox (24.35739pt too wide) in paragraph at lines 457--459
+Overfull \hbox (24.35739pt too wide) in paragraph at lines 458--460
 \C19/rm/m/n/10.95/47 � \C19/rm/m/n/10.95/61 � \C19/rm/m/n/10.95/63 3\OT1/ptm/m/
 n/10.95 NJU[]CG/NJU[]CG/images\C19/rm/m/n/10.95/51 8 \C19/rm/m/n/10.95/49 � \C1
 9/rm/m/n/10.95/64 � \C19/rm/m/n/10.95/63 � \C19/rm/m/n/10.95/40 \OT1/ptm/m/n/1
@@ -1075,17 +1076,17 @@ n/10.95 NJU[]CG/NJU[]CG/images\C19/rm/m/n/10.95/51 8 \C19/rm/m/n/10.95/49 � \C1
 \OT1/ptm/m/n/10.95 NJU[]CG[]boxed.exe\C19/rm/m/n/10.95/58 �
  []
 
-[12 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/Res
-etBefore.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/
-images/ResetLater.jpg>]
+[12 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇
+虎CG/images/ResetBefore.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_
+5月报告/161240005陈勇虎CG/images/ResetLater.jpg>]
 <images/drawLine.jpg, id=127, 476.53032pt x 359.09157pt>
 File: images/drawLine.jpg Graphic file (type jpg)
 
 <use images/drawLine.jpg>
-Package pdftex.def Info: images/drawLine.jpg used on input line 465.
+Package pdftex.def Info: images/drawLine.jpg used on input line 466.
 (pdftex.def)             Requested size: 333.56895pt x 251.36238pt.
 
-Overfull \hbox (81.35374pt too wide) in paragraph at lines 471--472
+Overfull \hbox (81.35374pt too wide) in paragraph at lines 472--473
 \C19/rm/m/n/10.95/44 x \C19/rm/m/n/10.95/37 � \C19/rm/m/n/10.95/54 � \C19/rm/m/
 n/10.95/55 � \C19/rm/m/n/10.95/62 ^\OT1/ptm/m/n/10.95 DDA\C19/rm/m/n/10.95/56 �
  \C19/rm/m/n/10.95/41 { \C19/rm/m/n/10.95/44 � \C19/rm/m/n/10.95/64 � \C19/rm/m
@@ -1102,19 +1103,19 @@ rm/m/n/10.95/37 O \C19/rm/m/n/10.95/58 �\OT1/ptm/m/n/10.95 (50,50)|\C19/rm/m/n/
 File: images/drawPolygon.jpg Graphic file (type jpg)
 
 <use images/drawPolygon.jpg>
-Package pdftex.def Info: images/drawPolygon.jpg used on input line 473.
+Package pdftex.def Info: images/drawPolygon.jpg used on input line 474.
 (pdftex.def)             Requested size: 332.515pt x 252.4163pt.
 
 <images/drawEllipse.jpg, id=129, 477.28313pt x 356.83313pt>
 File: images/drawEllipse.jpg Graphic file (type jpg)
 
 <use images/drawEllipse.jpg>
-Package pdftex.def Info: images/drawEllipse.jpg used on input line 480.
+Package pdftex.def Info: images/drawEllipse.jpg used on input line 481.
 (pdftex.def)             Requested size: 334.0959pt x 249.78148pt.
- [13 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/dr
-awLine.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/im
-ages/drawPolygon.jpg>]
-Overfull \hbox (98.69797pt too wide) in paragraph at lines 484--485
+ [13 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/drawLine.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5�
+��报告/161240005陈勇虎CG/images/drawPolygon.jpg>]
+Overfull \hbox (98.69797pt too wide) in paragraph at lines 485--486
 \C19/rm/m/n/10.95/44 x \C19/rm/m/n/10.95/37 � \C19/rm/m/n/10.95/54 � \C19/rm/m/
 n/10.95/55 � \C19/rm/m/n/10.95/62 ^\OT1/ptm/m/n/10.95 Bezier\C19/rm/m/n/10.95/5
 6 � \C19/rm/m/n/10.95/41 { \C19/rm/m/n/10.95/44 � \C19/rm/m/n/10.95/64 � \C19/r
@@ -1130,89 +1131,89 @@ C19/rm/m/n/10.95/65 � \C19/rm/m/n/10.95/37 I \C19/rm/m/n/10.95/58 �\OT1/ptm/m/n
 File: images/drawCurve.jpg Graphic file (type jpg)
 
 <use images/drawCurve.jpg>
-Package pdftex.def Info: images/drawCurve.jpg used on input line 486.
+Package pdftex.def Info: images/drawCurve.jpg used on input line 487.
 (pdftex.def)             Requested size: 334.0959pt x 252.4163pt.
 File: images/drawEllipse.jpg Graphic file (type jpg)
  <use images/drawEllipse.jpg>
-Package pdftex.def Info: images/drawEllipse.jpg used on input line 492.
+Package pdftex.def Info: images/drawEllipse.jpg used on input line 493.
 (pdftex.def)             Requested size: 334.0959pt x 249.78148pt.
- [14 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/dr
-awEllipse.jpg> <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG
-/images/drawCurve.jpg>]
+ [14 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/drawEllipse.jpg> <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005
+_5月报告/161240005陈勇虎CG/images/drawCurve.jpg>]
 <images/translate.jpg, id=139, 477.28313pt x 359.09157pt>
 File: images/translate.jpg Graphic file (type jpg)
 
 <use images/translate.jpg>
-Package pdftex.def Info: images/translate.jpg used on input line 496.
+Package pdftex.def Info: images/translate.jpg used on input line 497.
 (pdftex.def)             Requested size: 334.0959pt x 251.36238pt.
 File: images/drawEllipse.jpg Graphic file (type jpg)
  <use images/drawEllipse.jpg>
-Package pdftex.def Info: images/drawEllipse.jpg used on input line 503.
+Package pdftex.def Info: images/drawEllipse.jpg used on input line 504.
 (pdftex.def)             Requested size: 334.0959pt x 249.78148pt.
- [15 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/tr
-anslate.jpg>]
-<images/rotate.jpg, id=143, 479.54156pt x 362.10281pt>
+ [15 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/translate.jpg>] <images/rotate.jpg, id=143, 479.54156pt x 362.102
+81pt>
 File: images/rotate.jpg Graphic file (type jpg)
- <use images/rotate.jpg>
-Package pdftex.def Info: images/rotate.jpg used on input line 507.
+
+<use images/rotate.jpg>
+Package pdftex.def Info: images/rotate.jpg used on input line 508.
 (pdftex.def)             Requested size: 335.6768pt x 253.47023pt.
 File: images/drawEllipse.jpg Graphic file (type jpg)
-
-<use images/drawEllipse.jpg>
-Package pdftex.def Info: images/drawEllipse.jpg used on input line 513.
+ <use images/drawEllipse.jpg>
+Package pdftex.def Info: images/drawEllipse.jpg used on input line 514.
 (pdftex.def)             Requested size: 334.0959pt x 249.78148pt.
- [16 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/ro
-tate.jpg>]
+ [16 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈�
+�虎CG/images/rotate.jpg>]
 <images/scale.jpg, id=147, 480.29437pt x 361.35pt>
 File: images/scale.jpg Graphic file (type jpg)
  <use images/scale.jpg>
-Package pdftex.def Info: images/scale.jpg used on input line 517.
+Package pdftex.def Info: images/scale.jpg used on input line 518.
 (pdftex.def)             Requested size: 336.20375pt x 252.94327pt.
 
-[17 <C:/Users/ASUS/Desktop/161240005_5月报告/161240005陈勇虎CG/images/sca
-le.jpg>]
-(C:\Users\ASUS\Desktop\161240005_5月报告\161240005陈勇虎CG\161240005_5月
-报告.aux) ) 
+[17 <C:/Users/ASUS/Desktop/CGDesign/NJU_CG/161240005_5月报告/161240005陈勇
+虎CG/images/scale.jpg>]
+(C:\Users\ASUS\Desktop\CGDesign\NJU_CG\161240005_5月报告\161240005陈勇虎C
+G\161240005_5月报告.aux) ) 
 Here is how much of TeX's memory you used:
- 22641 strings out of 495354
- 432271 string characters out of 3183860
+ 22648 strings out of 495354
+ 432511 string characters out of 3183860
  466934 words of memory out of 3000000
- 25273 multiletter control sequences out of 15000+200000
+ 25280 multiletter control sequences out of 15000+200000
  53487 words of font info for 158 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,8n,66p,918b,575s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WIND
-OWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf>
-<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/sim
+ 55i,8n,66p,934b,575s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/sim
 hei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/F
-onts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc>{C:/C
-TEX/MiKTeX/fonts/enc/dvips/fontname/8r.enc}<C:/WINDOWS/Fonts/simsun.ttc><C:/WIN
-DOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf
-><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/si
-mhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/
-Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/
-WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.
+onts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/W
+INDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.t
+tf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc>{C:/CTEX/MiKTeX/fo
+nts/enc/dvips/fontname/8r.enc}<C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/si
+mhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/
+Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/
+WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.
 ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts
 /simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDO
 WS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><
 C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/sims
 un.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fo
 nts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WI
-NDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.tt
+NDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.tt
 c><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/s
-imsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS
-/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:
-/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei
-.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Font
-s/simhei.ttf><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/CTEX
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/CTEX/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.
-pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/CTEX/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmsy8.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/CTEX/MiKT
-eX/fonts/type1/urw/times/utmr8a.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmr8
-a.pfb>
-Output written on 161240005_5月报告.pdf (17 pages, 713719 bytes).
+imsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS
+/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:
+/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun
+.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Font
+s/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WIND
+OWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf>
+<C:/WINDOWS/Fonts/simhei.ttf><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/CTEX/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:
+/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/CTEX/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmsy8.pfb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmb8a.p
+fb><C:/CTEX/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/CTEX/MiKTeX/fonts/type1
+/urw/times/utmr8a.pfb>
+Output written on 161240005_5月报告.pdf (17 pages, 716027 bytes).
 PDF statistics:
  367 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
