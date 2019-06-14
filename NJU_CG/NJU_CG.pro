@@ -32,7 +32,8 @@ SOURCES += \
         resetdialog.cpp \
         rotatedialog.cpp \
     scaledialog.cpp \
-    clipdialog.cpp
+    clipdialog.cpp \
+    ellipsedialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
         resetdialog.h \
         rotatedialog.h \
     scaledialog.h \
-    clipdialog.h
+    clipdialog.h \
+    ellipsedialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -50,7 +52,8 @@ FORMS += \
         resetdialog.ui \
         rotatedialog.ui \
     scaledialog.ui \
-    clipdialog.ui
+    clipdialog.ui \
+    ellipsedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

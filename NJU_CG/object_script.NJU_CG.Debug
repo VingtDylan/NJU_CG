@@ -6,6 +6,7 @@ debug/resetdialog.o
 debug/rotatedialog.o
 debug/scaledialog.o
 debug/clipdialog.o
+debug/ellipsedialog.o
 debug/qrc_display.o
 debug/moc_mainwindow.o
 debug/moc_canvas.o
@@ -14,3 +15,4 @@ debug/moc_resetdialog.o
 debug/moc_rotatedialog.o
 debug/moc_scaledialog.o
 debug/moc_clipdialog.o
+debug/moc_ellipsedialog.o

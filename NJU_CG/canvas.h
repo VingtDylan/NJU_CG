@@ -5,7 +5,7 @@
 #include <QMouseEvent>
 #include <QPushButton>
 
-//#define COMMONID 101
+#define COMMONID 101
 #define MAX 10000
 
 struct Point{
@@ -23,11 +23,13 @@ typedef enum{
     chooseID_,
     SetColor_,
     drawPoint_,
-    drawLine_,
-    drawPolygon_,
-    drawFillPolygon_,
+    drawLine_Breseham,
+    drawLine_DDA,
+    drawPolygon_Breseham,
+    drawPolygon_DDA,
     drawEllipse_,
-    drawCurve_,
+    drawCurve_Bezier,
+    drawCurve_Bspline,
     translate_,
     rotate_,
     scale_,
@@ -58,24 +60,24 @@ public:
     int imgheight;
     int imgsave;
 
-    int COMMONID=100;
-
-    QAction *actions[14];
+    QAction *actions[16];
         /*
          * 1.resetCanvas_
          * 2.saveCanvas_
          * 3.chooseID_
          * 4.SetColor_
          * 5.drawPoint_
-         * 6.drawLine_
-         * 7.drawPolygon_
-         * 8.drawFillPolygon_
-         * 9.drawEllipse_
-         * 10.drawCurve_
-         * 11.translate_
-         * 12.rotate_
-         * 13.scale_
-         * 14.clip_
+         * 6.drawLine_Bresenham
+         * 7.drawLine_DDA
+         * 8.drawPolygon_Bresenham
+         * 9.drawPolygon_DDA
+         * 10.drawEllipse_
+         * 11.drawCurve_Bezier
+         * 12.drawCurve_Bspline
+         * 13.translate_
+         * 14.rotate_
+         * 15.scale_
+         * 16.clip_
          * TODO_
         */
     Mouse_Type mouse=drawPoint_;
@@ -88,6 +90,7 @@ public:
     void Generate_ColorBufferpoint(int x,int y,int id,int color[]);
     void Generate_Ellipse(float x,float y,float rx,float ry,int id);
     void Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double t);
+    void Generate_BufferBezier(QVector<float>x,QVector<float>y,int id,int n,double t);
 
     void clipMakeCode(float x,float y,float x1,float y1,float x2,float y2,int *code);
     bool clipvisible(float q,float d,float *t0,float *t1);
@@ -122,6 +125,7 @@ private slots:
     void ReceiveClip(int id,float x1,float y1,float x2,float y2,QString algorithm);
 
     void ResetParams(QString width,QString height);
+    void EllipseParams(int id,float x,float y,float rx,float ry);
     void RotateParams(int id,float x,float y,float r);
     void ScaleParams(int id,float x,float y,float s);
     void ClipParams(int id,float x1,float y1,float x2,float y2,QString algorithm);
@@ -131,17 +135,20 @@ private slots:
     void chooseIDTriggered();
     void SetColorTriggered();
     void drawPointTriggered();
-    void drawLineTriggered();
-    void drawPolygonTriggered();
-    void drawFillPolygonTriggered();
+    void drawLineBresenhamTriggered();
+    void drawLineDDATriggered();
+    void drawPolygonBresenhamTriggered();
+    void drawPolygonDDATriggered();
     void drawEllipseTriggered();
-    void drawCurveTriggered();
+    void drawCurveBezierTriggered();
+    void drawCurveBsplineTriggered();
     void translateTriggered();
     void rotateTriggered();
     void scaleTriggered();
     void clipTriggered();
 
-    void drawBufferLine(int id,float x1,float y1,float x2,float y2);
+    void drawBufferLine(int id,float x1,float y1,float x2,float y2,QString algorithm);
+    void drawBufferCurve(int id,QVector<float>x,QVector<float>y,int n,QString algorithm);
     //void drawBufferPolygon(); extra
 
 };

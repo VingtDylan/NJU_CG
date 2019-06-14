@@ -14,6 +14,7 @@
 #include "rotatedialog.h"
 #include "scaledialog.h"
 #include "clipdialog.h"
+#include "ellipsedialog.h"
 
 Canvas::Canvas(int x,QWidget *parent) :
     QWidget(parent),
@@ -31,38 +32,42 @@ Canvas::Canvas(int x,QWidget *parent) :
     imgsave=false;//emmmm
 
     QToolBar *toolbar=new QToolBar(this);
-    toolbar->setIconSize(QSize(15,15));
+    toolbar->setIconSize(QSize(16,16));
     actions[0]=new QAction(QIcon(":/menu_icons/reset"),"",this);
     actions[1]=new QAction(QIcon(":/menu_icons/save"),"",this);
     actions[2]=new QAction(QIcon(":/menu_icons/choose"),"",this);
     actions[3]=new QAction(QIcon(":/menu_icons/color"),"",this);
     actions[4]=new QAction(QIcon(":/menu_icons/point"),"",this);
-    actions[5]=new QAction(QIcon(":/menu_icons/line"),"",this);
-    actions[6]=new QAction(QIcon(":/menu_icons/polygon"),"",this);
-    actions[7]=new QAction(QIcon(":/menu_icons/polygon_fill"),"",this);
-    actions[8]=new QAction(QIcon(":/menu_icons/ellipse"),"",this);
-    actions[9]=new QAction(QIcon(":/menu_icons/curve"),"",this);
-    actions[10]=new QAction(QIcon(":/menu_icons/translate"),"",this);
-    actions[11]=new QAction(QIcon(":/menu_icons/rotate"),"",this);
-    actions[12]=new QAction(QIcon(":/menu_icons/scale"),"",this);
-    actions[13]=new QAction(QIcon(":/menu_icons/clip"),"",this);
+    actions[5]=new QAction(QIcon(":/menu_icons/line_Bresenham"),"",this);
+    actions[6]=new QAction(QIcon(":/menu_icons/line_DDA"),"",this);
+    actions[7]=new QAction(QIcon(":/menu_icons/polygon_Bresenham"),"",this);
+    actions[8]=new QAction(QIcon(":/menu_icons/polygon_DDA"),"",this);
+    actions[9]=new QAction(QIcon(":/menu_icons/ellipse"),"",this);
+    actions[10]=new QAction(QIcon(":/menu_icons/curve_Bezier"),"",this);
+    actions[11]=new QAction(QIcon(":/menu_icons/curve_Bspline"),"",this);
+    actions[12]=new QAction(QIcon(":/menu_icons/translate"),"",this);
+    actions[13]=new QAction(QIcon(":/menu_icons/rotate"),"",this);
+    actions[14]=new QAction(QIcon(":/menu_icons/scale"),"",this);
+    actions[15]=new QAction(QIcon(":/menu_icons/clip"),"",this);
     //actions[0]->setShortcut(Qt::Key_Control);
     actions[0]->setToolTip("resetCanvas");
     actions[1]->setToolTip("saveCanvas");
     actions[2]->setToolTip("chooseID");
     actions[3]->setToolTip("setColor");
     actions[4]->setToolTip("drawPoint");
-    actions[5]->setToolTip("drawLine");
-    actions[6]->setToolTip("drawPolygon");
-    actions[7]->setToolTip("drawFillPolygon");
-    actions[8]->setToolTip("drawEllipse");
-    actions[9]->setToolTip("drawCurve");
-    actions[10]->setToolTip("translate");
-    actions[11]->setToolTip("rotate");
-    actions[12]->setToolTip("scale");
-    actions[13]->setToolTip("clip");
+    actions[5]->setToolTip("drawLine_Bresenham");
+    actions[6]->setToolTip("drawLine_DDA");
+    actions[7]->setToolTip("drawPolygon_Bresenham");
+    actions[8]->setToolTip("drawPolygon_DDA");
+    actions[9]->setToolTip("drawEllipse");
+    actions[10]->setToolTip("drawCurveBezier");
+    actions[11]->setToolTip("drawCurveBspline");
+    actions[12]->setToolTip("translate");
+    actions[13]->setToolTip("rotate");
+    actions[14]->setToolTip("scale");
+    actions[15]->setToolTip("clip");
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    for(int i=0;i<14;i++){
+    for(int i=0;i<16;i++){
         toolbar->addAction(actions[i]);
     }
     connect(actions[0],SIGNAL(triggered()),this,SLOT(resetCanvasTriggered()));
@@ -70,15 +75,17 @@ Canvas::Canvas(int x,QWidget *parent) :
     connect(actions[2],SIGNAL(triggered()),this,SLOT(chooseIDTriggered()));
     connect(actions[3],SIGNAL(triggered()),this,SLOT(SetColorTriggered()));
     connect(actions[4],SIGNAL(triggered()),this,SLOT(drawPointTriggered()));
-    connect(actions[5],SIGNAL(triggered()),this,SLOT(drawLineTriggered()));
-    connect(actions[6],SIGNAL(triggered()),this,SLOT(drawPolygonTriggered()));
-    connect(actions[7],SIGNAL(triggered()),this,SLOT(drawFillPolygonTriggered()));
-    connect(actions[8],SIGNAL(triggered()),this,SLOT(drawEllipseTriggered()));
-    connect(actions[9],SIGNAL(triggered()),this,SLOT(drawCurveTriggered()));
-    connect(actions[10],SIGNAL(triggered()),this,SLOT(translateTriggered()));
-    connect(actions[11],SIGNAL(triggered()),this,SLOT(rotateTriggered()));
-    connect(actions[12],SIGNAL(triggered()),this,SLOT(scaleTriggered()));
-    connect(actions[13],SIGNAL(triggered()),this,SLOT(clipTriggered()));
+    connect(actions[5],SIGNAL(triggered()),this,SLOT(drawLineBresenhamTriggered()));
+    connect(actions[6],SIGNAL(triggered()),this,SLOT(drawLineDDATriggered()));
+    connect(actions[7],SIGNAL(triggered()),this,SLOT(drawPolygonBresenhamTriggered()));
+    connect(actions[8],SIGNAL(triggered()),this,SLOT(drawPolygonDDATriggered()));
+    connect(actions[9],SIGNAL(triggered()),this,SLOT(drawEllipseTriggered()));
+    connect(actions[10],SIGNAL(triggered()),this,SLOT(drawCurveBezierTriggered()));
+    connect(actions[11],SIGNAL(triggered()),this,SLOT(drawCurveBsplineTriggered()));
+    connect(actions[12],SIGNAL(triggered()),this,SLOT(translateTriggered()));
+    connect(actions[13],SIGNAL(triggered()),this,SLOT(rotateTriggered()));
+    connect(actions[14],SIGNAL(triggered()),this,SLOT(scaleTriggered()));
+    connect(actions[15],SIGNAL(triggered()),this,SLOT(clipTriggered()));
 
     this->setMouseTracking(true);
 /*
@@ -157,25 +164,43 @@ void Canvas::drawPointTriggered(){
     mouse=drawPoint_;
 }
 
-void Canvas::drawLineTriggered(){
-    mouse=drawLine_;
+void Canvas::drawLineBresenhamTriggered(){
+    mouse=drawLine_Breseham;
 }
 
-void Canvas::drawPolygonTriggered(){
-    mouse=drawPolygon_;
+void Canvas::drawLineDDATriggered(){
+    mouse=drawLine_DDA;
 }
 
-void Canvas::drawFillPolygonTriggered(){
-    mouse=drawFillPolygon_;
+void Canvas::drawPolygonBresenhamTriggered(){
+    mouse=drawPolygon_Breseham;
+}
+
+void Canvas::drawPolygonDDATriggered(){
+    //mouse=drawPolygon_;
+    mouse=drawPolygon_DDA;
 }
 
 void Canvas::drawEllipseTriggered(){
     mouse=drawEllipse_;
-
+    mdialog=new EllipseDialog();
+    mdialog->show();
+    connect(mdialog, SIGNAL(sendString(int,float,float,float,float)), this, SLOT(EllipseParams(int,float,float,float,float)));
+    if(mdialog->exec()==QDialog::Accepted){
+    }
+    delete mdialog;
 }
 
-void Canvas::drawCurveTriggered(){
-    mouse=drawCurve_;
+void Canvas::EllipseParams(int id,float x,float y,float rx,float ry){
+    this->ReceiveDrawEllipse(id,x,y,rx,ry);
+}
+
+void Canvas::drawCurveBezierTriggered(){
+    mouse=drawCurve_Bezier;
+}
+
+void Canvas::drawCurveBsplineTriggered(){
+    mouse=drawCurve_Bspline;
 }
 
 void Canvas::translateTriggered(){
@@ -274,7 +299,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                    }
                }else{
                    tmpChosePid=COMMONID+1;//No Chosen
-                   COMMONID++;
+                   //COMMONID++;
                }
             }
             break;
@@ -284,7 +309,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                  for(int j=0;j<2;j++)
                    Generate_point(event->x()+i,this->height()-(event->y()+j),COMMONID);
                break;
-          case drawLine_:
+          case drawLine_Breseham:
                if(TmpPoints.length()==0){
                     Generate_Tmppoint(event->x(),event->y(),COMMONID);
                }else if(TmpPoints.length()==1){
@@ -294,14 +319,29 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                     TmpPoints.clear();
                }
                break;
-          case drawPolygon_:
+          case drawLine_DDA:
+               if(TmpPoints.length()==0){
+                    Generate_Tmppoint(event->x(),event->y(),COMMONID);
+               }else if(TmpPoints.length()==1){
+                    for(int i=0;i<BufferPoints.length();i++)
+                    Points.append(BufferPoints[i]);
+                    BufferPoints.clear();
+                    TmpPoints.clear();
+               }
+               break;
+          case drawPolygon_Breseham:
                Generate_Tmppoint(event->x(),event->y(),COMMONID);
                break;
-          case drawFillPolygon_:
+          case drawPolygon_DDA:
+               Generate_Tmppoint(event->x(),event->y(),COMMONID);
                break;
           case drawEllipse_:
                break;
-          case drawCurve_:
+          case drawCurve_Bezier:
+               Generate_Tmppoint(event->x(),event->y(),COMMONID);
+               break;
+          case drawCurve_Bspline:
+               Generate_Tmppoint(event->x(),event->y(),COMMONID);
                break;
           case translate_:{
                bool choose=false;
@@ -321,7 +361,7 @@ void Canvas::mousePressEvent(QMouseEvent *event){
                  }
                }else{
                    tmpChosePid=COMMONID+1;
-                   COMMONID++;
+                   //COMMONID++;
                }
                tmpChosenPos[0]=event->x();
                tmpChosenPos[1]=event->y();
@@ -339,17 +379,37 @@ void Canvas::mousePressEvent(QMouseEvent *event){
             case chooseID_:break;
             case SetColor_:break;
             case drawPoint_:break;
-            case drawLine_:break;
-            case drawPolygon_:{
+            case drawLine_Breseham:break;
+            case drawLine_DDA:break;
+            case drawPolygon_Breseham:{
                 for(int i=0;i<BufferPoints.length();i++)
                     Points.append(BufferPoints[i]);
                 BufferPoints.clear();
                 TmpPoints.clear();
                 break;
               }
-            case drawFillPolygon_:break;
+            case drawPolygon_DDA:{
+                for(int i=0;i<BufferPoints.length();i++)
+                  Points.append(BufferPoints[i]);
+                BufferPoints.clear();
+                TmpPoints.clear();
+                break;
+              }
             case drawEllipse_:break;
-            case drawCurve_:break;
+            case drawCurve_Bezier:{
+                for(int i=0;i<BufferPoints.length();i++)
+                    Points.append(BufferPoints[i]);
+                BufferPoints.clear();
+                TmpPoints.clear();
+                break;
+              }
+            case drawCurve_Bspline:{
+                for(int i=0;i<BufferPoints.length();i++)
+                    Points.append(BufferPoints[i]);
+                BufferPoints.clear();
+                TmpPoints.clear();
+                break;
+              }
             case translate_:break;
             case rotate_:break;
             case scale_:break;
@@ -367,7 +427,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
         case chooseID_:
         case SetColor_:
         case drawPoint_:break;
-        case drawLine_:{
+        case drawLine_Breseham:{
             if(TmpPoints.length()==1){
                 BufferPoints.clear();
                 Generate_Bufferpoint(event->x(),event->y(),COMMONID);
@@ -375,11 +435,11 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
                 float x2=BufferPoints[0].x;
                 float y1=TmpPoints[0].y;
                 float y2=BufferPoints[0].y;
-                drawBufferLine(COMMONID,x1,y1,x2,y2);
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
             }
           }
           break;
-        case drawPolygon_:{
+        case drawLine_DDA:{
             if(TmpPoints.length()==1){
                 BufferPoints.clear();
                 Generate_Bufferpoint(event->x(),event->y(),COMMONID);
@@ -387,7 +447,19 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
                 float x2=BufferPoints[0].x;
                 float y1=TmpPoints[0].y;
                 float y2=BufferPoints[0].y;
-                drawBufferLine(COMMONID,x1,y1,x2,y2);
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"DDA");
+            }
+          }
+          break;
+        case drawPolygon_Breseham:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
             }else if(TmpPoints.length()>1){
                 BufferPoints.clear();
                 Generate_Bufferpoint(event->x(),event->y(),COMMONID);
@@ -397,24 +469,230 @@ void Canvas::mouseMoveEvent(QMouseEvent *event){
                     x2=TmpPoints[i+1].x;
                     y1=TmpPoints[i].y;
                     y2=TmpPoints[i+1].y;
-                    drawBufferLine(COMMONID,x1,y1,x2,y2);
+                    drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
                 }
                 x1=TmpPoints[0].x;
                 x2=BufferPoints[0].x;
                 y1=TmpPoints[0].y;
                 y2=BufferPoints[0].y;
-                drawBufferLine(COMMONID,x1,y1,x2,y2);
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
                 x1=TmpPoints[TmpPoints.length()-1].x;
                 x2=BufferPoints[0].x;
                 y1=TmpPoints[TmpPoints.length()-1].y;
                 y2=BufferPoints[0].y;
-                drawBufferLine(COMMONID,x1,y1,x2,y2);
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
             }
           }
           break;
-        case drawFillPolygon_:break;
+        case drawPolygon_DDA:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"DDA");
+            }else if(TmpPoints.length()>1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                    x1=TmpPoints[i].x;
+                    x2=TmpPoints[i+1].x;
+                    y1=TmpPoints[i].y;
+                    y2=TmpPoints[i+1].y;
+                    drawBufferLine(COMMONID,x1,y1,x2,y2,"DDA");
+                }
+                x1=TmpPoints[0].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[0].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"DDA");
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"DDA");
+            }
+         }
+         break;
         case drawEllipse_:break;
-        case drawCurve_:break;
+        case drawCurve_Bezier:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                tmpPencolor[0]=currentPencolor[0];
+                tmpPencolor[1]=currentPencolor[1];
+                tmpPencolor[2]=currentPencolor[2];
+                currentPencolor[0]=255;
+                currentPencolor[1]=0;
+                currentPencolor[2]=0;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                currentPencolor[0]=tmpPencolor[0];
+                currentPencolor[1]=tmpPencolor[1];
+                currentPencolor[2]=tmpPencolor[2];
+            }else if(TmpPoints.length()>1&&TmpPoints.length()<3){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                    x1=TmpPoints[i].x;
+                    x2=TmpPoints[i+1].x;
+                    y1=TmpPoints[i].y;
+                    y2=TmpPoints[i+1].y;
+                    tmpPencolor[0]=currentPencolor[0];
+                    tmpPencolor[1]=currentPencolor[1];
+                    tmpPencolor[2]=currentPencolor[2];
+                    currentPencolor[0]=255;
+                    currentPencolor[1]=0;
+                    currentPencolor[2]=0;
+                    drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                    currentPencolor[0]=tmpPencolor[0];
+                    currentPencolor[1]=tmpPencolor[1];
+                    currentPencolor[2]=tmpPencolor[2];
+                }
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+            }else if(TmpPoints.length()>=3){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                int id=COMMONID;
+                int n=0;
+                QVector<float> x;
+                QVector<float> y;
+                for(int i=0;i<TmpPoints.length();i++){
+                    n++;
+                    x.append(TmpPoints[i].x);
+                    y.append(TmpPoints[i].y);
+                }
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                    x1=TmpPoints[i].x;
+                    x2=TmpPoints[i+1].x;
+                    y1=TmpPoints[i].y;
+                    y2=TmpPoints[i+1].y;
+                    tmpPencolor[0]=currentPencolor[0];
+                    tmpPencolor[1]=currentPencolor[1];
+                    tmpPencolor[2]=currentPencolor[2];
+                    currentPencolor[0]=255;
+                    currentPencolor[1]=0;
+                    currentPencolor[2]=0;
+                    drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                    currentPencolor[0]=tmpPencolor[0];
+                    currentPencolor[1]=tmpPencolor[1];
+                    currentPencolor[2]=tmpPencolor[2];
+                }
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                tmpPencolor[0]=currentPencolor[0];
+                tmpPencolor[1]=currentPencolor[1];
+                tmpPencolor[2]=currentPencolor[2];
+                currentPencolor[0]=255;
+                currentPencolor[1]=0;
+                currentPencolor[2]=0;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                currentPencolor[0]=tmpPencolor[0];
+                currentPencolor[1]=tmpPencolor[1];
+                currentPencolor[2]=tmpPencolor[2];
+                x.append(BufferPoints[0].x);
+                y.append(BufferPoints[0].y);
+                drawBufferCurve(id,x,y,n,"Bezier");
+            }
+          }
+          break;
+        case drawCurve_Bspline:{
+            if(TmpPoints.length()==1){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1=TmpPoints[0].x;
+                float x2=BufferPoints[0].x;
+                float y1=TmpPoints[0].y;
+                float y2=BufferPoints[0].y;
+                tmpPencolor[0]=currentPencolor[0];
+                tmpPencolor[1]=currentPencolor[1];
+                tmpPencolor[2]=currentPencolor[2];
+                currentPencolor[0]=255;
+                currentPencolor[1]=0;
+                currentPencolor[2]=0;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                currentPencolor[0]=tmpPencolor[0];
+                currentPencolor[1]=tmpPencolor[1];
+                currentPencolor[2]=tmpPencolor[2];
+            }else if(TmpPoints.length()>1&&TmpPoints.length()<3){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                    x1=TmpPoints[i].x;
+                    x2=TmpPoints[i+1].x;
+                    y1=TmpPoints[i].y;
+                    y2=TmpPoints[i+1].y;
+                    drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                }
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+            }else if(TmpPoints.length()>=3){
+                BufferPoints.clear();
+                Generate_Bufferpoint(event->x(),event->y(),COMMONID);
+                float x1,x2,y1,y2;
+                int id=COMMONID;
+                int n=0;
+                QVector<float> x;
+                QVector<float> y;
+                for(int i=0;i<TmpPoints.length();i++){
+                   n++;
+                   x.append(TmpPoints[i].x);
+                   y.append(TmpPoints[i].y);
+                }
+                for(int i=0;i<TmpPoints.length()-1;i++){
+                   x1=TmpPoints[i].x;
+                   x2=TmpPoints[i+1].x;
+                   y1=TmpPoints[i].y;
+                   y2=TmpPoints[i+1].y;
+                   tmpPencolor[0]=currentPencolor[0];
+                   tmpPencolor[1]=currentPencolor[1];
+                   tmpPencolor[2]=currentPencolor[2];
+                   currentPencolor[0]=255;
+                   currentPencolor[1]=0;
+                   currentPencolor[2]=0;
+                   drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                   currentPencolor[0]=tmpPencolor[0];
+                   currentPencolor[1]=tmpPencolor[1];
+                   currentPencolor[2]=tmpPencolor[2];
+                }
+                x1=TmpPoints[TmpPoints.length()-1].x;
+                x2=BufferPoints[0].x;
+                y1=TmpPoints[TmpPoints.length()-1].y;
+                y2=BufferPoints[0].y;
+                tmpPencolor[0]=currentPencolor[0];
+                tmpPencolor[1]=currentPencolor[1];
+                tmpPencolor[2]=currentPencolor[2];
+                currentPencolor[0]=255;
+                currentPencolor[1]=0;
+                currentPencolor[2]=0;
+                drawBufferLine(COMMONID,x1,y1,x2,y2,"Bresenham");
+                currentPencolor[0]=tmpPencolor[0];
+                currentPencolor[1]=tmpPencolor[1];
+                currentPencolor[2]=tmpPencolor[2];
+                x.append(BufferPoints[0].x);
+                y.append(BufferPoints[0].y);
+                drawBufferCurve(id,x,y,n,"B-spline");
+            }
+        }
+        break;
         case translate_:{
             if(isDrawing){
                 int dx=event->x()-tmpChosenPos[0];
@@ -562,6 +840,17 @@ void Canvas::Generate_Bezier(QVector<float>x,QVector<float>y,int id,int n,double
         tmpy+=static_cast<double>(y[i])*bezier_curve;
     }
     Generate_point(static_cast<int>(tmpx),static_cast<int>(tmpy),id);
+}
+
+void Canvas::Generate_BufferBezier(QVector<float>x,QVector<float>y,int id,int n,double t){
+    double tmpx=0,tmpy=0;
+    double bezier_curve=0;
+    for(int i=0;i<n;i++){
+        bezier_curve=Factor(n-1,i)*pow(t,i)*pow(1-t,n-1-i);
+        tmpx+=static_cast<double>(x[i])*bezier_curve;
+        tmpy+=static_cast<double>(y[i])*bezier_curve;
+    }
+    Generate_Bufferpoint(static_cast<int>(tmpx),static_cast<int>(tmpy),id);
 }
 
 void Canvas::ReceiveResetCanvas()
@@ -740,8 +1029,6 @@ void Canvas::ReceiveDrawCurve(int id,QVector<float>x,QVector<float>y,QString alg
                 Generate_point(static_cast<int>(f1*x[i]+f2*x[i+1]+f3*x[i+2]+f4*x[i+3]),static_cast<int>(f1*y[i]+f2*y[i+1]+f3*y[i+2]+f4*y[i+3]),id);
             }
         }
-
-
     }else{
         qDebug()<<"No such algorithm"<<endl;
     }
@@ -763,11 +1050,11 @@ void Canvas::ReceiveRotate(int id,float x,float y,float r){
     for(int i=0;i<Points.size();i++){
         if(Points[i].pid==id){
             relative_position_x=Points[i].x-x;
-            relative_position_y=Points[i].y-y;
+            relative_position_y=this->height()-Points[i].y-y;
             float radians=qDegreesToRadians(r);
             Points[i].x=static_cast<int>(roundf(static_cast<float>(static_cast<float>(qCos(static_cast<qreal>(radians))))*relative_position_x+static_cast<float>(static_cast<float>(qSin(static_cast<qreal>(radians))))*relative_position_y
                                                 )+x);
-            Points[i].y=static_cast<int>(roundf(static_cast<float>(static_cast<float>(-qSin(static_cast<qreal>(radians))))*relative_position_x+static_cast<float>(static_cast<float>(qCos(static_cast<qreal>(radians))))*relative_position_y
+            Points[i].y=this->height()-static_cast<int>(roundf(static_cast<float>(static_cast<float>(-qSin(static_cast<qreal>(radians))))*relative_position_x+static_cast<float>(static_cast<float>(qCos(static_cast<qreal>(radians))))*relative_position_y
                                                 )+y);
         }
     }
@@ -779,9 +1066,9 @@ void Canvas::ReceiveScale(int id,float x,float y,float s){
     for(int i=0;i<Points.size();i++){
         if(Points[i].pid==id){
             relative_position_x=Points[i].x-x;
-            relative_position_y=Points[i].y-y;
+            relative_position_y=this->height()-Points[i].y-y;
             Points[i].x=static_cast<int>(roundf(relative_position_x*s+x));
-            Points[i].y=static_cast<int>(roundf(relative_position_y*s+y));
+            Points[i].y=this->height()-static_cast<int>(roundf(relative_position_y*s+y));
         }
     }
     update();
@@ -853,7 +1140,8 @@ void Canvas::ReceiveClip(int id,float xl,float yb,float xr,float yt,QString algo
                 if(Points[i].x<x0){
                     x0=Points[i].x;
                     y0=this->height()-Points[i].y;
-                }else if(Points[i].x>x2){
+                }
+                if(Points[i].x>x2){
                     x2=Points[i].x;
                     y2=this->height()-Points[i].y;
                 }else {
@@ -929,7 +1217,8 @@ void Canvas::ReceiveClip(int id,float xl,float yb,float xr,float yt,QString algo
                 if(Points[i].x<x0){
                     x0=Points[i].x;
                     y0=this->height()-Points[i].y;
-                }else if(Points[i].x>x2){
+                }
+                if(Points[i].x>x2){
                     x2=Points[i].x;
                     y2=this->height()-Points[i].y;
                 }else {
@@ -977,34 +1266,82 @@ void Canvas::ReceiveClip(int id,float xl,float yb,float xr,float yt,QString algo
     update();
 }
 
-void Canvas::drawBufferLine(int id,float x1,float y1,float x2,float y2){
-    float xstart=x1,ystart=y1;
-    float dx=fabsf(x2-x1);
-    float dy=fabsf(y2-y1);
-    int xIncrement=x2>x1 ? 1 : (x2<x1 ? -1 : 0);
-    int yIncrement=y2>y1 ? 1 : (y2<y1 ? -1 : 0);
-    bool interchange=false;
-    if(dy>dx){
-        float temp=dx;
-        dx=dy;
-        dy=temp;
-        interchange=true;
-    }
-    float p=2*dy-dx;
-      for(int i=0;i<dx;i++){
-         Generate_Bufferpoint(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
-         if(p>=0){
-            if(!interchange)
-              ystart+=yIncrement;
-            else
-              xstart+=xIncrement;
-            p-=2*dx;
-         }
-         if(!interchange)
+void Canvas::drawBufferLine(int id,float x1,float y1,float x2,float y2,QString algorithm){
+    if(algorithm=="Bresenham"){
+        float xstart=x1,ystart=y1;
+        float dx=fabsf(x2-x1);
+        float dy=fabsf(y2-y1);
+        int xIncrement=x2>x1 ? 1 : (x2<x1 ? -1 : 0);
+        int yIncrement=y2>y1 ? 1 : (y2<y1 ? -1 : 0);
+        bool interchange=false;
+        if(dy>dx){
+            float temp=dx;
+            dx=dy;
+            dy=temp;
+            interchange=true;
+        }
+        float p=2*dy-dx;
+          for(int i=0;i<dx;i++){
+             Generate_Bufferpoint(static_cast<int>(roundf(xstart)),static_cast<int>(roundf(ystart)),id);
+             if(p>=0){
+                if(!interchange)
+                  ystart+=yIncrement;
+                else
+                  xstart+=xIncrement;
+                p-=2*dx;
+             }
+             if(!interchange)
+                xstart+=xIncrement;
+             else
+                ystart+=yIncrement;
+             p+=2*dy;
+        }
+    }else if(algorithm=="DDA"){
+        float dx=x2-x1;
+        float dy=y2-y1;
+        float steps;
+        float xIncrement,yIncrement,xstart=x1,ystart=y1;
+        if(fabsf(dx)>fabsf(dy))
+            steps=static_cast<int>(fabsf(dx));
+        else
+            steps=static_cast<int>(fabsf(dy));
+        xIncrement=static_cast<float>((dx)/steps);
+        yIncrement=static_cast<float>((dy)/steps);
+        for(int k=0;k<steps;k++){
+            Generate_Bufferpoint(static_cast<int>(roundf(xstart+0.5f)),static_cast<int>(roundf(ystart+0.5f)),id);
             xstart+=xIncrement;
-         else
             ystart+=yIncrement;
-         p+=2*dy;
+        }
+    }
+    update();
+}
+
+void Canvas::drawBufferCurve(int id,QVector<float>x,QVector<float>y,int n,QString algorithm){
+    if(algorithm=="Bezier"){
+        int tpoints=500;
+        double t=0.0;
+        double delta=1.0/tpoints;
+        for(int i=0;i<tpoints;i++){
+            t+=delta;
+            Generate_BufferBezier(x,y,id,n,t);
+        }
+    }else if(algorithm=="B-spline"){
+        int tpoints=200;
+        float delta=static_cast<float>(1.0/tpoints);
+        float T;
+        float f1,f2,f3,f4;
+        for(int i=0;i<n-3;i++){
+            for(int j=0;j<=tpoints;j++){
+                T=j*delta;
+                f1=(-T*T*T+3*T*T-3*T+1)/6.0f;
+                f2=(3*T*T*T-6*T*T+4)/6.0f;
+                f3=(-3*T*T*T+3*T*T+3*T+1)/6.0f;
+                f4=(T*T*T)/6.0f;
+                Generate_Bufferpoint(static_cast<int>(f1*x[i]+f2*x[i+1]+f3*x[i+2]+f4*x[i+3]),static_cast<int>(f1*y[i]+f2*y[i+1]+f3*y[i+2]+f4*y[i+3]),id);
+            }
+        }
+    }else{
+        qDebug()<<"No such algorithm"<<endl;
     }
     update();
 }

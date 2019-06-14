@@ -6,6 +6,7 @@ release/resetdialog.o
 release/rotatedialog.o
 release/scaledialog.o
 release/clipdialog.o
+release/ellipsedialog.o
 release/qrc_display.o
 release/moc_mainwindow.o
 release/moc_canvas.o
@@ -14,3 +15,4 @@ release/moc_resetdialog.o
 release/moc_rotatedialog.o
 release/moc_scaledialog.o
 release/moc_clipdialog.o
+release/moc_ellipsedialog.o
