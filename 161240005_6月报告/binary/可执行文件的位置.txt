@@ -1,0 +1,2 @@
+文件夹(Enigma打包后的可执行文件)下面的NJU_CG_boxed.exe为可执行文件，点开即可.
+或者用Qt打开Source文件夹下的NJU_CG整个工程，编译运行同样可以.
