@@ -1,0 +1,155 @@
+%drawLine%
+resetCanvas 700 700
+setColor 0 255 0
+drawLine line1 100 50 500 200 Naive
+setColor 255 0 0
+drawLine line2 200 300 400 150 DDA
+setColor 0 0 255
+drawLine line3 300 400 150 400 Bresenham
+saveCanvas 1
+
+%drawPolygon%
+resetCanvas 700 700
+setColor 128 205 128
+drawPolygon polygon1 100 100 300 100 300 300 100 300 Bresenham
+setColor 128 0 128
+drawPolygon polygon2 200 200 400 200 400 400 200 400 DDA
+setColor 128 128 205
+drawPolygon polygon3 193 39 482 195 441 286 339 362 209 374 187 362 126 325 102 293 84 252 Bresenham
+setColor 205 128 128
+drawPolygon polygon4 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+saveCanvas 2
+
+%drawEllipse%
+resetCanvas 700 700
+setColor 102 51 102
+drawEllipse ellipse1 141 77 302 271
+setColor 102 153 153
+drawEllipse ellipse2 176 399 471 566
+saveCanvas 3
+
+%drawCurve%
+resetCanvas 700 700
+setColor 36 36 36
+drawCurve curve1 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+setColor 51 0 153
+drawCurve curve2 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+saveCanvas 4
+
+%translate%
+resetCanvas 700 700
+setColor 0 255 0
+drawLine line11 100 50 500 200 Naive
+drawLine line12 100 50 500 200 Naive
+setColor 255 0 0
+drawLine line21 200 300 400 150 DDA
+drawLine line22 200 300 400 150 DDA
+setColor 0 0 255
+drawLine line31 300 400 150 400 Bresenham
+drawLine line32 300 400 150 400 Bresenham
+setColor 128 205 128
+drawPolygon polygon11 100 100 300 100 300 300 100 300 Bresenham
+drawPolygon polygon12 100 100 300 100 300 300 100 300 Bresenham
+setColor 205 128 128
+drawPolygon polygon21 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+drawPolygon polygon22 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+setColor 102 51 102
+drawEllipse ellipse11 141 77 302 271
+drawEllipse ellipse12 141 77 302 271
+setColor 36 36 36
+drawCurve curve11 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+drawCurve curve12 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+setColor 51 0 153
+drawCurve curve21 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+drawCurve curve22 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+translate line12 180 20
+translate line22 180 20
+translate line32 180 20
+translate polygon12 180 20
+translate polygon22 180 20
+translate ellipse12 180 20  
+translate curve12 180 20
+translate curve22 180 20
+saveCanvas 5
+
+%rotate%
+resetCanvas 700 700
+setColor 0 255 0
+drawLine line11 100 50 500 200 Naive
+drawLine line12 100 50 500 200 Naive
+setColor 255 0 0
+drawLine line21 200 300 400 150 DDA
+drawLine line22 200 300 400 150 DDA
+setColor 0 0 255
+drawLine line31 300 400 150 400 Bresenham
+drawLine line32 300 400 150 400 Bresenham
+setColor 128 205 128
+drawPolygon polygon11 100 100 300 100 300 300 100 300 Bresenham
+drawPolygon polygon12 100 100 300 100 300 300 100 300 Bresenham
+setColor 205 128 128
+drawPolygon polygon21 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+drawPolygon polygon22 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+setColor 36 36 36
+drawCurve curve11 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+drawCurve curve12 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+setColor 51 0 153
+drawCurve curve21 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+drawCurve curve22 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+rotate line12 200 0 40
+rotate line22 200 0 40
+rotate line32 200 0 40
+rotate polygon12 200 0 40
+rotate polygon22 200 0 40
+rotate curve12 200 0 40
+rotate curve22 200 0 40
+saveCanvas 6
+
+%scale%
+resetCanvas 700 700
+setColor 0 255 0
+drawLine line11 100 50 500 200 Naive
+drawLine line12 100 50 500 200 Naive
+setColor 255 0 0
+drawLine line21 200 300 400 150 DDA
+drawLine line22 200 300 400 150 DDA
+setColor 0 0 255
+drawLine line31 300 400 150 400 Bresenham
+drawLine line32 300 400 150 400 Bresenham
+setColor 128 205 128
+drawPolygon polygon11 100 100 300 100 300 300 100 300 Bresenham
+drawPolygon polygon12 100 100 300 100 300 300 100 300 Bresenham
+setColor 205 128 128
+drawPolygon polygon21 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+drawPolygon polygon22 316 290 516 442 487 538 375 579 308 579 290 579 266 574 266 574 316 290 DDA      
+setColor 102 51 102
+drawEllipse ellipse11 141 77 302 271
+drawEllipse ellipse12 141 77 302 271
+setColor 36 36 36
+drawCurve curve11 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+drawCurve curve12 287 69 423 166 408 308 339 364 264 364 254 364 165 310 133 248 125 200 135 158 Bezier 
+setColor 51 0 153
+drawCurve curve21 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+drawCurve curve22 358 313 486 408 503 489 494 545 433 579 356 582 285 582 249 576 220 556 193 529 175 495 168 465 187 431 B-spline
+scale line12 180 20 1.2
+scale line22 180 20 1.2
+scale line32 180 20 1.2
+scale polygon12 180 20 1.2
+scale polygon22 180 20 1.2
+scale ellipse12 180 20 1.2
+scale curve12 180 20 1.2
+scale curve22 180 20 1.2
+saveCanvas 7
+
+%clip the black is clipped from the red%
+resetCanvas 700 700
+setColor 255 0 0
+drawLine line21 100 300 400 150 DDA
+setColor 0 0 0
+drawLine line22 100 300 400 150 DDA
+setColor 255 0 0
+drawLine line31 400 400 100 400 Bresenham
+setColor 0 0 0
+drawLine line32 400 400 100 400 Bresenham
+clip line22 150 170 300 350 Cohen-Sutherland
+clip line32 170 250 320 500 Liang-Barsky
+saveCanvas 8
